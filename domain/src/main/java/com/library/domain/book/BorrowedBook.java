@@ -1,5 +1,6 @@
-package com.library.domain;
+package com.library.domain.book;
 
+import com.library.domain.Entity;
 import java.util.Calendar;
 
 /**
@@ -14,7 +15,7 @@ public class BorrowedBook extends Entity {
 
     private Calendar returnDate;
 
-    public BorrowedBook( Book book,Calendar receivableDate, Calendar returnDate) {
+    public BorrowedBook(Book book, Calendar receivableDate, Calendar returnDate) {
         this.receivableDate = receivableDate;
         this.returnDate = returnDate;
         this.book = book;
@@ -43,6 +44,5 @@ public class BorrowedBook extends Entity {
     public void setReturnDate(Calendar returnDate) {
         this.returnDate = returnDate;
     }
-    
-    
+
 }

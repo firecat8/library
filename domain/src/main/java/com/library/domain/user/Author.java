@@ -1,5 +1,6 @@
-package com.library.domain;
+package com.library.domain.user;
 
+import com.library.domain.NamedEntity;
 import java.util.Calendar;
 
 /**

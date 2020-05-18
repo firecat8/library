@@ -1,5 +1,11 @@
-package com.library.domain;
+package com.library.domain.book;
 
+import com.library.domain.user.Author;
+import com.library.domain.Characteristic;
+import com.library.domain.Entity;
+import com.library.domain.Genre;
+import com.library.domain.WorkForm;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +17,13 @@ public class Book extends Entity {
 
     private String title;
 
+    private String signiture;
+
     private BookStates state;
+
+    private Publisher publisher;
+
+    private Year publishYear;
 
     private BookStatus status;
 
@@ -27,26 +39,16 @@ public class Book extends Entity {
 
     private List<Characteristic> characteristics = new ArrayList<>();
 
-    public Book() {
-    }
-
-    public Book(String title, WorkForm form, Author author, BookSerie serie, String inventoryNumber, BookStates state, BookStatus status) {
+    public Book(String title, BookStates state, Publisher publisher, BookStatus status, WorkForm form, Author author, BookSerie serie, String inventoryNumber) {
         this.title = title;
         this.state = state;
+        this.publisher = publisher;
+        this.publishYear = Year.now();
         this.status = status;
         this.form = form;
         this.author = author;
         this.serie = serie;
         this.inventoryNumber = inventoryNumber;
-    }
-
-    public Book(String title, WorkForm form, Author author, BookSerie serie, String inventoryNumber, List<Characteristic> characteristics) {
-        this(title, form, author, serie, inventoryNumber, BookStates.NEW, BookStatus.AVAILABLE);
-        this.characteristics = characteristics;
-    }
-
-    public Book(String title, WorkForm form, Author author, BookSerie serie, String inventoryNumber) {
-        this(title, form, author, serie, inventoryNumber, new ArrayList<Characteristic>());
     }
 
     public String getTitle() {
@@ -63,6 +65,22 @@ public class Book extends Entity {
 
     public void setState(BookStates state) {
         this.state = state;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+    public Year getPublishYear() {
+        return publishYear;
+    }
+
+    public void setPublishYear(Year publishYear) {
+        this.publishYear = publishYear;
     }
 
     public BookStatus getStatus() {

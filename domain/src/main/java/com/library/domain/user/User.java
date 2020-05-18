@@ -1,4 +1,6 @@
-package com.library.domain;
+package com.library.domain.user;
+
+import com.library.domain.Entity;
 
 /**
  *
@@ -17,7 +19,7 @@ public class User extends Entity {
     public User() {
     }
 
-    public User(String userName,  String password,String email, Roles role) {
+    public User(String userName, String password, String email, Roles role) {
         this.userName = userName;
         this.password = password;
         this.email = email;

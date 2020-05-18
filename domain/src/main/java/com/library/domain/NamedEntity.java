@@ -4,8 +4,8 @@ package com.library.domain;
  *
  * @author gdimitrova
  */
-public abstract class NamedEntity extends Entity{
-    
+public class NamedEntity extends Entity {
+
     private String name;
 
     public NamedEntity(String name) {
@@ -19,5 +19,5 @@ public abstract class NamedEntity extends Entity{
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }
