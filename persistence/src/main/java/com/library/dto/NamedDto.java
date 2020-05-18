@@ -6,7 +6,7 @@ import javax.persistence.Column;
  *
  * @author gdimitrova
  */
-public abstract class NamedDto extends AbstractDto {
+public class NamedDto extends AbstractDto {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
