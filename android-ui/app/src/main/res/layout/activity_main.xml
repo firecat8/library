@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+    android:gravity="center"
+    tools:context=".login.LoginActivity"
+    android:orientation="vertical"
+    android:padding="16dp"
+
+    >
+
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        />
+    <EditText
+        android:id="@+id/edit_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Password"
+        />
+
+    <Button
+        android:id="@+id/button_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#104073"
+        android:text="Login"
+        android:textColor="#FFFFFF" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
