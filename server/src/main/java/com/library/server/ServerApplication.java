@@ -36,7 +36,7 @@ public class ServerApplication {
         System.out.println("start - starts the web server");
         System.out.println("stop - stops the web server");
         System.out.println("exit - stops the web server and exits");
-        System.out.println("help - prints this help");
+        System.out.println("help - prints this help\n");
     }
 
     public static void main(String[] args) {
@@ -44,23 +44,16 @@ public class ServerApplication {
         printHelp();
         try (Scanner input = new Scanner(System.in);) {
             boolean isRunning = true;
-            System.out.println("\nfirst isRunning " + isRunning);
             while (isRunning) {
-                if(!isRunning){
-                    input.close();
-                }
-                System.out.println("\n\nin isRunning " + isRunning);
                 if (input.hasNextLine()) {
-                    String command = input.nextLine();
-
-                    System.out.println("\n\tisRunning " + isRunning);
-                    switch (command) {
+                    switch (input.nextLine()) {
                         case "start":
                             app.startServer();
+                            System.out.println("");
                             break;
                         case "stop":
                             app.stopServer();
-                            isRunning = false;
+                            System.out.println("");
                             break;
                         case "help":
                             printHelp();
@@ -73,5 +66,6 @@ public class ServerApplication {
                 }
             }
         }
+        System.err.println("\n\nEXITED");
     }
 }
