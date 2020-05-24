@@ -12,6 +12,11 @@ import com.library.dto.BookSerieDto;
  */
 public class BookSerieDtoExchanger extends DtoEntityExchanger<BookSerieDto, BookSerie> {
 
+    public final static BookSerieDtoExchanger INSTANCE = new BookSerieDtoExchanger();
+
+    private BookSerieDtoExchanger() {
+    }
+
     @Override
     protected BookSerie exchangeFrom(BookSerieDto dto) {
         return new BookSerie(dto.getName());

@@ -17,6 +17,8 @@ public interface CrudDao<E extends Entity> {
 
     public void save(E entity);
 
+    public void saveAll(List<E> list);
+
     public void delete(Long id);
 
     public void deleteAll(List<E> list);

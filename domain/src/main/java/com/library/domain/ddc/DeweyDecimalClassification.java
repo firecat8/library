@@ -40,8 +40,8 @@ public class DeweyDecimalClassification {
         sections = Collections.unmodifiableMap(readed);
     }
 
-    public Map<String, DeweyClassSection> getSections() {
-        return sections;
+    public DeweyClassSection getSection(String code) {
+        return sections.get(code);
     }
-     
+
 }

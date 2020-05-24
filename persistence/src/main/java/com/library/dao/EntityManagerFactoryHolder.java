@@ -12,13 +12,12 @@ import javax.persistence.Persistence;
  */
 public class EntityManagerFactoryHolder {
 
-    public final static EntityManagerFactory FACTORY = createFactory();
+    public final static EntityManagerFactory INSTANCE = createFactory();
 
     private static EntityManagerFactory createFactory() {
         EntityManagerFactory factory = null;
         factory = Persistence.createEntityManagerFactory("com.library");
         return factory;
     }
-
 
 }

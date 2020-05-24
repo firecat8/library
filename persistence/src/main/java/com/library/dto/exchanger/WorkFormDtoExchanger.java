@@ -12,6 +12,11 @@ import com.library.dto.WorkFormDto;
  */
 public class WorkFormDtoExchanger extends DtoEntityExchanger<WorkFormDto, WorkForm> {
 
+    public final static WorkFormDtoExchanger INSTANCE = new WorkFormDtoExchanger();
+
+    private WorkFormDtoExchanger() {
+    }
+
     @Override
     protected WorkForm exchangeFrom(WorkFormDto dto) {
         return new WorkForm(dto.getName());

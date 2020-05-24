@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 /**
  *
  * @author gdimitrova
+ * @param <D>
  * @param <E>
  */
 public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> extends AbstractDao<D, E> implements CrudDao<E> {
@@ -25,6 +26,11 @@ public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> e
     @Override
     public void save(E entity) {
         saveOrUpdate(exchanger.exchange(entity));
+    }
+    
+    @Override
+    public void saveAll(List<E> list) {
+        saveOrUpdateAll(exchanger.exchangeEntityList(list));
     }
 
     @Override

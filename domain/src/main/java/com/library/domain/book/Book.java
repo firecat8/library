@@ -1,6 +1,5 @@
 package com.library.domain.book;
 
-import com.library.domain.user.Author;
 import com.library.domain.Characteristic;
 import com.library.domain.Entity;
 import com.library.domain.Genre;
@@ -17,15 +16,13 @@ public class Book extends Entity {
 
     private String title;
 
-    private String signiture;
+    private String signature;
 
     private BookStates state;
 
     private Publisher publisher;
 
     private Year publishYear;
-
-    private BookStatus status;
 
     private WorkForm form;
 
@@ -39,12 +36,11 @@ public class Book extends Entity {
 
     private List<Characteristic> characteristics = new ArrayList<>();
 
-    public Book(String title, BookStates state, Publisher publisher, BookStatus status, WorkForm form, Author author, BookSerie serie, String inventoryNumber) {
+    public Book(String title, String ddcCode, BookStates state, Publisher publisher, WorkForm form, Author author, BookSerie serie, String inventoryNumber) {
         this.title = title;
         this.state = state;
         this.publisher = publisher;
         this.publishYear = Year.now();
-        this.status = status;
         this.form = form;
         this.author = author;
         this.serie = serie;
@@ -81,14 +77,6 @@ public class Book extends Entity {
 
     public void setPublishYear(Year publishYear) {
         this.publishYear = publishYear;
-    }
-
-    public BookStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(BookStatus status) {
-        this.status = status;
     }
 
     public WorkForm getForm() {

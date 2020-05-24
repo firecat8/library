@@ -12,6 +12,11 @@ import com.library.dto.GenreDto;
  */
 public class GenreDtoExchanger extends DtoEntityExchanger<GenreDto, Genre> {
 
+    public final static GenreDtoExchanger INSTANCE = new GenreDtoExchanger();
+
+    private GenreDtoExchanger() {
+    }
+
     @Override
     protected Genre exchangeFrom(GenreDto dto) {
         return new Genre(dto.getName());

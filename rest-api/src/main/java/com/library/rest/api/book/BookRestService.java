@@ -1,6 +1,6 @@
 package com.library.rest.api.book;
 
-import com.library.rest.api.request.AddReaderRequest;
+import com.library.rest.api.request.AddBookRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 public interface BookRestService {
     
     @POST
-    @Path("/addBook")
-    public Response addBook(AddReaderRequest request);
+    @Path("/add")
+    public Response add(AddBookRequest request);
+    
 }

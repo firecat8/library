@@ -15,10 +15,13 @@ public class BorrowedBook extends Entity {
 
     private Calendar returnDate;
 
-    public BorrowedBook(Book book, Calendar receivableDate, Calendar returnDate) {
+    private BookStatus status;
+
+    public BorrowedBook(Book book, Calendar receivableDate, Calendar returnDate,BookStatus status) {
         this.receivableDate = receivableDate;
         this.returnDate = returnDate;
         this.book = book;
+        this.status = status;
     }
 
     public Book getBook() {
@@ -43,6 +46,14 @@ public class BorrowedBook extends Entity {
 
     public void setReturnDate(Calendar returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public BookStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BookStatus status) {
+        this.status = status;
     }
 
 }

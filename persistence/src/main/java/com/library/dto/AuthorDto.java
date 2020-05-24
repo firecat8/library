@@ -1,9 +1,12 @@
 package com.library.dto;
 
 import java.util.Calendar;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -26,6 +29,8 @@ public class AuthorDto extends NamedDto {
     private String birthPlace;
 
     @Column(name = BIRTH_DATE)
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar birthDate;
 
     public AuthorDto(String name, String biography, String birthPlace, Calendar birthDate) {

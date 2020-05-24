@@ -1,4 +1,4 @@
-package com.library.domain.user;
+package com.library.domain.book;
 
 import com.library.domain.NamedEntity;
 import java.util.Calendar;
