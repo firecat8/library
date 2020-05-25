@@ -1,4 +1,4 @@
-package com.library.ui.login;
+package com.library.ui.activity.login;
 
 import android.os.Bundle;
 import android.widget.Button;

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">libraryUI</string>
+    <string name="create_operator">Create operator</string>
+    <string name="username_text">Username</string>
+    <string name="password_text">Password</string>
+    <string name="login_text">Login</string>
+    <string name="menu_text">Menu</string>
+    <string name="add_new_book_text">Add new book</string>
 </resources>
