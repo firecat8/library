@@ -19,6 +19,8 @@ public class DaoRegistryImpl implements DaoRegistry {
 
     private final BookDao bookDao;
 
+    private final UserDao userDao;
+
     private final BookSerieDao bookSerieDao;
 
     private final CharacteristicDao characteristicDao;
@@ -34,6 +36,7 @@ public class DaoRegistryImpl implements DaoRegistry {
     public DaoRegistryImpl(EntityManager em) {
         this.em = em;
         bookDao = new BookDaoImpl(em);
+        userDao = new UserDaoImpl(em);
         bookSerieDao = new BookSerieDaoImpl(em);
         characteristicDao = new CharacteristicDaoImpl(em);
         genreDao = new GenreDaoImpl(em);
@@ -44,7 +47,7 @@ public class DaoRegistryImpl implements DaoRegistry {
 
     @Override
     public UserDao getUserDao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return userDao;
     }
 
     @Override

@@ -41,4 +41,8 @@ public class CharacteristicDaoTestCase extends AbstractCrudDaoTestCase<Character
         characteristics.add(createEntity("Dramatism"));
         return characteristics;
     }
+
+    @Override
+    protected void prepareDbData() {
+    }
 }

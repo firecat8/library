@@ -3,7 +3,10 @@
  */
 package com.library.dto;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -12,7 +15,10 @@ import javax.persistence.Table;
  */
 @Entity(name = "characteristics")
 @Table(name = "characteristics")
-public class CharacteristicDto extends NamedDto{
+public class CharacteristicDto extends NamedDto {
+
+    @ManyToMany(mappedBy = "users")
+    private Set<UserDto> users = new HashSet<>();
 
     public CharacteristicDto() {
     }
@@ -20,5 +26,5 @@ public class CharacteristicDto extends NamedDto{
     public CharacteristicDto(String name) {
         super(name);
     }
-    
+
 }

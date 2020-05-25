@@ -13,14 +13,17 @@ public class BorrowedBook extends Entity {
 
     private Calendar receivableDate;
 
+    private Calendar returnDeadLine;
+
     private Calendar returnDate;
 
     private BookStatus status;
 
-    public BorrowedBook(Book book, Calendar receivableDate, Calendar returnDate,BookStatus status) {
-        this.receivableDate = receivableDate;
-        this.returnDate = returnDate;
+    public BorrowedBook(Book book, Calendar receivableDate, Calendar returnDeadLine, Calendar returnDate, BookStatus status) {
         this.book = book;
+        this.receivableDate = receivableDate;
+        this.returnDeadLine = returnDeadLine;
+        this.returnDate = returnDate;
         this.status = status;
     }
 
@@ -38,6 +41,14 @@ public class BorrowedBook extends Entity {
 
     public void setReceivableDate(Calendar receivableDate) {
         this.receivableDate = receivableDate;
+    }
+
+    public Calendar getReturnDeadLine() {
+        return returnDeadLine;
+    }
+
+    public void setReturnDeadLine(Calendar returnDeadLine) {
+        this.returnDeadLine = returnDeadLine;
     }
 
     public Calendar getReturnDate() {

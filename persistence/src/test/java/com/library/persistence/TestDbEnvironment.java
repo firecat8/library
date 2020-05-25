@@ -3,39 +3,33 @@
  */
 package com.library.persistence;
 
-import com.library.dao.AbstractDao;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.dao.DaoRegistryFactoryImpl;
-import com.library.dao.DaoRegistryImpl;
 import com.library.dao.EntityManagerFactoryHolder;
-import com.library.domain.Entity;
-import com.library.dto.AbstractDto;
 import com.library.dto.AuthorDto;
 import com.library.dto.BookSerieDto;
 import com.library.dto.CharacteristicDto;
 import com.library.dto.GenreDto;
 import com.library.dto.PublisherDto;
+import com.library.dto.UserDto;
 import com.library.dto.WorkFormDto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Table;
-import junit.framework.TestCase;
 
 /**
  *
  * @author gdimitrova
- * @param <D>
- * @param <E>
- * @param <Dao>
  */
-public class TestDbEnvironment implements DaoRegistryFactory{
+public class TestDbEnvironment implements DaoRegistryFactory {
 
     private EntityManagerFactory emFactory;
+
     private DaoRegistryFactory daoRegistryFactory;
+
     private List<DaoRegistry> openedDaoRegistries = new ArrayList<>();
 
     public void setUp() {
@@ -48,8 +42,7 @@ public class TestDbEnvironment implements DaoRegistryFactory{
         for (DaoRegistry registry : openedDaoRegistries) {
             try {
                 registry.close();
-            }
-            catch (Throwable th) {
+            } catch (Throwable th) {
                 // log
             }
         }
@@ -62,12 +55,12 @@ public class TestDbEnvironment implements DaoRegistryFactory{
         openedDaoRegistries.add(registry);
         return registry;
     }
-    
 
     private void clearDB() {
         EntityManager em = emFactory.createEntityManager();
         try {
             em.getTransaction().begin();
+            removeRows(em, resolveTableName(UserDto.class));
             removeRows(em, resolveTableName(AuthorDto.class));
             removeRows(em, resolveTableName(BookSerieDto.class));
             removeRows(em, resolveTableName(CharacteristicDto.class));

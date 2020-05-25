@@ -39,5 +39,9 @@ public class GenreDaoTestCase extends AbstractCrudDaoTestCase<GenreDto, Genre, G
         return genres;
     }
 
+    @Override
+    protected void prepareDbData() {
+    }
+
 
 }

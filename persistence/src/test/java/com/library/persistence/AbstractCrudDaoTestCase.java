@@ -33,6 +33,8 @@ public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends E
         super.setUp();
 
         dbEnvironment.setUp();
+
+        prepareDbData();
     }
 
     public void testSave() throws Exception {
@@ -88,4 +90,6 @@ public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends E
     abstract protected E createEntity();
 
     abstract protected List<E> createEntities();
+
+    abstract protected void prepareDbData();
 }

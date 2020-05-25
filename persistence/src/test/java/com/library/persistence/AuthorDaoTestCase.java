@@ -20,7 +20,7 @@ public class AuthorDaoTestCase extends AbstractCrudDaoTestCase<AuthorDto, Author
 
     @Override
     protected Author createEntity() {
-        return createEntity("Laurann Dohner", null, "Southern California, USA", new GregorianCalendar(1970, 5, 10));
+        return createDefault();
     }
 
     @Override
@@ -37,6 +37,10 @@ public class AuthorDaoTestCase extends AbstractCrudDaoTestCase<AuthorDto, Author
         return new Author(name, biography, birthPlace, birthDate);
     }
 
+    public static Author createDefault() {
+        return createEntity("Laurann Dohner", null, "Southern California, USA", new GregorianCalendar(1970, 5, 10));
+    }
+
     public static List<Author> createAuthors() {
         List<Author> authors = new ArrayList<>();
         authors.add(createEntity("Marion Eleanor Zimmer", null, "Albany, New York, United States", new GregorianCalendar(1930, 6, 3)));
@@ -44,5 +48,8 @@ public class AuthorDaoTestCase extends AbstractCrudDaoTestCase<AuthorDto, Author
         return authors;
     }
 
+    @Override
+    protected void prepareDbData() {
+    }
 
 }

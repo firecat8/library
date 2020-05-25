@@ -30,9 +30,9 @@ public class UserRestServiceImpl extends AbstractRestService<UserDao, User> impl
         String username = request.getUsername();
         String password = request.getPassword();
         if (username.equals(password)) {
-            return Response.status(Response.Status.OK).entity(new User(username, password, null, Roles.ADMINISTRATOR)).build();
+            return Response.status(Response.Status.OK).entity(new User(username, password, null, Roles.ADMINISTRATOR,username,username,username,username)).build();
         }
-        return Response.status(Response.Status.OK).entity(new User(username, password, null, Roles.READER)).build();
+        return Response.status(Response.Status.OK).entity(new User(username, password, null, Roles.READER,username,username,username,username)).build();
     }
 
     @Override

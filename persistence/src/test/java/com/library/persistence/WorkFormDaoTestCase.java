@@ -42,4 +42,8 @@ public class WorkFormDaoTestCase extends AbstractCrudDaoTestCase<WorkFormDto, Wo
         return workForms;
     }
 
+    @Override
+    protected void prepareDbData() {
+    }
+
 }

@@ -41,4 +41,8 @@ public class BookSerieDaoTestCase extends AbstractCrudDaoTestCase<BookSerieDto, 
         bookSeries.add(createEntity("Mackade Brothers"));
         return bookSeries;
     }
+
+    @Override
+    protected void prepareDbData() {
+    }
 }

@@ -42,5 +42,9 @@ public class PublisherDaoTestCase extends AbstractCrudDaoTestCase<PublisherDto, 
         return publishers;
     }
 
+    @Override
+    protected void prepareDbData() {
+    }
+
     
 }

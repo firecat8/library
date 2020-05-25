@@ -7,7 +7,6 @@ import com.library.dao.DaoRegistryFactoryImpl;
 import com.library.dao.EntityManagerFactoryHolder;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
@@ -16,7 +15,7 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
  *
  * @author gdimitrova
  */
-@ApplicationPath("/")
+@ApplicationPath("/library")
 public class RestApplication extends Application {
 
     private final Set<Object> beans = new HashSet<>();
