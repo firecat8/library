@@ -3,6 +3,7 @@
  */
 package com.library.persistence;
 
+import com.library.dao.DaoRegistry;
 import com.library.dao.book.WorkFormDaoImpl;
 import com.library.domain.WorkForm;
 import com.library.dto.WorkFormDto;
@@ -26,7 +27,7 @@ public class WorkFormDaoTestCase extends AbstractCrudDaoTestCase<WorkFormDto, Wo
     }
 
     @Override
-    protected WorkFormDaoImpl getTestDao() {
+    protected WorkFormDaoImpl  getDao(DaoRegistry registry) {
         return (WorkFormDaoImpl) registry.getWorkFormDao();
     }
 
@@ -41,7 +42,4 @@ public class WorkFormDaoTestCase extends AbstractCrudDaoTestCase<WorkFormDto, Wo
         return workForms;
     }
 
-    @Override
-    protected void prepareDbData() {
-    }
 }

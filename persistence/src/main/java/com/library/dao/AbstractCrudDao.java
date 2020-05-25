@@ -24,10 +24,10 @@ public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> e
     }
 
     @Override
-    public void save(E entity) {
-        saveOrUpdate(exchanger.exchange(entity));
+    public E save(E entity) {
+        return save(exchanger.exchange(entity));
     }
-    
+
     @Override
     public void saveAll(List<E> list) {
         saveOrUpdateAll(exchanger.exchangeEntityList(list));
@@ -81,16 +81,17 @@ public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> e
         em.merge(entity);
     }
 
-    protected void saveOrUpdate(D entity) {
+    protected Long saveOrUpdate(D entity) {
         if (entity.getId() == null) {
             persistEntity(entity);
-            return;
+            return entity.getId();
         }
         if (entity.getId() != null || entity.getId() > 0) {
             mergeEntity(entity);
-            return;
+            return entity.getId();
         }
         persistEntity(entity);
+        return entity.getId();
     }
 
     public E save(D entity) {

@@ -3,6 +3,7 @@
  */
 package com.library.persistence;
 
+import com.library.dao.DaoRegistry;
 import com.library.dao.book.PublisherDaoImpl;
 import com.library.domain.book.Publisher;
 import com.library.dto.PublisherDto;
@@ -26,7 +27,7 @@ public class PublisherDaoTestCase extends AbstractCrudDaoTestCase<PublisherDto, 
     }
 
     @Override
-    protected PublisherDaoImpl getTestDao() {
+    protected PublisherDaoImpl  getDao(DaoRegistry registry) {
         return (PublisherDaoImpl) registry.getPublisherDao();
     }
 
@@ -41,8 +42,5 @@ public class PublisherDaoTestCase extends AbstractCrudDaoTestCase<PublisherDto, 
         return publishers;
     }
 
-    @Override
-    protected void prepareDbData() {
-    }
     
 }

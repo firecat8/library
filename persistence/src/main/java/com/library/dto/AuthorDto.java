@@ -33,6 +33,10 @@ public class AuthorDto extends NamedDto {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar birthDate;
 
+    public AuthorDto() {
+        //Hibernate
+    }
+
     public AuthorDto(String name, String biography, String birthPlace, Calendar birthDate) {
         super(name);
         this.biography = biography;

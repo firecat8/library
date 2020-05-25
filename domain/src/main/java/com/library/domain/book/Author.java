@@ -2,6 +2,7 @@ package com.library.domain.book;
 
 import com.library.domain.NamedEntity;
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
  *
@@ -44,6 +45,36 @@ public class Author extends NamedEntity {
 
     public void setBirthdate(Calendar birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.biography);
+        hash = 83 * hash + Objects.hashCode(this.birthPlace);
+        hash = 83 * hash + Objects.hashCode(this.birthDate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Author other = (Author) obj;
+        if (!Objects.equals(this.biography, other.biography)) {
+            return false;
+        }
+        if (!Objects.equals(this.birthPlace, other.birthPlace)) {
+            return false;
+        }
+        return Objects.equals(this.birthDate, other.birthDate);
     }
 
 }

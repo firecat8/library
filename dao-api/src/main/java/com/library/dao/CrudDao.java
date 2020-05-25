@@ -15,7 +15,7 @@ public interface CrudDao<E extends Entity> {
 
     public void update(E oldOne);
 
-    public void save(E entity);
+    public E save(E entity);
 
     public void saveAll(List<E> list);
 

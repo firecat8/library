@@ -4,100 +4,86 @@
 package com.library.persistence;
 
 import com.library.dao.AbstractCrudDao;
+import com.library.dao.DaoRegistry;
 import com.library.domain.Entity;
 import com.library.dto.AbstractDto;
 import java.util.List;
+import junit.framework.TestCase;
 
 /**
  *
  * @author gdimitrova
+ * @param <D>
  * @param <E>
  * @param <Dao>
  */
-public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends Entity, Dao extends AbstractCrudDao<D, E>> extends AbstractDaoTestCase<D, E, Dao> {
+public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends Entity, Dao extends AbstractCrudDao<D, E>> extends TestCase {
 
-//    public void testSave() {
-//        boolean isSuccess = true;
-//        try {
-//            beginTransaction();
-//            dao.save(createEntity());
-//            commit();
-//        } catch (Exception e) {
-//            isSuccess = false;
-//            System.err.println("\n Couldn't save \n" + e.getMessage() + "\n");
-//            if (getTransaction() != null) {
-//                rollback();
-//            }
-//        }
-//        assertTrue("Couldn't save", isSuccess);
-//    }
-    public void testSaveAll() {
-        boolean isSuccess = true;
-        try {
-            beginTransaction();
-            dao.saveAll(createEntities());
-            commit();
-        } catch (Exception e) {
-            isSuccess = false;
-            System.err.println("\n Couldn't save all \n" + e.getMessage() + "\n");
-            if (getTransaction() != null) {
-                rollback();
-            }
-        }
-        assertTrue("Couldn't save all", isSuccess);
+    private TestDbEnvironment dbEnvironment = new TestDbEnvironment();
+
+    @Override
+    protected void tearDown() throws Exception {
+        dbEnvironment.destroy();
+
+        super.tearDown();
     }
 
-    public void testLoadById() {
-        boolean isSuccess = true;
-        try {
-            beginTransaction();
-            E expected = createEntity();
-            dao.save(expected);
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        dbEnvironment.setUp();
+    }
+
+    public void testSave() throws Exception {
+        try (DaoRegistry daoRegistry = dbEnvironment.makeDaoRegistry()) {
+            daoRegistry.beginTransaction();
+            getDao(daoRegistry).save(createEntity());
+            daoRegistry.commitTransaction();
+        }
+    }
+
+    public void testSaveAll() throws Exception {
+        try (DaoRegistry daoRegistry = dbEnvironment.makeDaoRegistry()) {
+            daoRegistry.beginTransaction();
+            getDao(daoRegistry).saveAll(createEntities());
+            daoRegistry.commitTransaction();
+        }
+    }
+
+    public void testLoadById() throws Exception {
+        try (DaoRegistry daoRegistry = dbEnvironment.makeDaoRegistry()) {
+            daoRegistry.beginTransaction();
+            Dao dao = getDao(daoRegistry);
+            E expected = dao.save(createEntity());
             E actual = dao.loadById(expected.getId());
+            daoRegistry.commitTransaction();
             assertEquals(expected, actual);
-            commit();
-        } catch (Exception e) {
-            isSuccess = false;
-            System.err.println("\n Could not load by id \n" + e.getMessage() + "\n");
-            if (getTransaction() != null) {
-                rollback();
-            }
         }
-        assertTrue("Couldn't  load by id", isSuccess);
     }
 
-    public void testLoadByIdNotFound() {
-        loadById(100000L);
-    }
-
-    public void testDelete() {
-        boolean isSuccess = true;
-        try {
-            beginTransaction();
-            E expected = createEntity();
-            dao.save(expected);
+    public void testDelete() throws Exception {
+        try (DaoRegistry daoRegistry = dbEnvironment.makeDaoRegistry()) {
+            daoRegistry.beginTransaction();
+            Dao dao = getDao(daoRegistry);
+            E expected = dao.save(createEntity());
             dao.delete(expected.getId());
-            loadById(expected.getId());
-            commit();
-        } catch (Exception e) {
-            isSuccess = false;
-            System.err.println("\n Couldn't delete \n" + e.getMessage() + "\n");
-            if (getTransaction() != null) {
-                rollback();
-            }
+            E actual = dao.loadById(expected.getId());
+            daoRegistry.commitTransaction();
+            assertNull(actual);
         }
-        assertTrue("Couldn't delete", isSuccess);
     }
 
-    private void loadById(Long id) {
-        E actual = null;
-        try {
-            actual = dao.loadById(100L);
-        } catch (Exception e) {
-
+    public void testLoadByIdNotFound() throws Exception {
+        try (DaoRegistry daoRegistry = dbEnvironment.makeDaoRegistry()) {
+            daoRegistry.beginTransaction();
+            E actual = getDao(daoRegistry).loadById(100000L);
+            daoRegistry.commitTransaction();
+            assertNull(actual);
         }
-        assertNull(actual);
     }
+
+    abstract protected Dao getDao(DaoRegistry registry);
 
     abstract protected E createEntity();
 

@@ -7,6 +7,7 @@ import com.library.domain.WorkForm;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -125,6 +126,68 @@ public class Book extends Entity {
 
     public void setCharacteristics(List<Characteristic> characteristics) {
         this.characteristics = characteristics;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.title);
+        hash = 83 * hash + Objects.hashCode(this.signature);
+        hash = 83 * hash + Objects.hashCode(this.state);
+        hash = 83 * hash + Objects.hashCode(this.publisher);
+        hash = 83 * hash + Objects.hashCode(this.publishYear);
+        hash = 83 * hash + Objects.hashCode(this.form);
+        hash = 83 * hash + Objects.hashCode(this.author);
+        hash = 83 * hash + Objects.hashCode(this.serie);
+        hash = 83 * hash + Objects.hashCode(this.inventoryNumber);
+        hash = 83 * hash + Objects.hashCode(this.genres);
+        hash = 83 * hash + Objects.hashCode(this.characteristics);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Book other = (Book) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.signature, other.signature)) {
+            return false;
+        }
+        if (!Objects.equals(this.inventoryNumber, other.inventoryNumber)) {
+            return false;
+        }
+        if (this.state != other.state) {
+            return false;
+        }
+        if (!Objects.equals(this.publisher, other.publisher)) {
+            return false;
+        }
+        if (!Objects.equals(this.publishYear, other.publishYear)) {
+            return false;
+        }
+        if (!Objects.equals(this.form, other.form)) {
+            return false;
+        }
+        if (!Objects.equals(this.author, other.author)) {
+            return false;
+        }
+        if (!Objects.equals(this.serie, other.serie)) {
+            return false;
+        }
+        if (!Objects.equals(this.genres, other.genres)) {
+            return false;
+        }
+        return Objects.equals(this.characteristics, other.characteristics);
     }
 
 }

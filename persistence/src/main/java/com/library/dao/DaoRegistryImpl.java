@@ -42,10 +42,6 @@ public class DaoRegistryImpl implements DaoRegistry {
         publisherDao = new PublisherDaoImpl(em);
     }
 
-    public DaoRegistryImpl() {
-        this(EntityManagerFactoryHolder.INSTANCE.createEntityManager());
-    }
-
     @Override
     public UserDao getUserDao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -105,5 +101,10 @@ public class DaoRegistryImpl implements DaoRegistry {
         if (em.getTransaction().isActive()) {
             em.getTransaction().commit();
         }
+    }
+
+    @Override
+    public void close() throws Exception {
+        em.close();
     }
 }

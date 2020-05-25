@@ -2,9 +2,9 @@ package com.library.dto;
 
 import java.io.Serializable;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -14,7 +14,8 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractDto implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "id")
+    @GenericGenerator(name = "id", strategy = "increment")
     protected Long id;
 
     public Long getId() {

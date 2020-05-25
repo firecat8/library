@@ -4,7 +4,7 @@ package com.library.dao;
  *
  * @author gdimitrova
  */
-public interface DaoRegistry {
+public interface DaoRegistry extends AutoCloseable {
 
     public UserDao getUserDao();
 

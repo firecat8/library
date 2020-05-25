@@ -2,6 +2,7 @@ package com.library.bl.rest.impl.user;
 
 import com.library.bl.rest.impl.AbstractRestService;
 import com.library.dao.DaoRegistry;
+import com.library.dao.DaoRegistryFactory;
 import com.library.dao.UserDao;
 import com.library.domain.user.Roles;
 import com.library.domain.user.User;
@@ -15,13 +16,13 @@ import javax.ws.rs.core.Response;
  */
 public class UserRestServiceImpl extends AbstractRestService<UserDao, User> implements UserRestService {
 
-    public UserRestServiceImpl(DaoRegistry daoRegistry) {
-        super(daoRegistry);
+    public UserRestServiceImpl(DaoRegistryFactory factory) {
+        super(factory);
     }
 
     @Override
-    protected UserDao getDao() {
-        return daoRegistry.getUserDao();
+    protected UserDao getDao(DaoRegistry registry) {
+        return registry.getUserDao();
     }
 
     @Override

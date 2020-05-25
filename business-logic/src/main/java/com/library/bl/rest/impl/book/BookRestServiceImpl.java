@@ -3,6 +3,7 @@ package com.library.bl.rest.impl.book;
 import com.library.bl.rest.impl.AbstractRestService;
 import com.library.dao.BookDao;
 import com.library.dao.DaoRegistry;
+import com.library.dao.DaoRegistryFactory;
 import com.library.domain.book.Book;
 import com.library.rest.api.book.BookRestService;
 import com.library.rest.api.request.AddBookRequest;
@@ -14,13 +15,13 @@ import javax.ws.rs.core.Response;
  */
 public class BookRestServiceImpl extends AbstractRestService<BookDao, Book> implements BookRestService {
 
-    public BookRestServiceImpl(DaoRegistry daoRegistry) {
-        super(daoRegistry);
+    public BookRestServiceImpl(DaoRegistryFactory factory) {
+        super(factory);
     }
 
     @Override
-    protected BookDao getDao() {
-        return daoRegistry.getBookDao();
+    protected BookDao getDao(DaoRegistry registry) {
+        return registry.getBookDao();
     }
 
     @Override

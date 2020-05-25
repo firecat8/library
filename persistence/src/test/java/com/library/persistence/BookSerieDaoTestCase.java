@@ -3,6 +3,7 @@
  */
 package com.library.persistence;
 
+import com.library.dao.DaoRegistry;
 import com.library.dao.book.BookSerieDaoImpl;
 import com.library.domain.book.BookSerie;
 import com.library.dto.BookSerieDto;
@@ -26,7 +27,7 @@ public class BookSerieDaoTestCase extends AbstractCrudDaoTestCase<BookSerieDto, 
     }
 
     @Override
-    protected BookSerieDaoImpl getTestDao() {
+    protected BookSerieDaoImpl getDao(DaoRegistry registry) {
         return (BookSerieDaoImpl) registry.getBookSerieDao();
     }
 
@@ -39,10 +40,5 @@ public class BookSerieDaoTestCase extends AbstractCrudDaoTestCase<BookSerieDto, 
         bookSeries.add(createEntity("Avalon"));
         bookSeries.add(createEntity("Mackade Brothers"));
         return bookSeries;
-    }
-
-    @Override
-    protected void prepareDbData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

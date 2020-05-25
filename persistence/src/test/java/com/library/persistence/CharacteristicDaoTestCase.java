@@ -3,6 +3,7 @@
  */
 package com.library.persistence;
 
+import com.library.dao.DaoRegistry;
 import com.library.dao.book.CharacteristicDaoImpl;
 import com.library.domain.Characteristic;
 import com.library.dto.CharacteristicDto;
@@ -26,7 +27,7 @@ public class CharacteristicDaoTestCase extends AbstractCrudDaoTestCase<Character
     }
 
     @Override
-    protected CharacteristicDaoImpl getTestDao() {
+    protected CharacteristicDaoImpl  getDao(DaoRegistry registry) {
         return (CharacteristicDaoImpl) registry.getCharacteristicDao();
     }
 
@@ -40,9 +41,4 @@ public class CharacteristicDaoTestCase extends AbstractCrudDaoTestCase<Character
         characteristics.add(createEntity("Dramatism"));
         return characteristics;
     }
-
-    @Override
-    protected void prepareDbData() {
-    }
-
 }

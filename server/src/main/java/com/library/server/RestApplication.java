@@ -2,10 +2,12 @@ package com.library.server;
 
 import com.library.bl.rest.impl.book.BookRestServiceImpl;
 import com.library.bl.rest.impl.user.UserRestServiceImpl;
-import com.library.dao.DaoRegistry;
-import com.library.dao.DaoRegistryImpl;
+import com.library.dao.DaoRegistryFactory;
+import com.library.dao.DaoRegistryFactoryImpl;
+import com.library.dao.EntityManagerFactoryHolder;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
@@ -19,10 +21,10 @@ public class RestApplication extends Application {
 
     private final Set<Object> beans = new HashSet<>();
 
-    private final DaoRegistry registry;
+    private final DaoRegistryFactory factory;
 
     public RestApplication() {
-        registry = new DaoRegistryImpl();
+        factory = new DaoRegistryFactoryImpl(EntityManagerFactoryHolder.INSTANCE);
         beans.add(new JacksonJsonProvider());
         addServices();
     }
@@ -32,18 +34,9 @@ public class RestApplication extends Application {
         return beans;
     }
 
-    @Override
-    public Set<Class<?>> getClasses() {
-        Set<Class<?>> classes = new HashSet<>();
-        beans.forEach((s) -> {
-            classes.add(s.getClass());
-        });
-        return classes;
-    }
-
     private void addServices() {
-        beans.add(new UserRestServiceImpl(registry));
-        beans.add(new BookRestServiceImpl(registry));
+        beans.add(new UserRestServiceImpl(factory));
+        beans.add(new BookRestServiceImpl(factory));
         // To do
     }
 }

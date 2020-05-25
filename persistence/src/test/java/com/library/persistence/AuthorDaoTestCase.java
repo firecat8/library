@@ -3,6 +3,7 @@
  */
 package com.library.persistence;
 
+import com.library.dao.DaoRegistry;
 import com.library.dao.book.AuthorDaoImpl;
 import com.library.domain.book.Author;
 import com.library.dto.AuthorDto;
@@ -28,14 +29,14 @@ public class AuthorDaoTestCase extends AbstractCrudDaoTestCase<AuthorDto, Author
     }
 
     @Override
-    protected AuthorDaoImpl getTestDao() {
+    protected AuthorDaoImpl getDao(DaoRegistry registry) {
         return (AuthorDaoImpl) registry.getAuthorDao();
     }
 
     private static Author createEntity(String name, String biography, String birthPlace, Calendar birthDate) {
         return new Author(name, biography, birthPlace, birthDate);
     }
-	
+
     public static List<Author> createAuthors() {
         List<Author> authors = new ArrayList<>();
         authors.add(createEntity("Marion Eleanor Zimmer", null, "Albany, New York, United States", new GregorianCalendar(1930, 6, 3)));
@@ -43,8 +44,5 @@ public class AuthorDaoTestCase extends AbstractCrudDaoTestCase<AuthorDto, Author
         return authors;
     }
 
-    @Override
-    protected void prepareDbData() {
-    }
 
 }

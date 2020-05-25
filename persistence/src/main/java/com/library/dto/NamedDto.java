@@ -1,12 +1,14 @@
 package com.library.dto;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
 /**
  *
  * @author gdimitrova
  */
-public class NamedDto extends AbstractDto {
+@MappedSuperclass
+public abstract class NamedDto extends AbstractDto {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
