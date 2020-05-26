@@ -5,7 +5,7 @@ package com.library.dao.book;
 
 import com.library.dao.AbstractCrudDao;
 import com.library.dao.CharacteristicDao;
-import com.library.domain.Characteristic;
+import com.library.domain.book.Characteristic;
 import com.library.dto.CharacteristicDto;
 import com.library.dto.exchanger.CharacteristicDtoExchanger;
 import java.util.Map;

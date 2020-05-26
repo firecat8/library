@@ -3,7 +3,7 @@
  */
 package com.library.dto.exchanger;
 
-import com.library.domain.WorkForm;
+import com.library.domain.book.WorkForm;
 import com.library.dto.WorkFormDto;
 
 /**

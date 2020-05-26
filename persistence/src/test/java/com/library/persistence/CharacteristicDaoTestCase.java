@@ -5,7 +5,7 @@ package com.library.persistence;
 
 import com.library.dao.DaoRegistry;
 import com.library.dao.book.CharacteristicDaoImpl;
-import com.library.domain.Characteristic;
+import com.library.domain.book.Characteristic;
 import com.library.dto.CharacteristicDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class CharacteristicDaoTestCase extends AbstractCrudDaoTestCase<Character
     }
 
     @Override
-    protected CharacteristicDaoImpl  getDao(DaoRegistry registry) {
+    protected CharacteristicDaoImpl getDao(DaoRegistry registry) {
         return (CharacteristicDaoImpl) registry.getCharacteristicDao();
     }
 
@@ -43,6 +43,11 @@ public class CharacteristicDaoTestCase extends AbstractCrudDaoTestCase<Character
     }
 
     @Override
-    protected void prepareDbData() {
+    protected void prepareDbData(DaoRegistry registry) {
+    }
+
+    @Override
+    protected boolean isRequiredDbDataPreparation() {
+        return false;
     }
 }

@@ -34,7 +34,15 @@ public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends E
 
         dbEnvironment.setUp();
 
-        prepareDbData();
+        if (!isRequiredDbDataPreparation()) {
+            return;
+        }
+
+        try (DaoRegistry daoRegistry = dbEnvironment.makeDaoRegistry()) {
+            daoRegistry.beginTransaction();
+            prepareDbData(daoRegistry);
+            daoRegistry.commitTransaction();
+        }
     }
 
     public void testSave() throws Exception {
@@ -60,6 +68,7 @@ public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends E
             E expected = dao.save(createEntity());
             E actual = dao.loadById(expected.getId());
             daoRegistry.commitTransaction();
+            System.err.println("\nExpected " + expected.toString() + "\nActual " + actual.toString() + "\n");
             assertEquals(expected, actual);
         }
     }
@@ -91,5 +100,7 @@ public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends E
 
     abstract protected List<E> createEntities();
 
-    abstract protected void prepareDbData();
+    abstract protected boolean isRequiredDbDataPreparation();
+
+    abstract protected void prepareDbData(DaoRegistry registry);
 }

@@ -11,4 +11,5 @@ public class Publisher extends NamedEntity {
     public Publisher(String name) {
         super(name);
     }
+    
 }

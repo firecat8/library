@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface CrudDao<E extends Entity> {
 
-    public void update(E oldOne);
+    public void update(E entity);
 
     public E save(E entity);
 
-    public void saveAll(List<E> list);
+    public List<E> saveAll(List<E> list);
 
     public void delete(Long id);
 

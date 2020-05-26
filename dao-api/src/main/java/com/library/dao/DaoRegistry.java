@@ -12,6 +12,8 @@ public interface DaoRegistry extends AutoCloseable {
 
     public BookSerieDao getBookSerieDao();
 
+    public BookRentalDao getBookRentalDao();
+
     public CharacteristicDao getCharacteristicDao();
 
     public GenreDao getGenreDao();

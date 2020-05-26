@@ -1,4 +1,6 @@
-package com.library.domain;
+package com.library.domain.book;
+
+import com.library.domain.NamedEntity;
 
 /**
  *

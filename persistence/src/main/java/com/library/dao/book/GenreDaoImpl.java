@@ -5,7 +5,7 @@ package com.library.dao.book;
 
 import com.library.dao.AbstractCrudDao;
 import com.library.dao.GenreDao;
-import com.library.domain.Genre;
+import com.library.domain.book.Genre;
 import com.library.dto.GenreDto;
 import com.library.dto.exchanger.GenreDtoExchanger;
 import java.util.Map;

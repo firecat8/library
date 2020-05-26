@@ -157,4 +157,9 @@ public class User extends Entity {
         return this.role == other.role;
     }
 
+    @Override
+    public String toString() {
+        return "User{" + "userName=" + userName + ", password=" + password + ", email=" + email + ", role=" + role + ", firstName=" + firstName + ", surname=" + surname + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + '}';
+    }
+
 }

@@ -17,8 +17,8 @@ import javax.persistence.Table;
 @Table(name = "characteristics")
 public class CharacteristicDto extends NamedDto {
 
-    @ManyToMany(mappedBy = "users")
-    private Set<UserDto> users = new HashSet<>();
+    @ManyToMany(mappedBy = "characteristics")
+    private Set<BookDto> books = new HashSet<>();
 
     public CharacteristicDto() {
     }

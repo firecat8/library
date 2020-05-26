@@ -76,5 +76,4 @@ public class Author extends NamedEntity {
         }
         return Objects.equals(this.birthDate, other.birthDate);
     }
-
 }

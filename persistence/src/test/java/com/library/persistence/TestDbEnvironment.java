@@ -8,6 +8,8 @@ import com.library.dao.DaoRegistryFactory;
 import com.library.dao.DaoRegistryFactoryImpl;
 import com.library.dao.EntityManagerFactoryHolder;
 import com.library.dto.AuthorDto;
+import com.library.dto.BookDto;
+import com.library.dto.BookRentalDto;
 import com.library.dto.BookSerieDto;
 import com.library.dto.CharacteristicDto;
 import com.library.dto.GenreDto;
@@ -16,6 +18,8 @@ import com.library.dto.UserDto;
 import com.library.dto.WorkFormDto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Table;
@@ -25,6 +29,8 @@ import javax.persistence.Table;
  * @author gdimitrova
  */
 public class TestDbEnvironment implements DaoRegistryFactory {
+
+    private final static Logger LOGGER = Logger.getLogger(TestDbEnvironment.class.getName());
 
     private EntityManagerFactory emFactory;
 
@@ -43,7 +49,7 @@ public class TestDbEnvironment implements DaoRegistryFactory {
             try {
                 registry.close();
             } catch (Throwable th) {
-                // log
+                LOGGER.log(Level.SEVERE, th.getMessage());
             }
         }
         openedDaoRegistries.clear();
@@ -60,12 +66,14 @@ public class TestDbEnvironment implements DaoRegistryFactory {
         EntityManager em = emFactory.createEntityManager();
         try {
             em.getTransaction().begin();
-            removeRows(em, resolveTableName(UserDto.class));
+            removeRows(em, resolveTableName(BookRentalDto.class));
+            removeRows(em, resolveTableName(BookDto.class));
             removeRows(em, resolveTableName(AuthorDto.class));
             removeRows(em, resolveTableName(BookSerieDto.class));
             removeRows(em, resolveTableName(CharacteristicDto.class));
             removeRows(em, resolveTableName(GenreDto.class));
             removeRows(em, resolveTableName(PublisherDto.class));
+            removeRows(em, resolveTableName(UserDto.class));
             removeRows(em, resolveTableName(WorkFormDto.class));
             em.getTransaction().commit();
         } catch (Exception e) {

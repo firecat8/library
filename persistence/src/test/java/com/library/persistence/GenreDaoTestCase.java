@@ -2,7 +2,7 @@ package com.library.persistence;
 
 import com.library.dao.DaoRegistry;
 import com.library.dao.book.GenreDaoImpl;
-import com.library.domain.Genre;
+import com.library.domain.book.Genre;
 import com.library.dto.GenreDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class GenreDaoTestCase extends AbstractCrudDaoTestCase<GenreDto, Genre, G
     }
 
     @Override
-    protected GenreDaoImpl  getDao(DaoRegistry registry) {
+    protected GenreDaoImpl getDao(DaoRegistry registry) {
         return (GenreDaoImpl) registry.getGenreDao();
     }
 
@@ -40,8 +40,11 @@ public class GenreDaoTestCase extends AbstractCrudDaoTestCase<GenreDto, Genre, G
     }
 
     @Override
-    protected void prepareDbData() {
+    protected void prepareDbData(DaoRegistry registry) {
     }
 
-
+    @Override
+    protected boolean isRequiredDbDataPreparation() {
+        return false;
+    }
 }

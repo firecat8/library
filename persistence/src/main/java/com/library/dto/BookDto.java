@@ -1,10 +1,9 @@
 package com.library.dto;
 
 import com.library.domain.book.BookStates;
+import com.library.domain.book.BookStatus;
 import java.time.Year;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,6 +30,8 @@ public class BookDto extends AbstractDto {
 
     public static final String STATE = "state";
 
+    public static final String STATUS = "status";
+
     public static final String FORM = "form_id";
 
     public static final String PUBLISHER = "publisher_id";
@@ -55,23 +56,27 @@ public class BookDto extends AbstractDto {
     @Column(name = STATE, nullable = false)
     private BookStates state;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
+    @Column(name = STATUS, nullable = false)
+    private BookStatus status;
+
+    @ManyToOne()
     @JoinColumn(name = PUBLISHER, nullable = false)
     private PublisherDto publisher;
 
     @Column(name = PUBLISH_YEAR, nullable = false)
     private Year publishYear;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = FORM, nullable = false)
     private WorkFormDto form;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = AUTHOR, nullable = false)
     private AuthorDto author;
 
     @ManyToOne
-    @JoinColumn(name = SERIE, nullable = false)
+    @JoinColumn(name = SERIE)
     private BookSerieDto serie;
 
     @Column(name = INVENTORY_NUMBER, nullable = false)
@@ -101,12 +106,14 @@ public class BookDto extends AbstractDto {
     private Set<CharacteristicDto> characteristics = new HashSet<>();
 
     public BookDto() {
+        //Hibernate
     }
 
-    public BookDto(String title, String signature, BookStates state, PublisherDto publisher, Year publishYear, WorkFormDto form, AuthorDto author, BookSerieDto serie, String inventoryNumber, String isbn) {
+    public BookDto(String title, String signature, BookStates state, BookStatus status, PublisherDto publisher, Year publishYear, WorkFormDto form, AuthorDto author, BookSerieDto serie, String inventoryNumber, String isbn) {
         this.title = title;
         this.signature = signature;
         this.state = state;
+        this.status = status;
         this.publisher = publisher;
         this.publishYear = publishYear;
         this.form = form;
@@ -138,6 +145,14 @@ public class BookDto extends AbstractDto {
 
     public void setState(BookStates state) {
         this.state = state;
+    }
+
+    public BookStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BookStatus status) {
+        this.status = status;
     }
 
     public PublisherDto getPublisher() {

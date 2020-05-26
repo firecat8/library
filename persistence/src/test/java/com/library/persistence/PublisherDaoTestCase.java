@@ -18,7 +18,7 @@ public class PublisherDaoTestCase extends AbstractCrudDaoTestCase<PublisherDto, 
 
     @Override
     protected Publisher createEntity() {
-        return createEntity("Big 5");
+        return createDefault();
     }
 
     @Override
@@ -27,12 +27,16 @@ public class PublisherDaoTestCase extends AbstractCrudDaoTestCase<PublisherDto, 
     }
 
     @Override
-    protected PublisherDaoImpl  getDao(DaoRegistry registry) {
+    protected PublisherDaoImpl getDao(DaoRegistry registry) {
         return (PublisherDaoImpl) registry.getPublisherDao();
     }
 
     private static Publisher createEntity(String name) {
         return new Publisher(name);
+    }
+
+    public static Publisher createDefault() {
+        return createEntity("Big 5");
     }
 
     public static List<Publisher> createPublishers() {
@@ -43,8 +47,11 @@ public class PublisherDaoTestCase extends AbstractCrudDaoTestCase<PublisherDto, 
     }
 
     @Override
-    protected void prepareDbData() {
+    protected void prepareDbData(DaoRegistry registry) {
     }
 
-    
+    @Override
+    protected boolean isRequiredDbDataPreparation() {
+        return false;
+    }
 }

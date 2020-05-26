@@ -1,6 +1,6 @@
 package com.library.dao;
 
-import com.library.domain.Genre;
+import com.library.domain.book.Genre;
 
 /**
  *

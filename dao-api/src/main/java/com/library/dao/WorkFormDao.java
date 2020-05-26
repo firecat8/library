@@ -1,6 +1,6 @@
 package com.library.dao;
 
-import com.library.domain.WorkForm;
+import com.library.domain.book.WorkForm;
 
 /**
  *

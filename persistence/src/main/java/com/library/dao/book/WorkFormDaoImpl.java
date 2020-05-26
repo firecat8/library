@@ -5,7 +5,7 @@ package com.library.dao.book;
 
 import com.library.dao.AbstractCrudDao;
 import com.library.dao.WorkFormDao;
-import com.library.domain.WorkForm;
+import com.library.domain.book.WorkForm;
 import com.library.dto.WorkFormDto;
 import com.library.dto.exchanger.WorkFormDtoExchanger;
 import java.util.Map;

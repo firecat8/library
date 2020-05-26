@@ -1,6 +1,6 @@
 package com.library.dao;
 
-import com.library.domain.Characteristic;
+import com.library.domain.book.Characteristic;
 
 /**
  *

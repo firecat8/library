@@ -6,6 +6,7 @@
         <class>com.library.dto.AuthorDto</class>
         <class>com.library.dto.BookDto</class>
         <class>com.library.dto.BookSerieDto</class>
+        <class>com.library.dto.BookRentalDto</class>
         <class>com.library.dto.CharacteristicDto</class>
         <class>com.library.dto.GenreDto</class>
         <class>com.library.dto.PublisherDto</class>

@@ -3,7 +3,7 @@
  */
 package com.library.dto.exchanger;
 
-import com.library.domain.Genre;
+import com.library.domain.book.Genre;
 import com.library.dto.GenreDto;
 
 /**

@@ -49,7 +49,12 @@ public class AuthorDaoTestCase extends AbstractCrudDaoTestCase<AuthorDto, Author
     }
 
     @Override
-    protected void prepareDbData() {
+    protected void prepareDbData(DaoRegistry registry) {
+    }
+
+    @Override
+    protected boolean isRequiredDbDataPreparation() {
+        return false;
     }
 
 }

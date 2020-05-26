@@ -24,7 +24,7 @@ public class UserDaoTestCase extends AbstractCrudDaoTestCase<UserDto, User, User
 
     @Override
     protected User createEntity() {
-        return createEntity("anton", Roles.READER, "5865163");
+        return createDefault();
     }
 
     @Override
@@ -36,6 +36,10 @@ public class UserDaoTestCase extends AbstractCrudDaoTestCase<UserDto, User, User
         return new User(name + "1234", "pass", name + "@avb.bg", role, name, name, name, phoneNumber);
     }
 
+    public static User createDefault() {
+        return createEntity("anton", Roles.READER, "5865163");
+    }
+
     public static List<User> createUsers() {
         List<User> users = new ArrayList<>();
         users.add(createEntity("admin", Roles.ADMINISTRATOR, "89645"));
@@ -44,6 +48,11 @@ public class UserDaoTestCase extends AbstractCrudDaoTestCase<UserDto, User, User
     }
 
     @Override
-    protected void prepareDbData() {
+    protected void prepareDbData(DaoRegistry registry) {
+    }
+
+    @Override
+    protected boolean isRequiredDbDataPreparation() {
+        return false;
     }
 }

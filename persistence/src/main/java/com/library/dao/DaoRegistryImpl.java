@@ -3,6 +3,7 @@ package com.library.dao;
 import com.library.dao.book.AuthorDaoImpl;
 import com.library.dao.book.BookDaoImpl;
 import com.library.dao.book.BookSerieDaoImpl;
+import com.library.dao.book.BookRentalDaoImpl;
 import com.library.dao.book.CharacteristicDaoImpl;
 import com.library.dao.book.GenreDaoImpl;
 import com.library.dao.book.PublisherDaoImpl;
@@ -23,6 +24,8 @@ public class DaoRegistryImpl implements DaoRegistry {
 
     private final BookSerieDao bookSerieDao;
 
+    private final BookRentalDao BookRentalDao;
+
     private final CharacteristicDao characteristicDao;
 
     private final GenreDao genreDao;
@@ -38,6 +41,7 @@ public class DaoRegistryImpl implements DaoRegistry {
         bookDao = new BookDaoImpl(em);
         userDao = new UserDaoImpl(em);
         bookSerieDao = new BookSerieDaoImpl(em);
+        BookRentalDao = new BookRentalDaoImpl(em);
         characteristicDao = new CharacteristicDaoImpl(em);
         genreDao = new GenreDaoImpl(em);
         authorDao = new AuthorDaoImpl(em);
@@ -58,6 +62,11 @@ public class DaoRegistryImpl implements DaoRegistry {
     @Override
     public BookSerieDao getBookSerieDao() {
         return bookSerieDao;
+    }
+
+    @Override
+    public BookRentalDao getBookRentalDao() {
+        return BookRentalDao;
     }
 
     @Override
@@ -110,4 +119,5 @@ public class DaoRegistryImpl implements DaoRegistry {
     public void close() throws Exception {
         em.close();
     }
+
 }
