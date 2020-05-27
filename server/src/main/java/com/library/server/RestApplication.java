@@ -15,7 +15,7 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
  *
  * @author gdimitrova
  */
-@ApplicationPath("/library")
+@ApplicationPath("/")
 public class RestApplication extends Application {
 
     private final Set<Object> beans = new HashSet<>();

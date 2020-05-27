@@ -1,14 +1,14 @@
 package com.library.rest.api.request;
 
-import com.library.domain.book.Genre;
+import com.library.rest.api.vo.book.GenreVo;
 
 /**
  *
  * @author gdimitrova
  */
-public class GenreRequest extends EntityRequest<Genre> {
+public class GenreRequest extends EntityRequest<GenreVo> {
 
-    public GenreRequest(Genre entity) {
+    public GenreRequest(GenreVo entity) {
         super(entity);
     }
 

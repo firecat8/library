@@ -9,7 +9,7 @@ import java.util.List;
  * @param <D>
  * @param <E>
  */
-public interface DtoEntityExchanger< D, E extends Entity> {
+public interface EntityExchanger< D, E extends Entity> {
 
     public E exchange(D dto);
 
@@ -21,5 +21,5 @@ public interface DtoEntityExchanger< D, E extends Entity> {
 
     public List<D> exchangeEntityList(List<E> list);
 
-    public List<E> exchangeDtoList(List<D> list);
+    public List<E> exchangeList(List<D> list);
 }

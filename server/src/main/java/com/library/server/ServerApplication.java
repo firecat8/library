@@ -1,6 +1,7 @@
 package com.library.server;
 
 import java.util.Scanner;
+import java.util.logging.Level;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @author gdimitrova
  *
  */
-public class ServerApplication {
+public class ServerApplication implements AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerApplication.class);
 
@@ -40,32 +41,40 @@ public class ServerApplication {
     }
 
     public static void main(String[] args) {
-        ServerApplication app = new ServerApplication();
-        printHelp();
-        try (Scanner input = new Scanner(System.in);) {
-            boolean isRunning = true;
-            while (isRunning) {
-                if (input.hasNextLine()) {
-                    switch (input.nextLine()) {
-                        case "start":
-                            app.startServer();
-                            System.out.println("");
-                            break;
-                        case "stop":
-                            app.stopServer();
-                            System.out.println("");
-                            break;
-                        case "help":
-                            printHelp();
-                            break;
-                        case "exit":
-                            app.stopServer();
-                            isRunning = false;
-                            break;
+        try (ServerApplication app = new ServerApplication();) {
+            printHelp();
+            try (Scanner input = new Scanner(System.in);) {
+                boolean isRunning = true;
+                while (isRunning) {
+                    if (input.hasNextLine()) {
+                        switch (input.nextLine()) {
+                            case "start":
+                                app.startServer();
+                                System.out.println("");
+                                break;
+                            case "stop":
+                                app.stopServer();
+                                System.out.println("");
+                                break;
+                            case "help":
+                                printHelp();
+                                break;
+                            case "exit":
+                                app.stopServer();
+                                isRunning = false;
+                                break;
+                        }
                     }
                 }
             }
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
         }
         System.err.println("\n\nEXITED");
+    }
+
+    @Override
+    public void close() throws Exception {
+        System.err.println("\n\nServer stop");
     }
 }

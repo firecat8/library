@@ -1,6 +1,7 @@
 package com.library.bl.rest.impl.book;
 
 import com.library.bl.rest.impl.AbstractRestService;
+import com.library.bl.rest.impl.vo.exchanger.BookSerieVoExchanger;
 import com.library.dao.BookSerieDao;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
@@ -8,6 +9,7 @@ import com.library.domain.book.BookSerie;
 import com.library.rest.api.book.BookSerieRestService;
 import com.library.rest.api.request.BookSerieRequest;
 import com.library.rest.api.request.BookSeriesRequest;
+import com.library.rest.api.vo.book.BookSerieVo;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -15,13 +17,12 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class BookSerieRestServiceImpl extends AbstractRestService<BookSerieDao, BookSerie> implements BookSerieRestService {
+public class BookSerieRestServiceImpl extends AbstractRestService<BookSerieDao, BookSerieVo, BookSerie> implements BookSerieRestService {
 
     public BookSerieRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory);
+        super(factory, BookSerieVoExchanger.INSTANCE);
     }
 
-  
     @Override
     protected BookSerieDao getDao(DaoRegistry registry) {
         return registry.getBookSerieDao();
@@ -56,5 +57,5 @@ public class BookSerieRestServiceImpl extends AbstractRestService<BookSerieDao, 
     protected Set<String> validate(BookSerie entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

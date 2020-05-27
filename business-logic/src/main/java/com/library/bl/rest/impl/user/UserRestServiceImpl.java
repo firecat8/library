@@ -1,15 +1,19 @@
 package com.library.bl.rest.impl.user;
 
 import com.library.bl.rest.impl.AbstractRestService;
+import com.library.bl.rest.impl.ErrorCode;
+import com.library.bl.rest.impl.vo.exchanger.UserVoExchanger;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.dao.UserDao;
-import com.library.domain.user.Roles;
 import com.library.domain.user.User;
 import com.library.rest.api.request.LoginRequest;
 import com.library.rest.api.request.UserRequest;
 import com.library.rest.api.request.UsersRequest;
 import com.library.rest.api.user.UserRestService;
+import com.library.rest.api.vo.user.RolesVo;
+import com.library.rest.api.vo.user.UserVo;
+import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -17,10 +21,10 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class UserRestServiceImpl extends AbstractRestService<UserDao, User> implements UserRestService {
+public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, User> implements UserRestService {
 
     public UserRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory);
+        super(factory, UserVoExchanger.INSTANCE);
     }
 
     @Override
@@ -33,9 +37,9 @@ public class UserRestServiceImpl extends AbstractRestService<UserDao, User> impl
         String username = request.getUsername();
         String password = request.getPassword();
         if (username.equals(password)) {
-            return Response.status(Response.Status.OK).entity(new User(username, password, null, Roles.ADMINISTRATOR, username, username, username, username)).build();
+            return Response.status(Response.Status.OK).entity(new UserVo(username, password, null, RolesVo.ADMINISTRATOR, username, username, username, username)).build();
         }
-        return Response.status(Response.Status.OK).entity(new User(username, password, null, Roles.READER, username, username, username, username)).build();
+        return buildResponse(ErrorCode.NOT_FOUND, new HashSet<>());
     }
 
     @Override

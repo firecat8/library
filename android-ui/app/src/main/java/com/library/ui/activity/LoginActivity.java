@@ -1,4 +1,4 @@
-package com.library.ui.activity.login;
+package com.library.ui.activity;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -13,7 +13,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.library.rest.api.request.LoginRequest;
+import com.library.rest.api.vo.user.UserVo;
 import com.library.ui.R;
+import com.library.ui.request.RequestFactory;
+import com.library.ui.request.URL_CONSTANTS;
 import com.library.ui.volley.VolleySingelton;
 
 import org.json.JSONException;
@@ -37,10 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.edit_username);
         password = findViewById(R.id.edit_pass);
 
-
-        username.setText("admin");
-        password.setText("admin");
-
         login.setOnClickListener(v -> {
             try {
                 login();
@@ -57,37 +57,14 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Invalid username and password! ", Toast.LENGTH_LONG).show();
             return;
         }
-
-        requestQueue = VolleySingelton.getInstance(this).getRequestQueue();
-        requestQueue.add(makeRequest());
-    }
-
-    private JsonObjectRequest makeRequest() throws JSONException {
-        JSONObject request = new JSONObject();
-        request.put("username", username.getText().toString());
-        request.put("password", password.getText().toString());
-
-        return new JsonObjectRequest(Request.Method.POST, endpointLogin,
-                request, new Response.Listener<JSONObject>() {
-
+        RequestFactory.getInstance(this).makeLoginRequest(URL_CONSTANTS.USER_URL,
+                new LoginRequest(username.getText().toString(),password.getText().toString()),
+                new Response.Listener<UserVo>() {
             @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+            public void onResponse(UserVo response) {
+                Toast.makeText(LoginActivity.this, response.getFirstName(), Toast.LENGTH_LONG).show();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                return headers;
-            }
-        };
+        });
     }
 
 }

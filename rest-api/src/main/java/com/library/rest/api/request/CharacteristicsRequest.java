@@ -1,15 +1,15 @@
 package com.library.rest.api.request;
 
-import com.library.domain.book.Characteristic;
+import com.library.rest.api.vo.book.CharacteristicVo;
 import java.util.List;
 
 /**
  *
  * @author gdimitrova
  */
-public class CharacteristicsRequest extends EntityListRequest<Characteristic> {
+public class CharacteristicsRequest extends EntityListRequest<CharacteristicVo> {
 
-    public CharacteristicsRequest(List<Characteristic> entities) {
+    public CharacteristicsRequest(List<CharacteristicVo> entities) {
         super(entities);
     }
 

@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.operator.OperatorMenu"></activity>
-        <activity android:name=".activity.admin.AdminMenuActivity" />
-        <activity android:name=".activity.login.LoginActivity">
+        <activity android:name=".activity.OperatorMenu" />
+        <activity android:name=".activity.AdminMenuActivity" />
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

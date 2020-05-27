@@ -1,6 +1,7 @@
 package com.library.bl.rest.impl.book;
 
 import com.library.bl.rest.impl.AbstractRestService;
+import com.library.bl.rest.impl.vo.exchanger.PublisherVoExchanger;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.dao.PublisherDao;
@@ -8,6 +9,7 @@ import com.library.domain.book.Publisher;
 import com.library.rest.api.book.PublisherRestService;
 import com.library.rest.api.request.PublisherRequest;
 import com.library.rest.api.request.PublishersRequest;
+import com.library.rest.api.vo.book.PublisherVo;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -15,10 +17,10 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class PublisherRestServiceImpl extends AbstractRestService< PublisherDao, Publisher> implements PublisherRestService {
+public class PublisherRestServiceImpl extends AbstractRestService< PublisherDao, PublisherVo, Publisher> implements PublisherRestService {
 
     public PublisherRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory);
+        super(factory, PublisherVoExchanger.INSTANCE);
     }
 
     @Override

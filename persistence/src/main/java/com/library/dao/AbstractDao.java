@@ -1,7 +1,6 @@
 package com.library.dao;
 
 import com.library.domain.Entity;
-import com.library.domain.exchanger.DtoEntityExchanger;
 import com.library.dto.AbstractDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,7 @@ import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import com.library.domain.exchanger.EntityExchanger;
 
 /**
  *
@@ -24,7 +24,7 @@ import javax.persistence.criteria.Root;
  */
 public abstract class AbstractDao<D extends AbstractDto, E extends Entity> {
 
-    protected final DtoEntityExchanger<D, E> exchanger;
+    protected final EntityExchanger<D, E> exchanger;
 
     protected final String table;
 
@@ -32,7 +32,7 @@ public abstract class AbstractDao<D extends AbstractDto, E extends Entity> {
 
     protected final Class<D> dtoClassName;
 
-    protected AbstractDao(Class<D> dtoClass, EntityManager em, DtoEntityExchanger<D, E> exchanger) {
+    protected AbstractDao(Class<D> dtoClass, EntityManager em, EntityExchanger<D, E> exchanger) {
         this.table = resolveTableName(dtoClass);
         this.dtoClassName = dtoClass;
         this.em = em;

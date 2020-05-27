@@ -1,6 +1,7 @@
 package com.library.bl.rest.impl.book;
 
 import com.library.bl.rest.impl.AbstractRestService;
+import com.library.bl.rest.impl.vo.exchanger.WorkFormVoExchanger;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.dao.WorkFormDao;
@@ -8,6 +9,7 @@ import com.library.domain.book.WorkForm;
 import com.library.rest.api.book.WorkFormRestService;
 import com.library.rest.api.request.WorkFormRequest;
 import com.library.rest.api.request.WorkFormsRequest;
+import com.library.rest.api.vo.book.WorkFormVo;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -15,10 +17,10 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class WorkFormRestServiceImpl extends AbstractRestService<WorkFormDao, WorkForm> implements WorkFormRestService {
+public class WorkFormRestServiceImpl extends AbstractRestService<WorkFormDao, WorkFormVo, WorkForm> implements WorkFormRestService {
 
     public WorkFormRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory);
+        super(factory,WorkFormVoExchanger.INSTANCE);
     }
 
     @Override

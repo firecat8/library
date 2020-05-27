@@ -1,6 +1,7 @@
 package com.library.bl.rest.impl.book;
 
 import com.library.bl.rest.impl.AbstractRestService;
+import com.library.bl.rest.impl.vo.exchanger.GenreVoExchanger;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.dao.GenreDao;
@@ -8,6 +9,7 @@ import com.library.domain.book.Genre;
 import com.library.rest.api.book.GenreRestService;
 import com.library.rest.api.request.GenreRequest;
 import com.library.rest.api.request.GenresRequest;
+import com.library.rest.api.vo.book.GenreVo;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -15,13 +17,12 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class GenreRestServiceImpl extends AbstractRestService< GenreDao, Genre> implements GenreRestService {
+public class GenreRestServiceImpl extends AbstractRestService< GenreDao, GenreVo, Genre> implements GenreRestService {
 
     public GenreRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory);
+        super(factory, GenreVoExchanger.INSTANCE);
     }
 
-   
     @Override
     protected GenreDao getDao(DaoRegistry registry) {
         return registry.getGenreDao();

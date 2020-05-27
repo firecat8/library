@@ -1,7 +1,6 @@
 package com.library.dao;
 
 import com.library.domain.Entity;
-import com.library.domain.exchanger.DtoEntityExchanger;
 import com.library.dto.AbstractDto;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import com.library.domain.exchanger.EntityExchanger;
 
 /**
  *
@@ -19,7 +19,7 @@ import javax.persistence.criteria.Root;
  */
 public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> extends AbstractDao<D, E> implements CrudDao<E> {
 
-    protected AbstractCrudDao(Class<D> dtoClass, EntityManager em, DtoEntityExchanger<D, E> exchanger) {
+    protected AbstractCrudDao(Class<D> dtoClass, EntityManager em, EntityExchanger<D, E> exchanger) {
         super(dtoClass, em, exchanger);
     }
 
@@ -75,7 +75,7 @@ public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> e
         entities.forEach((e) -> {
             saveOrUpdate(e);
         });
-        return exchanger.exchangeDtoList(entities);
+        return exchanger.exchangeList(entities);
     }
 
     protected void mergeEntity(D entity) {

@@ -1,6 +1,7 @@
 package com.library.bl.rest.impl.book;
 
 import com.library.bl.rest.impl.AbstractRestService;
+import com.library.bl.rest.impl.vo.exchanger.CharacteristicVoExchanger;
 import com.library.dao.CharacteristicDao;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
@@ -8,6 +9,7 @@ import com.library.domain.book.Characteristic;
 import com.library.rest.api.book.CharacteristicRestService;
 import com.library.rest.api.request.CharacteristicRequest;
 import com.library.rest.api.request.CharacteristicsRequest;
+import com.library.rest.api.vo.book.CharacteristicVo;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -15,13 +17,12 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class CharacteristicRestServiceImpl  extends AbstractRestService<CharacteristicDao, Characteristic> implements CharacteristicRestService {
+public class CharacteristicRestServiceImpl extends AbstractRestService<CharacteristicDao, CharacteristicVo, Characteristic> implements CharacteristicRestService {
 
     public CharacteristicRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory);
+        super(factory, CharacteristicVoExchanger.INSTANCE);
     }
 
-   
     @Override
     protected CharacteristicDao getDao(DaoRegistry registry) {
         return registry.getCharacteristicDao();

@@ -1,11 +1,13 @@
 package com.library.rest.api.request;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gdimitrova
  * @param <T>
  */
-public abstract class EntityRequest<T> {
+public abstract class EntityRequest<T> implements Serializable{
 
     private final T entity;
 

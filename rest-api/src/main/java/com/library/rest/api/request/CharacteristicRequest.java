@@ -1,14 +1,14 @@
 package com.library.rest.api.request;
 
-import com.library.domain.book.Characteristic;
+import com.library.rest.api.vo.book.CharacteristicVo;
 
 /**
  *
  * @author gdimitrova
  */
-public class CharacteristicRequest extends EntityRequest<Characteristic> {
+public class CharacteristicRequest extends EntityRequest<CharacteristicVo> {
 
-    public CharacteristicRequest(Characteristic entity) {
+    public CharacteristicRequest(CharacteristicVo entity) {
         super(entity);
     }
 

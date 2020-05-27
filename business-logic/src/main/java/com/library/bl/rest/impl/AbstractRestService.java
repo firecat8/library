@@ -1,11 +1,12 @@
 package com.library.bl.rest.impl;
 
+import com.library.bl.rest.impl.vo.exchanger.VoEntityExchanger;
 import com.library.dao.CrudDao;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.domain.Entity;
 import com.library.rest.api.response.SuccessResponse;
-import java.util.ArrayList;
+import com.library.rest.api.vo.AbstractVo;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,15 +21,20 @@ import javax.ws.rs.core.Response.Status;
  *
  * @author gdimitrova
  * @param <Dao>
+ * @param <Vo>
+ * @param <E>
  */
-public abstract class AbstractRestService<Dao extends CrudDao, E extends Entity> {
+public abstract class AbstractRestService<Dao extends CrudDao, Vo extends AbstractVo, E extends Entity> {
 
     private static final Logger LOGGER = Logger.getLogger(AbstractRestService.class.getName());
 
     protected final DaoRegistryFactory factory;
 
-    public AbstractRestService(DaoRegistryFactory factory) {
+    protected final VoEntityExchanger<Vo, E> exchanger;
+
+    public AbstractRestService(DaoRegistryFactory factory, VoEntityExchanger<Vo, E> exchanger) {
         this.factory = factory;
+        this.exchanger = exchanger;
     }
 
     protected synchronized final Response doInTransaction(Function<DaoRegistry, Response> work) {
@@ -45,7 +51,8 @@ public abstract class AbstractRestService<Dao extends CrudDao, E extends Entity>
         }
     }
 
-    public Response save(E entity) {
+    public Response save(Vo vo) {
+        E entity = exchanger.exchange(vo);
         Set<String> errors = validate(entity);
         if (!errors.isEmpty()) {
             return buildResponse(ErrorCode.VALIDATION, errors);
@@ -56,7 +63,8 @@ public abstract class AbstractRestService<Dao extends CrudDao, E extends Entity>
         });
     }
 
-    public Response update(E entity) {
+    public Response update(Vo vo) {
+        E entity = exchanger.exchange(vo);
         Set<String> errors = validate(entity);
         if (!errors.isEmpty()) {
             return buildResponse(ErrorCode.VALIDATION, errors);
@@ -79,7 +87,8 @@ public abstract class AbstractRestService<Dao extends CrudDao, E extends Entity>
         });
     }
 
-    public Response saveAll(List<E> list) {
+    public Response saveAll(List<Vo> vos) {
+        List<E> list = exchanger.exchangeList(vos);
         Set<String> errors = validate(list);
         if (!errors.isEmpty()) {
             return buildResponse(ErrorCode.VALIDATION, errors);
@@ -90,7 +99,8 @@ public abstract class AbstractRestService<Dao extends CrudDao, E extends Entity>
         });
     }
 
-    public Response deleteAll(List<E> list) {
+    public Response deleteAll(List<Vo> vos) {
+        List<E> list = exchanger.exchangeList(vos);
         Set<String> errors = validate(list);
         List<E> entities = list.stream().filter((e) -> {
             return e.getId() == null;

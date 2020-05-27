@@ -1,6 +1,7 @@
 package com.library.bl.rest.impl.book;
 
 import com.library.bl.rest.impl.AbstractRestService;
+import com.library.bl.rest.impl.vo.exchanger.AuthorVoExchanger;
 import com.library.dao.AuthorDao;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
@@ -8,6 +9,7 @@ import com.library.domain.book.Author;
 import com.library.rest.api.book.AuthorRestService;
 import com.library.rest.api.request.AuthorRequest;
 import com.library.rest.api.request.AuthorsRequest;
+import com.library.rest.api.vo.book.AuthorVo;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -15,10 +17,10 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class AuthorRestServiceImpl  extends AbstractRestService<AuthorDao, Author> implements AuthorRestService {
+public class AuthorRestServiceImpl extends AbstractRestService<AuthorDao, AuthorVo, Author> implements AuthorRestService {
 
     public AuthorRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory);
+        super(factory, AuthorVoExchanger.INSTANCE);
     }
 
     @Override
@@ -26,7 +28,7 @@ public class AuthorRestServiceImpl  extends AbstractRestService<AuthorDao, Autho
         return registry.getAuthorDao();
     }
 
-      @Override
+    @Override
     public Response save(AuthorRequest request) {
         return this.save(request.getEntity());
     }
@@ -56,5 +58,4 @@ public class AuthorRestServiceImpl  extends AbstractRestService<AuthorDao, Autho
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
 }

@@ -1,14 +1,14 @@
 package com.library.rest.api.request;
 
-import com.library.domain.user.User;
+import com.library.rest.api.vo.user.UserVo;
 
 /**
  *
  * @author gdimitrova
  */
-public class UserRequest extends EntityRequest<User> {
+public class UserRequest extends EntityRequest<UserVo> {
 
-    public UserRequest(User entity) {
+    public UserRequest(UserVo entity) {
         super(entity);
     }
 

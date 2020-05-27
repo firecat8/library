@@ -1,14 +1,14 @@
 package com.library.rest.api.request;
 
-import com.library.domain.book.Author;
+import com.library.rest.api.vo.book.AuthorVo;
 
 /**
  *
  * @author gdimitrova
  */
-public class AuthorRequest extends EntityRequest<Author> {
+public class AuthorRequest extends EntityRequest<AuthorVo> {
 
-    public AuthorRequest(Author entity) {
+    public AuthorRequest(AuthorVo entity) {
         super(entity);
     }
 

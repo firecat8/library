@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @param <D>
  * @param <E>
  */
-public abstract class AbstractDtoEntityExchanger< D, E extends Entity> implements DtoEntityExchanger<D, E> {
+public abstract class AbstractEntityExchanger< D, E extends Entity> implements EntityExchanger<D, E> {
 
     @Override
     public E exchange(D dto) {
@@ -36,7 +36,7 @@ public abstract class AbstractDtoEntityExchanger< D, E extends Entity> implement
     }
 
     @Override
-    public List<E> exchangeDtoList(List<D> list) {
+    public List<E> exchangeList(List<D> list) {
         if (list.isEmpty()) {
             return new ArrayList<>();
         }
