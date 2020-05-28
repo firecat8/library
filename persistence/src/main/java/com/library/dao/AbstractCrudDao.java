@@ -34,8 +34,8 @@ public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> e
     }
 
     @Override
-    public void update(E e) {
-        super.update(exchanger.exchange(e), new HashMap<>());
+    public int update(E e) {
+        return super.update(exchanger.exchange(e), new HashMap<>());
     }
 
     @Override
@@ -60,6 +60,7 @@ public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> e
         return getResult("id", id);
     }
 
+    @Override
     public List<E> loadAll() {
         CriteriaBuilder cb = getCriteriaBuilder();
         CriteriaQuery<D> query = cb.createQuery(dtoClassName);

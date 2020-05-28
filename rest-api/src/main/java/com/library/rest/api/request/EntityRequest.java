@@ -7,9 +7,13 @@ import java.io.Serializable;
  * @author gdimitrova
  * @param <T>
  */
-public abstract class EntityRequest<T> implements Serializable{
+public abstract class EntityRequest<T> implements Serializable {
 
     private final T entity;
+
+    public EntityRequest() {
+        this(null);
+    }
 
     public EntityRequest(T entity) {
         this.entity = entity;

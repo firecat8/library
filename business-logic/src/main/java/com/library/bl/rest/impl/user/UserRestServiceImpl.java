@@ -2,6 +2,7 @@ package com.library.bl.rest.impl.user;
 
 import com.library.bl.rest.impl.AbstractRestService;
 import com.library.bl.rest.impl.ErrorCode;
+import com.library.bl.rest.impl.ErrorUtils;
 import com.library.bl.rest.impl.vo.exchanger.UserVoExchanger;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
@@ -14,6 +15,7 @@ import com.library.rest.api.user.UserRestService;
 import com.library.rest.api.vo.user.RolesVo;
 import com.library.rest.api.vo.user.UserVo;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -36,10 +38,18 @@ public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, Us
     public Response login(LoginRequest request) {
         String username = request.getUsername();
         String password = request.getPassword();
-        if (username.equals(password)) {
-            return Response.status(Response.Status.OK).entity(new UserVo(username, password, null, RolesVo.ADMINISTRATOR, username, username, username, username)).build();
-        }
-        return buildResponse(ErrorCode.NOT_FOUND, new HashSet<>());
+//        if (username.equals("admin") && password.equals("admin1234")) {
+//            return Response.ok(getMainAdmin()).build();
+//        }
+        return doInTransaction((daoRegistry) -> {
+            User user = getDao(daoRegistry).load(username, password);
+            if (user == null) {
+                Set<String> errors = new HashSet<>();
+                errors.add("Not valid username and password");
+                return buildResponse(ErrorCode.NOT_FOUND, errors);
+            }
+            return Response.ok(exchanger.exchange(user)).build();
+        });
     }
 
     @Override
@@ -49,32 +59,70 @@ public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, Us
 
     @Override
     public Response save(UserRequest request) {
-        return this.save(request.getEntity());
+        return super.save(request.getEntity());
     }
 
     @Override
     public Response update(UserRequest request) {
-        return this.update(request.getEntity());
+        return super.update(request.getEntity());
     }
 
     @Override
     public Response load(Long id) {
-        return this.loadById(id);
+        return super.loadById(id);
     }
 
     @Override
     public Response saveAll(UsersRequest request) {
-        return this.saveAll(request.getList());
+        return super.saveAll(request.getList());
     }
 
     @Override
     public Response deleteAll(UsersRequest request) {
-        return this.deleteAll(request.getList());
+        return super.deleteAll(request.getList());
+    }
+    @Override
+    public Response loadReaders() {
+        return doInTransaction((daoRegistry) -> {
+            List entities = getDao(daoRegistry).loadReaders();
+            return Response.ok(entities).build();
+        });
     }
 
     @Override
     protected Set<String> validate(User entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<String> errors = new HashSet<>();
+        if (entity == null) {
+            errors.add("Entity is null");
+            return errors;
+        }
+        if(ErrorUtils.isValid(entity.getFirstName())){
+            errors.add("Missing first name.");
+        }
+        if(ErrorUtils.isValid(entity.getSurname())){
+            errors.add("Missing surname.");
+        }
+        if(ErrorUtils.isValid(entity.getLastName())){
+            errors.add("Missing last name.");
+        }
+        if(ErrorUtils.isValid(entity.getEmail())){
+            errors.add("Missing email.");
+        }
+        if(ErrorUtils.isValid(entity.getPhoneNumber())){
+            errors.add("Missing phone number.");
+        }
+        if(ErrorUtils.isValid(entity.getUserName())){
+            errors.add("Missing username.");
+        }
+        if(ErrorUtils.isValid(entity.getPassword())){
+            errors.add("Missing password.");
+        }
+        return errors;
     }
 
+//    private UserVo getMainAdmin() {
+//        return new UserVo("admin", "admin1234", "defaultAdmin@gmail.bg", RolesVo.ADMINISTRATOR, "admin", "admin", "admin", "1234");
+//    }
+
+   
 }

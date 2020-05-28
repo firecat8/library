@@ -3,6 +3,7 @@ package com.library.rest.api.book;
 import com.library.rest.api.request.AuthorRequest;
 import com.library.rest.api.request.AuthorsRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,8 +31,11 @@ public interface AuthorRestService {
     @GET
     @Path("/load")
     public Response load(@QueryParam("id") Long id);
-
     @GET
+    @Path("/loadAll")
+    public Response loadAll();
+
+    @DELETE
     @Path("/delete")
     public Response delete(@QueryParam("id") Long id);
 

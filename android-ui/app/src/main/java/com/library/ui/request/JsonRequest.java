@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GsonRequest<T> extends Request<T> {
+public class JsonRequest<T> extends Request<T> {
     /**
      * Default charset for JSON request.
      */
@@ -37,8 +37,8 @@ public class GsonRequest<T> extends Request<T> {
     private final Context context;
     private final Response.Listener<T> listener;
 
-    public GsonRequest(int method, String url, String requestBody, Class<T> clazz, Context context,
-                       Response.Listener<T> listener,Response.ErrorListener errorListener) {
+    public JsonRequest(int method, String url, String requestBody, Class<T> clazz, Context context,
+                       Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.requestBody = requestBody;
         this.context = context;

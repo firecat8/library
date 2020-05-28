@@ -1,6 +1,7 @@
 package com.library.rest.api.vo.user;
 
 import com.library.rest.api.vo.AbstractVo;
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -25,10 +26,12 @@ public class UserVo extends AbstractVo {
 
     private String phoneNumber;
 
+    private Calendar createdDate;
+
     public UserVo() {
     }
 
-    public UserVo(String userName, String password, String email, RolesVo role, String firstName, String surname, String lastName, String phoneNumber) {
+    public UserVo(String userName, String password, String email, RolesVo role, String firstName, String surname, String lastName, String phoneNumber, Calendar createdDate) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -37,6 +40,7 @@ public class UserVo extends AbstractVo {
         this.surname = surname;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.createdDate = createdDate;
     }
 
     public String getUserName() {
@@ -103,21 +107,26 @@ public class UserVo extends AbstractVo {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isAdministrator() {
-        return role == RolesVo.ADMINISTRATOR;
+    public Calendar getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Calendar createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.userName);
-        hash = 67 * hash + Objects.hashCode(this.password);
-        hash = 67 * hash + Objects.hashCode(this.email);
-        hash = 67 * hash + Objects.hashCode(this.role);
-        hash = 67 * hash + Objects.hashCode(this.firstName);
-        hash = 67 * hash + Objects.hashCode(this.surname);
-        hash = 67 * hash + Objects.hashCode(this.lastName);
-        hash = 67 * hash + Objects.hashCode(this.phoneNumber);
+        hash = 79 * hash + Objects.hashCode(this.userName);
+        hash = 79 * hash + Objects.hashCode(this.password);
+        hash = 79 * hash + Objects.hashCode(this.email);
+        hash = 79 * hash + Objects.hashCode(this.role);
+        hash = 79 * hash + Objects.hashCode(this.firstName);
+        hash = 79 * hash + Objects.hashCode(this.surname);
+        hash = 79 * hash + Objects.hashCode(this.lastName);
+        hash = 79 * hash + Objects.hashCode(this.phoneNumber);
+        hash = 79 * hash + Objects.hashCode(this.createdDate);
         return hash;
     }
 
@@ -154,8 +163,13 @@ public class UserVo extends AbstractVo {
         if (!Objects.equals(this.phoneNumber, other.phoneNumber)) {
             return false;
         }
-        return this.role == other.role;
+        if (this.role != other.role) {
+            return false;
+        }
+        return Objects.equals(this.createdDate, other.createdDate);
     }
 
-
+    public String getFullName() {
+        return firstName.concat(" ").concat(surname).concat(" ").concat(lastName);
+    }
 }

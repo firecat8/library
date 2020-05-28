@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 /**
@@ -36,10 +37,12 @@ public class TestDbEnvironment implements DaoRegistryFactory {
 
     private DaoRegistryFactory daoRegistryFactory;
 
-    private List<DaoRegistry> openedDaoRegistries = new ArrayList<>();
+    private final List<DaoRegistry> openedDaoRegistries = new ArrayList<>();
 
     public void setUp() {
-        emFactory = EntityManagerFactoryHolder.INSTANCE;
+        if (emFactory == null) {
+            emFactory = createFactory();
+        }
         daoRegistryFactory = new DaoRegistryFactoryImpl(emFactory);
         clearDB();
     }
@@ -93,5 +96,9 @@ public class TestDbEnvironment implements DaoRegistryFactory {
     private String resolveTableName(Class<?> dtoClass) {
         Table t = dtoClass.getAnnotation(Table.class);
         return t == null ? dtoClass.getSimpleName() : t.name();
+    }
+
+    private EntityManagerFactory createFactory() {
+        return Persistence.createEntityManagerFactory("com.library");
     }
 }

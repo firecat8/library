@@ -1,6 +1,7 @@
 package com.library.rest.api.request;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,9 @@ public abstract class EntityListRequest<T> implements Serializable{
 
     private final List<T> entities;
 
+    public EntityListRequest() {
+        this(new ArrayList<>());
+    }
     public EntityListRequest(List<T> entities) {
         this.entities = entities;
     }

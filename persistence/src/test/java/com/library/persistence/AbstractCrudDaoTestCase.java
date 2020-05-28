@@ -68,7 +68,6 @@ public abstract class AbstractCrudDaoTestCase<D extends AbstractDto, E extends E
             E expected = dao.save(createEntity());
             E actual = dao.loadById(expected.getId());
             daoRegistry.commitTransaction();
-            System.err.println("\nExpected " + expected.toString() + "\nActual " + actual.toString() + "\n");
             assertEquals(expected, actual);
         }
     }

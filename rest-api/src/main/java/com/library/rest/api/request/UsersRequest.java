@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class UsersRequest extends EntityListRequest<UserVo> {
 
+    public UsersRequest() {
+    }
+
     public UsersRequest(List<UserVo> entities) {
         super(entities);
     }

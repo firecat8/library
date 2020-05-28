@@ -8,6 +8,9 @@ import com.library.rest.api.vo.book.WorkFormVo;
  */
 public class WorkFormRequest extends EntityRequest<WorkFormVo> {
 
+    public WorkFormRequest() {
+    }
+
     public WorkFormRequest(WorkFormVo entity) {
         super(entity);
     }

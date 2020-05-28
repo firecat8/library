@@ -8,6 +8,9 @@ import com.library.rest.api.vo.book.AuthorVo;
  */
 public class AuthorRequest extends EntityRequest<AuthorVo> {
 
+    public AuthorRequest() {
+    }
+
     public AuthorRequest(AuthorVo entity) {
         super(entity);
     }

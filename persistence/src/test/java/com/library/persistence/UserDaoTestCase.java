@@ -9,6 +9,7 @@ import com.library.domain.user.Roles;
 import com.library.domain.user.User;
 import com.library.dto.UserDto;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class UserDaoTestCase extends AbstractCrudDaoTestCase<UserDto, User, User
     }
 
     private static User createEntity(String name, Roles role, String phoneNumber) {
-        return new User(name + "1234", "pass", name + "@avb.bg", role, name, name, name, phoneNumber);
+        return new User(name + "1234", "pass", name + "@avb.bg", role, name, name, name, phoneNumber,new GregorianCalendar(2020, 1, 1));
     }
 
     public static User createDefault() {

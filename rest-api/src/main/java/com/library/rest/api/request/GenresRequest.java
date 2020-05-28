@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class GenresRequest extends EntityListRequest<GenreVo> {
 
+    public GenresRequest() {
+    }
+
     public GenresRequest(List<GenreVo> entities) {
         super(entities);
     }

@@ -35,12 +35,26 @@ public class RequestFactory {
         makeRequest(Request.Method.POST, svcURL + "/login", gson.toJson(request), UserVo.class, listener);
     }
 
-  /*  public <T> void makeSaveRequest(String svcURL, Class<T> clazz, Response.Listener<T> listener) {
-        makeRequest(Request.Method.POST, svcURL + "/save", clazz, listener);
-    }*/
+    public <T, Req> void makeSaveRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
+        makeRequest(Request.Method.POST, svcURL + "/save", gson.toJson(request), clazz, listener);
+    }
+
+    public <T, Req> void makeUpdateRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
+        makeRequest(Request.Method.POST, svcURL + "/update", gson.toJson(request), clazz, listener);
+    }
+    public <T, Req> void makeLoadRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
+        makeRequest(Request.Method.GET, svcURL + "/load", gson.toJson(request), clazz, listener);
+    }
+    public <T, Req> void makeDeleteRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
+        makeRequest(Request.Method.DELETE, svcURL + "/delete", gson.toJson(request), clazz, listener);
+    }
+
+    public <T, Req> void makeLoadAllRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
+        makeRequest(Request.Method.POST, svcURL + "/loadAll", gson.toJson(request), clazz, listener);
+    }
 
     private <T> void makeRequest(int method, String url, String requestBody, Class<T> clazz, Response.Listener<T> listener) {
-        addToRequestQueue(new GsonRequest<T>(method, url, requestBody, clazz, context, listener, getErrorListener()));
+        addToRequestQueue(new JsonRequest<T>(method, url, requestBody, clazz, context, listener, getErrorListener()));
     }
 
     private RequestQueue getRequestQueue() {

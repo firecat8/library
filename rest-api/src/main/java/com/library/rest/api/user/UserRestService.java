@@ -4,6 +4,7 @@ import com.library.rest.api.request.UserRequest;
 import com.library.rest.api.request.UsersRequest;
 import com.library.rest.api.request.LoginRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -41,6 +42,14 @@ public interface UserRestService {
     public Response load(@QueryParam("id") Long id);
 
     @GET
+    @Path("/loadAll")
+    public Response loadAll();
+
+    @GET
+    @Path("/loadReaders")
+    public Response loadReaders();
+
+    @DELETE
     @Path("/delete")
     public Response delete(@QueryParam("id") Long id);
 

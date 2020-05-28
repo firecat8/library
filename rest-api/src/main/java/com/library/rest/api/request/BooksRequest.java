@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class BooksRequest extends EntityListRequest<BookVo> {
 
+    public BooksRequest() {
+    }
+
     public BooksRequest(List<BookVo> entities) {
         super(entities);
     }

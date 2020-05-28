@@ -22,12 +22,30 @@
         android:textSize="26dp" />
 
     <Button
-        android:id="@+id/create_op_btn"
+        android:id="@+id/add_admin__btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:backgroundTint="#104073"
-        android:text="@string/create_operator"
+        android:text="Add administrator"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/add_op_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#104073"
+        android:text="@string/add_operator"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#104073"
+        android:text="@string/logout"
         android:textColor="#FFFFFF" />
 
 

@@ -38,12 +38,7 @@ class RestServer {
     }
 
     public void start() {
-
         sf = ResourceUtils.createApplication(application, false, false, true, null);
-//        application.getClasses().forEach(clazz -> {
-//            this.setResourceClass(clazz);
-//            this.setResourceProvider(clazz);
-//        });
 
         setDefaultAddress();
 

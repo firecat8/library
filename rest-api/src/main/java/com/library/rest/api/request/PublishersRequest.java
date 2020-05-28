@@ -8,6 +8,9 @@ import java.util.List;
  * @author gdimitrova
  */
 public class PublishersRequest extends EntityListRequest<PublisherVo>{
+
+    public PublishersRequest() {
+    }
     
     public PublishersRequest(List<PublisherVo> entities) {
         super(entities);

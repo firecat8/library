@@ -20,13 +20,13 @@ public class UserDtoExchanger extends DtoEntityExchanger<UserDto, User> {
     @Override
     protected User exchangeFrom(UserDto dto) {
         return new User(dto.getUserName(), dto.getPassword(), dto.getEmail(), dto.getRole(),
-                dto.getFirstName(), dto.getSurname(), dto.getLastName(), dto.getPhoneNumber());
+                dto.getFirstName(), dto.getSurname(), dto.getLastName(), dto.getPhoneNumber(),dto.getCreatedDate());
     }
 
     @Override
     protected UserDto exchangeFrom(User e) {
         return new UserDto(e.getUserName(), e.getPassword(), e.getEmail(), e.getRole(),
-                e.getFirstName(), e.getSurname(), e.getLastName(), e.getPhoneNumber());
+                e.getFirstName(), e.getSurname(), e.getLastName(), e.getPhoneNumber(),e.getCreatedDate());
     }
 
 }

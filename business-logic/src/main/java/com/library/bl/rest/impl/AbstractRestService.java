@@ -58,8 +58,8 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
             return buildResponse(ErrorCode.VALIDATION, errors);
         }
         return doInTransaction((daoRegistry) -> {
-            getDao(daoRegistry).save(entity);
-            return Response.ok(new SuccessResponse()).build();
+            Entity saved = getDao(daoRegistry).save(entity);
+            return Response.ok(saved).build();
         });
     }
 
@@ -96,6 +96,13 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
         return doInTransaction((daoRegistry) -> {
             getDao(daoRegistry).saveAll(list);
             return Response.ok(new SuccessResponse()).build();
+        });
+    }
+
+    public Response loadAll() {
+        return doInTransaction((daoRegistry) -> {
+            List entities = getDao(daoRegistry).loadAll();
+            return Response.ok(entities).build();
         });
     }
 

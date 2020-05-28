@@ -22,13 +22,13 @@ public class UserVoExchanger extends VoEntityExchanger<UserVo, User> {
     @Override
     protected User exchangeFrom(UserVo vo) {
         return new User(vo.getUserName(), vo.getPassword(), vo.getEmail(),  Roles.valueOf(vo.getRole().name()),
-                vo.getFirstName(), vo.getSurname(), vo.getLastName(), vo.getPhoneNumber());
+                vo.getFirstName(), vo.getSurname(), vo.getLastName(), vo.getPhoneNumber(),vo.getCreatedDate());
     }
 
     @Override
     protected UserVo exchangeFrom(User e) {
         return new UserVo(e.getUserName(), e.getPassword(), e.getEmail(),RolesVo.valueOf(e.getRole().name()),
-                e.getFirstName(), e.getSurname(), e.getLastName(), e.getPhoneNumber());
+                e.getFirstName(), e.getSurname(), e.getLastName(), e.getPhoneNumber(),e.getCreatedDate());
     }
 
 }

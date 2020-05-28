@@ -4,11 +4,15 @@
 package com.library.dto;
 
 import com.library.domain.user.Roles;
+import java.util.Calendar;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -33,6 +37,14 @@ public class UserDto extends AbstractDto {
     public static final String LAST_NAME = "last_name";
 
     public static final String PHONE_NUMBER = "phone_number";
+
+    public static final String USERNAME_PROP = "userName";
+
+    public static final String PASSWORD_PROP = "password";
+
+    public static final String ROLE_PROP = "role";
+
+    public static final String CREATED_DATE = "created_date";
 
     @Column(name = USERNAME, unique = true, nullable = false)
     private String userName;
@@ -60,11 +72,16 @@ public class UserDto extends AbstractDto {
     @Column(name = PHONE_NUMBER, nullable = false)
     private String phoneNumber;
 
+    @Column(name = CREATED_DATE, nullable = false)
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar createdDate;
+
     public UserDto() {
         //Hibernate
     }
 
-    public UserDto(String userName, String password, String email, Roles role, String firstName, String surname, String lastName, String phoneNumber) {
+    public UserDto(String userName, String password, String email, Roles role, String firstName, String surname, String lastName, String phoneNumber,Calendar createdDate) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -73,6 +90,7 @@ public class UserDto extends AbstractDto {
         this.surname = surname;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.createdDate=createdDate;
     }
 
     public String getUserName() {
@@ -137,6 +155,14 @@ public class UserDto extends AbstractDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Calendar getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Calendar createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

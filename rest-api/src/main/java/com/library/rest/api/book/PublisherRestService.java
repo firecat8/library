@@ -3,6 +3,7 @@ package com.library.rest.api.book;
 import com.library.rest.api.request.PublisherRequest;
 import com.library.rest.api.request.PublishersRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -31,7 +32,7 @@ public interface PublisherRestService {
     @Path("/load")
     public Response load(@QueryParam("id") Long id);
 
-    @GET
+    @DELETE
     @Path("/delete")
     public Response delete(@QueryParam("id") Long id);
 
@@ -43,4 +44,7 @@ public interface PublisherRestService {
     @Path("/deleteAll")
     public Response deleteAll(PublishersRequest request);
 
+    @GET
+    @Path("/loadAll")
+    public Response loadAll();
 }

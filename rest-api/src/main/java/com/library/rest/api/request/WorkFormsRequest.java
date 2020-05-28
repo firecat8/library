@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class WorkFormsRequest extends EntityListRequest<WorkFormVo> {
 
+    public WorkFormsRequest() {
+    }
+
     public WorkFormsRequest(List<WorkFormVo> entities) {
         super(entities);
     }

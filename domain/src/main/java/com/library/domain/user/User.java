@@ -1,6 +1,7 @@
 package com.library.domain.user;
 
 import com.library.domain.Entity;
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -24,11 +25,13 @@ public class User extends Entity {
     private String lastName;
 
     private String phoneNumber;
+    
+    private Calendar createdDate;
 
     public User() {
     }
 
-    public User(String userName, String password, String email, Roles role, String firstName, String surname, String lastName, String phoneNumber) {
+    public User(String userName, String password, String email, Roles role, String firstName, String surname, String lastName, String phoneNumber, Calendar createdDate) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -37,6 +40,7 @@ public class User extends Entity {
         this.surname = surname;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.createdDate = createdDate;
     }
 
     public String getUserName() {
@@ -103,21 +107,26 @@ public class User extends Entity {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isAdministrator() {
-        return role == Roles.ADMINISTRATOR;
+    public Calendar getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Calendar createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.userName);
-        hash = 67 * hash + Objects.hashCode(this.password);
-        hash = 67 * hash + Objects.hashCode(this.email);
-        hash = 67 * hash + Objects.hashCode(this.role);
-        hash = 67 * hash + Objects.hashCode(this.firstName);
-        hash = 67 * hash + Objects.hashCode(this.surname);
-        hash = 67 * hash + Objects.hashCode(this.lastName);
-        hash = 67 * hash + Objects.hashCode(this.phoneNumber);
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.userName);
+        hash = 71 * hash + Objects.hashCode(this.password);
+        hash = 71 * hash + Objects.hashCode(this.email);
+        hash = 71 * hash + Objects.hashCode(this.role);
+        hash = 71 * hash + Objects.hashCode(this.firstName);
+        hash = 71 * hash + Objects.hashCode(this.surname);
+        hash = 71 * hash + Objects.hashCode(this.lastName);
+        hash = 71 * hash + Objects.hashCode(this.phoneNumber);
+        hash = 71 * hash + Objects.hashCode(this.createdDate);
         return hash;
     }
 
@@ -154,12 +163,11 @@ public class User extends Entity {
         if (!Objects.equals(this.phoneNumber, other.phoneNumber)) {
             return false;
         }
-        return this.role == other.role;
+        if (this.role != other.role) {
+            return false;
+        }
+        return Objects.equals(this.createdDate, other.createdDate);
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "userName=" + userName + ", password=" + password + ", email=" + email + ", role=" + role + ", firstName=" + firstName + ", surname=" + surname + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + '}';
-    }
 
 }

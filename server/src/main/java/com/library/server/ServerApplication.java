@@ -70,11 +70,11 @@ public class ServerApplication implements AutoCloseable {
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
         }
-        System.err.println("\n\nEXITED");
     }
 
     @Override
     public void close() throws Exception {
-        System.err.println("\n\nServer stop");
+        stopServer();
+        System.err.println("\n\nServer stopped");
     }
 }

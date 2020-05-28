@@ -8,6 +8,9 @@ import com.library.rest.api.vo.user.UserVo;
  */
 public class UserRequest extends EntityRequest<UserVo> {
 
+    public UserRequest() {
+    }
+
     public UserRequest(UserVo entity) {
         super(entity);
     }

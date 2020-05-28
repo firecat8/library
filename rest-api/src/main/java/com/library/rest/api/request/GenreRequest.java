@@ -8,6 +8,9 @@ import com.library.rest.api.vo.book.GenreVo;
  */
 public class GenreRequest extends EntityRequest<GenreVo> {
 
+    public GenreRequest() {
+    }
+
     public GenreRequest(GenreVo entity) {
         super(entity);
     }

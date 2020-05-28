@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class CharacteristicsRequest extends EntityListRequest<CharacteristicVo> {
 
+    public CharacteristicsRequest() {
+    }
+
     public CharacteristicsRequest(List<CharacteristicVo> entities) {
         super(entities);
     }

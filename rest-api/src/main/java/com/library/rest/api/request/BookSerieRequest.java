@@ -8,6 +8,9 @@ import com.library.rest.api.vo.book.BookSerieVo;
  */
 public class BookSerieRequest extends EntityRequest<BookSerieVo> {
 
+    public BookSerieRequest() {
+    }
+
     public BookSerieRequest(BookSerieVo entity) {
         super(entity);
     }

@@ -8,6 +8,9 @@ import com.library.rest.api.vo.book.CharacteristicVo;
  */
 public class CharacteristicRequest extends EntityRequest<CharacteristicVo> {
 
+    public CharacteristicRequest() {
+    }
+
     public CharacteristicRequest(CharacteristicVo entity) {
         super(entity);
     }
