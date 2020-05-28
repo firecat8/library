@@ -26,8 +26,8 @@ public class OperatorMenu extends AppCompatActivity {
         rentBookButton = findViewById(R.id.rent_book_btn);
         addReaderButton = findViewById(R.id.add_reader_btn);
         addReaderButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddUser.class);
-            intent.putExtra(AddUser.ROLE, RolesVo.READER);
+            Intent intent = new Intent(this, AddEditUser.class);
+            intent.putExtra(AddEditUser.ROLE, RolesVo.READER);
             startActivityForResult(intent, ADD_USER_REQUEST);
         });
     }
@@ -43,8 +43,8 @@ public class OperatorMenu extends AppCompatActivity {
     }
 
     private void addUserIntent(RolesVo rolesVo) {
-        Intent intent = new Intent(this, AddUser.class);
-        intent.putExtra(AddUser.ROLE, rolesVo.name());
+        Intent intent = new Intent(this, AddEditUser.class);
+        intent.putExtra(AddEditUser.ROLE, rolesVo.name());
         startActivityForResult(intent, ADD_USER_REQUEST);
     }
 }

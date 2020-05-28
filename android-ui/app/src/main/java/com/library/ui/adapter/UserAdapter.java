@@ -18,12 +18,12 @@ public class UserAdapter extends ListAdapter<UserVo, UserAdapter.UserVoHolder> {
     private static final DiffUtil.ItemCallback<UserVo> DIFF_CALLBACK = new DiffUtil.ItemCallback<UserVo>() {
         @Override
         public boolean areItemsTheSame(UserVo oldItem, UserVo newItem) {
-            return oldItem.getId() == newItem.getId();
+            return oldItem.getId().equals(newItem.getId());
         }
 
         @Override
         public boolean areContentsTheSame(UserVo oldItem, UserVo newItem) {
-            return oldItem.getId() == newItem.getId() &&
+            return oldItem.getId().equals(newItem.getId()) &&
                     oldItem.getEmail().equals(newItem.getEmail()) &&
                     oldItem.getUserName().equals(newItem.getUserName());
         }

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activity.AddEditBook">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <EditText
+            android:id="@+id/inventory_number_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:text="@string/inventory_number" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <EditText
+            android:id="@+id/title_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:text="@string/title" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <EditText
+            android:id="@+id/ISBN_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:text="@string/isbn" />
+
+        <EditText
+            android:id="@+id/year_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:text="Publish Year" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <Button
+            android:id="@+id/author_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="5dp"
+            android:height="10dp"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/author_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:inputType="text"
+            android:text="@string/author" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <EditText
+            android:id="@+id/genre_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:inputType="text"
+            android:text="Genre" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <EditText
+            android:id="@+id/work_form_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:inputType="text"
+            android:text="WorkForm" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <Button
+            android:id="@+id/reader_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="5dp"
+            android:height="10dp"
+            android:visibility="gone"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/user_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:inputType="text"
+            android:visibility="gone"
+            android:text="Reader" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/add_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="5dp"
+        android:height="10dp"
+        android:visibility="gone"
+        android:text="Add"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/archive_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="5dp"
+        android:height="10dp"
+        android:visibility="gone"
+        android:text="Archive"
+        android:textSize="12sp" />
+    <Button
+        android:id="@+id/discard_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="5dp"
+        android:height="10dp"
+        android:visibility="gone"
+        android:text="Discard"
+        android:textSize="12sp" />
+    <Button
+        android:id="@+id/retrun_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="5dp"
+        android:height="10dp"
+        android:visibility="gone"
+        android:text="Return book"
+        android:textSize="12sp" />
+    <Button
+        android:id="@+id/rent_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="5dp"
+        android:height="10dp"
+        android:visibility="gone"
+        android:text="Rent book"
+        android:textSize="12sp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

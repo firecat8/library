@@ -38,8 +38,8 @@ public class LoginActivity extends AppCompatActivity {
             login();
         });
         regFormButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddUser.class);
-            intent.putExtra(AddUser.ROLE, RolesVo.READER);
+            Intent intent = new Intent(this, AddEditUser.class);
+            intent.putExtra(AddEditUser.ROLE, RolesVo.READER);
             startActivityForResult(intent, ADD_USER_REQUEST);
         });
 

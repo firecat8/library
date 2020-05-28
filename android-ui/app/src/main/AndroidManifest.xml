@@ -13,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.UserListActivity"></activity>
-        <activity android:name=".activity.AddUser" />
+        <activity android:name=".activity.BookListActivity"></activity>
+        <activity android:name=".activity.AddEditBook" />
+        <activity android:name=".activity.UserListActivity" />
+        <activity android:name=".activity.AddEditUser" />
         <activity android:name=".activity.ReaderMenu" />
         <activity android:name=".activity.OperatorMenu" />
         <activity android:name=".activity.AdminMenuActivity" />

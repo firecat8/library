@@ -1,14 +1,16 @@
 package com.library.ui.activity;
 
 import android.content.Intent;
-import java.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Response;
 import com.library.rest.api.request.UserRequest;
@@ -19,12 +21,16 @@ import com.library.ui.R;
 import com.library.ui.Utils;
 import com.library.ui.request.RequestFactory;
 import com.library.ui.request.URL_CONSTANTS;
+import com.library.ui.view_model.UserViewModel;
 
-public class AddUser extends AppCompatActivity {
+import java.util.Calendar;
+
+public class AddEditUser extends AppCompatActivity {
     public static final String ROLE = "com.library.user.ROLE";
     public static final String USER = "com.library.user.USER";
 
     private Calendar date = Calendar.getInstance();
+    private UserViewModel userViewModel;
 
     private EditText reg_date;
     private EditText firstName;
@@ -41,6 +47,9 @@ public class AddUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
+
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
         Intent intent = getIntent();
         role = intent.getStringExtra(ROLE);
         date.set(Calendar.SECOND, 0);
@@ -67,26 +76,21 @@ public class AddUser extends AppCompatActivity {
             setTitle("Add user");
             addUserButton.setText("Add");
         }
+
         addUserButton.setOnClickListener(v -> {
-            makeAddUserRequest();
+            userViewModel.save(makeUserVo()).observe(this, new Observer<UserVo>() {
+                @Override
+                public void onChanged(@Nullable UserVo insertedUser) {
+                    setResult(RESULT_OK, new Intent());
+                    finish();
+                }
+            });
         });
+
+
         Toast.makeText(this, "User role " + role, Toast.LENGTH_SHORT).show();
     }
 
-    private void makeAddUserRequest() {
-        RequestFactory.getInstance(this).makeSaveRequest(
-                URL_CONSTANTS.USER_URL,
-                new UserRequest(makeUserVo()),
-                SuccessResponse.class,
-                new Response.Listener<SuccessResponse>() {
-                    @Override
-                    public void onResponse(SuccessResponse response) {
-                        setResult(RESULT_OK, new Intent());
-                        finish();
-                    }
-                }
-        );
-    }
 
     private UserVo makeUserVo() {
         return new UserVo(

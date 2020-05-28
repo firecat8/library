@@ -16,19 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.library.rest.api.vo.user.UserVo;
+import com.library.rest.api.vo.book.BookVo;
 import com.library.ui.R;
-import com.library.ui.adapter.UserAdapter;
-import com.library.ui.view_model.UserViewModel;
+import com.library.ui.adapter.BookAdapter;
+import com.library.ui.view_model.BookViewModel;
 
 import java.util.List;
 
-public class UserListActivity extends AppCompatActivity {
+public class BookListActivity extends AppCompatActivity {
     public static final int ADD_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
-    private UserAdapter userAdapter;
-    private UserViewModel userViewModel;
+    private BookAdapter userAdapter;
+    private BookViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class UserListActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
+                Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
                 intent.putExtras(getIntent());
                 startActivityForResult(intent, ADD_REQUEST);
             }
@@ -49,16 +49,16 @@ public class UserListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        userAdapter = new UserAdapter();
+        userAdapter = new BookAdapter();
         recyclerView.setAdapter(userAdapter);
 
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        getAllUsers();
+        userViewModel = new ViewModelProvider(this).get(BookViewModel.class);
+        getAllBooks();
 
-        userAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
+        userAdapter.setOnItemClickListener(new BookAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(UserVo user) {
-                Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
+            public void onItemClick(BookVo user) {
+                Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
 
                 intent.putExtra("USER_ID", user.getId());
 
@@ -71,7 +71,7 @@ public class UserListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        getAllUsers();
+        getAllBooks();
     }
 
     @Override
@@ -93,16 +93,16 @@ public class UserListActivity extends AppCompatActivity {
     }
 
     private void logoutNow() {
-        Intent intent = new Intent(UserListActivity.this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         setResult(Activity.RESULT_OK);
         finish();
     }
 
-    private void getAllUsers() {
-        userViewModel.loadAll().observe(this, new Observer<List<UserVo>>() {
+    private void getAllBooks() {
+        userViewModel.loadAll().observe(this, new Observer<List<BookVo>>() {
             @Override
-            public void onChanged(@Nullable List<UserVo> users) {
+            public void onChanged(@Nullable List<BookVo> users) {
                 userAdapter.submitList(users);
             }
         });
