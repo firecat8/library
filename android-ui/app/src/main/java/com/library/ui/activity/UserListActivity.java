@@ -60,7 +60,7 @@ public class UserListActivity extends AppCompatActivity {
             public void onItemClick(UserVo user) {
                 Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
 
-                intent.putExtra("USER_ID", user.getId());
+                intent.putExtra(AddEditUser.EXTRA_USER, user);
 
                 startActivityForResult(intent, EDIT_REQUEST);
             }

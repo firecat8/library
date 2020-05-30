@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-@Path("/book/rental")
+@Path("/book/rent")
 @Consumes("application/json")
 @Produces("application/json")
 public interface BookRentalRestService {

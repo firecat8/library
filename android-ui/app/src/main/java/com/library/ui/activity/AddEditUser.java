@@ -23,16 +23,18 @@ import com.library.ui.request.RequestFactory;
 import com.library.ui.request.URL_CONSTANTS;
 import com.library.ui.view_model.UserViewModel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 public class AddEditUser extends AppCompatActivity {
-    public static final String ROLE = "com.library.user.ROLE";
-    public static final String USER = "com.library.user.USER";
+    public static final String EXTRA_MODE = "com.library.user.EXTRA_MODE";
+    public static final String EXTRA_ROLE = "com.library.user.EXTRA_ROLE";
+    public static final String EXTRA_USER = "com.library.user.EXTRA_USER";
 
     private Calendar date = Calendar.getInstance();
     private UserViewModel userViewModel;
 
-    private EditText reg_date;
+    private EditText regDate;
     private EditText firstName;
     private EditText surname;
     private EditText lastName;
@@ -51,10 +53,11 @@ public class AddEditUser extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         Intent intent = getIntent();
-        role = intent.getStringExtra(ROLE);
+        UserVo user =(UserVo) intent.getSerializableExtra(EXTRA_USER);
+        role = intent.getStringExtra(EXTRA_ROLE);
         date.set(Calendar.SECOND, 0);
 
-        reg_date = findViewById(R.id.reg_date);
+        regDate = findViewById(R.id.reg_date);
         firstName = findViewById(R.id.first_name);
         surname = findViewById(R.id.surname);
         lastName = findViewById(R.id.last_name);
@@ -66,8 +69,8 @@ public class AddEditUser extends AppCompatActivity {
         password.setText(Utils.generatePassword(10));
         addUserButton = findViewById(R.id.add_user_button);
 
-        reg_date.setText(Utils.formatDate(date.getTimeInMillis()));
-        reg_date.setVisibility(View.GONE);
+        regDate.setText(Utils.formatDate(date.getTimeInMillis()));
+        regDate.setVisibility(View.GONE);
 
         if (role != null && role.equals(RolesVo.READER.name())) {
             setTitle("Reader form");
@@ -102,7 +105,7 @@ public class AddEditUser extends AppCompatActivity {
                 surname.getText().toString(),
                 lastName.getText().toString(),
                 phone.getText().toString(),
-                date
+                Calendar.getInstance()
         );
     }
 }

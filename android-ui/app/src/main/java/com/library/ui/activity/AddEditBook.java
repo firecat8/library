@@ -1,26 +1,19 @@
 package com.library.ui.activity;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.library.rest.api.vo.book.BookStatesVo;
-import com.library.rest.api.vo.book.BookStatusVo;
-import com.library.rest.api.vo.book.BookVo;
-import com.library.rest.api.vo.book.PublisherVo;
 import com.library.ui.R;
 import com.library.ui.view_model.BookViewModel;
 
-import java.time.Year;
-import java.util.UUID;
-
 public class AddEditBook extends AppCompatActivity {
+    public static final String EXTRA_BOOK = "com.library.book.EXTRA_BOOK";
+
     private BookViewModel bookViewModel;
     private EditText inventoryNumber;
     private EditText title;
@@ -53,7 +46,7 @@ public class AddEditBook extends AppCompatActivity {
         addBookButton = findViewById(R.id.add_btn);
         archiveBookButton = findViewById(R.id.archive_btn);
         discardBookButton = findViewById(R.id.discard_btn);
-        returnBookButton = findViewById(R.id.retrun_btn);
+        returnBookButton = findViewById(R.id.return_btn);
         rentBookButton = findViewById(R.id.rent_book_btn);
 /*
         addBookButton.setOnClickListener(v -> {

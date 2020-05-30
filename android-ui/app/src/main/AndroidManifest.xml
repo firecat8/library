@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.BookListActivity"></activity>
+        <activity android:name=".activity.AuthorListActivity"></activity>
+        <activity android:name=".activity.AddEditAuthor" />
+        <activity android:name=".activity.BookListActivity" />
         <activity android:name=".activity.AddEditBook" />
         <activity android:name=".activity.UserListActivity" />
         <activity android:name=".activity.AddEditUser" />

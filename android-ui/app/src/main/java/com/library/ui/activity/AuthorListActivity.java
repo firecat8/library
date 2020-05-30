@@ -16,51 +16,52 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.library.rest.api.vo.book.BookVo;
+import com.library.rest.api.vo.book.AuthorVo;
 import com.library.ui.R;
-import com.library.ui.adapter.BookAdapter;
-import com.library.ui.view_model.BookViewModel;
+import com.library.ui.adapter.AuthorAdapter;
+import com.library.ui.view_model.AuthorViewModel;
 
 import java.util.List;
 
-public class BookListActivity extends AppCompatActivity {
+public class AuthorListActivity extends AppCompatActivity {
     public static final int ADD_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
-    private BookAdapter bookAdapter;
-    private BookViewModel bookViewModel;
+    private AuthorAdapter authorAdapter;
+    private AuthorViewModel authorViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_list);
+        setContentView(R.layout.activity_author_list);
 
-        FloatingActionButton buttonAddNote = findViewById(R.id.button_add_book);
+        FloatingActionButton buttonAddNote = findViewById(R.id.button_add_author);
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
-                intent.putExtras(getIntent());
+                Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
+                intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.ADD_MODE);
                 startActivityForResult(intent, ADD_REQUEST);
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.book_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.author_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        bookAdapter = new BookAdapter();
-        recyclerView.setAdapter(bookAdapter);
+        authorAdapter = new AuthorAdapter();
+        recyclerView.setAdapter(authorAdapter);
 
-        bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
-        getAllBooks();
+        authorViewModel = new ViewModelProvider(this).get(AuthorViewModel.class);
+        getAllAuthors();
 
-        bookAdapter.setOnItemClickListener(new BookAdapter.OnItemClickListener() {
+        authorAdapter.setOnItemClickListener(new AuthorAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BookVo book) {
-                Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
+            public void onItemClick(AuthorVo author) {
+                Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
 
-                intent.putExtra("USER_ID", book.getId());
+                intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.EDIT_MODE);
+                intent.putExtra(AddEditAuthor.EXTRA_AUTHOR, author);
 
                 startActivityForResult(intent, EDIT_REQUEST);
             }
@@ -71,7 +72,7 @@ public class BookListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        getAllBooks();
+        getAllAuthors();
     }
 
     @Override
@@ -99,11 +100,11 @@ public class BookListActivity extends AppCompatActivity {
         finish();
     }
 
-    private void getAllBooks() {
-        bookViewModel.loadAll().observe(this, new Observer<List<BookVo>>() {
+    private void getAllAuthors() {
+        authorViewModel.loadAll().observe(this, new Observer<List<AuthorVo>>() {
             @Override
-            public void onChanged(@Nullable List<BookVo> books) {
-                bookAdapter.submitList(books);
+            public void onChanged(@Nullable List<AuthorVo> authors) {
+                authorAdapter.submitList(authors);
             }
         });
     }
