@@ -36,13 +36,10 @@ public class UserListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_list);
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_user);
-        buttonAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
-                intent.putExtras(getIntent());
-                startActivityForResult(intent, ADD_REQUEST);
-            }
+        buttonAddNote.setOnClickListener(v -> {
+            Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
+            intent.putExtras(getIntent());
+            startActivityForResult(intent, ADD_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.users_recycler_view);
@@ -55,15 +52,12 @@ public class UserListActivity extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         getAllUsers();
 
-        userAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(UserVo user) {
-                Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
+        userAdapter.setOnItemClickListener(user -> {
+            Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
 
-                intent.putExtra(AddEditUser.EXTRA_USER, user);
+            intent.putExtra(AddEditUser.EXTRA_USER, user);
 
-                startActivityForResult(intent, EDIT_REQUEST);
-            }
+            startActivityForResult(intent, EDIT_REQUEST);
         });
     }
 
@@ -99,11 +93,6 @@ public class UserListActivity extends AppCompatActivity {
     }
 
     private void getAllUsers() {
-        userViewModel.loadAll().observe(this, new Observer<List<UserVo>>() {
-            @Override
-            public void onChanged(@Nullable List<UserVo> users) {
-                userAdapter.submitList(users);
-            }
-        });
+        userViewModel.loadAll().observe(this, users -> userAdapter.submitList(users));
     }
 }
