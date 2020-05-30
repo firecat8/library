@@ -15,7 +15,7 @@ public class GenreViewModel extends AbstractViewModel<GenreVo, GenreRequest> {
     }
 
     @Override
-    protected GenreRequest getEntityRequest(GenreVo genreVo) {
+    protected GenreRequest makeEntityRequest(GenreVo genreVo) {
         return new GenreRequest(genreVo);
     }
 }

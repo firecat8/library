@@ -15,7 +15,7 @@ public class AuthorViewModel extends AbstractViewModel<AuthorVo, AuthorRequest> 
     }
 
     @Override
-    protected AuthorRequest getEntityRequest(AuthorVo authorVo) {
+    protected AuthorRequest makeEntityRequest(AuthorVo authorVo) {
         return new AuthorRequest(authorVo);
     }
 }

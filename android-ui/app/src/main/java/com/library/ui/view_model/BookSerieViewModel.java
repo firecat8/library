@@ -15,7 +15,7 @@ public class BookSerieViewModel extends AbstractViewModel<BookSerieVo, BookSerie
     }
 
     @Override
-    protected BookSerieRequest getEntityRequest(BookSerieVo bookSerieVo) {
+    protected BookSerieRequest makeEntityRequest(BookSerieVo bookSerieVo) {
         return new BookSerieRequest(bookSerieVo);
     }
 }

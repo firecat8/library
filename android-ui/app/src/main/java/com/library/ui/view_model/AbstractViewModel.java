@@ -44,7 +44,7 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends E
         oneEntity = new MutableLiveData<>();
         RequestFactory.getInstance(this.getApplication()).makeSaveRequest(
                 url,
-                getEntityRequest(entity),
+                makeEntityRequest(entity),
                 entityClass,
                 (Response.Listener<Entity>) response -> oneEntity.setValue(response)
         );
@@ -55,7 +55,7 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends E
         updateResult = new MutableLiveData<>();
         RequestFactory.getInstance(this.getApplication()).makeUpdateRequest(
                 url,
-                getEntityRequest(entity),
+                makeEntityRequest(entity),
                 SuccessResponse.class,
                 response -> updateResult.setValue(true)
         );
@@ -86,5 +86,5 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends E
         return allEntities;
     }
 
-    protected abstract Req getEntityRequest(Entity entity);
+    protected abstract Req makeEntityRequest(Entity entity);
 }

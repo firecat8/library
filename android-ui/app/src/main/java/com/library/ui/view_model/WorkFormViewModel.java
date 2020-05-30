@@ -15,7 +15,7 @@ public class WorkFormViewModel extends AbstractViewModel<WorkFormVo, WorkFormReq
     }
 
     @Override
-    protected WorkFormRequest getEntityRequest(WorkFormVo workFormVo) {
+    protected WorkFormRequest makeEntityRequest(WorkFormVo workFormVo) {
         return new WorkFormRequest(workFormVo);
     }
 }

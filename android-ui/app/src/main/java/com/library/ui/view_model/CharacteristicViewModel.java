@@ -15,7 +15,7 @@ public class CharacteristicViewModel extends AbstractViewModel<CharacteristicVo,
     }
 
     @Override
-    protected CharacteristicRequest getEntityRequest(CharacteristicVo characteristicVo) {
+    protected CharacteristicRequest makeEntityRequest(CharacteristicVo characteristicVo) {
         return new CharacteristicRequest(characteristicVo);
     }
 }

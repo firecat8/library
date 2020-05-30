@@ -15,7 +15,7 @@ public class BookViewModel extends AbstractViewModel<BookVo, BookRequest> {
     }
 
     @Override
-    protected BookRequest getEntityRequest(BookVo bookVo) {
+    protected BookRequest makeEntityRequest(BookVo bookVo) {
         return new BookRequest(bookVo);
     }
 }

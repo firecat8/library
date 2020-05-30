@@ -13,32 +13,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.library.rest.api.vo.user.UserVo;
 import com.library.ui.R;
 
+import org.jetbrains.annotations.NotNull;
+
 
 public class UserAdapter extends ListAdapter<UserVo, UserAdapter.UserVoHolder> {
-    private static final DiffUtil.ItemCallback<UserVo> DIFF_CALLBACK = new DiffUtil.ItemCallback<UserVo>() {
-        @Override
-        public boolean areItemsTheSame(UserVo oldItem, UserVo newItem) {
-            return oldItem.getId().equals(newItem.getId());
-        }
-
-        @Override
-        public boolean areContentsTheSame(UserVo oldItem, UserVo newItem) {
-            return oldItem.getId().equals(newItem.getId()) &&
-                    oldItem.getEmail().equals(newItem.getEmail()) &&
-                    oldItem.getUserName().equals(newItem.getUserName());
-        }
-    };
     private OnItemClickListener listener;
 
     public UserAdapter() {
-        super(DIFF_CALLBACK);
+        super(new DiffUtil.ItemCallback<UserVo>() {
+            @Override
+            public boolean areItemsTheSame(@NotNull UserVo oldItem,@NotNull  UserVo newItem) {
+                return oldItem.getId().equals(newItem.getId());
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NotNull UserVo oldItem,@NotNull  UserVo newItem) {
+                return oldItem.getId().equals(newItem.getId()) &&
+                        oldItem.getEmail().equals(newItem.getEmail()) &&
+                        oldItem.getUserName().equals(newItem.getUserName());
+            }
+        });
     }
 
     @NonNull
     @Override
     public UserVoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_user_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_user_item, parent, false);
         return new UserVoHolder(itemView);
     }
 
@@ -74,13 +74,10 @@ public class UserAdapter extends ListAdapter<UserVo, UserAdapter.UserVoHolder> {
             fullName = itemView.findViewById(R.id.text_view_full_name);
             username = itemView.findViewById(R.id.text_view_user_name);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getUserVoAt(position));
-                    }
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(getUserVoAt(position));
                 }
             });
         }

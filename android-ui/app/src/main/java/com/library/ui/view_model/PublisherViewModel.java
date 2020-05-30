@@ -15,7 +15,7 @@ public class PublisherViewModel extends AbstractViewModel<PublisherVo, Publisher
     }
 
     @Override
-    protected PublisherRequest getEntityRequest(PublisherVo publisherVo) {
+    protected PublisherRequest makeEntityRequest(PublisherVo publisherVo) {
         return new PublisherRequest(publisherVo);
     }
 }

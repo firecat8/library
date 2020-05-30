@@ -15,7 +15,7 @@ public class UserViewModel extends AbstractViewModel<UserVo, UserRequest> {
     }
 
     @Override
-    protected UserRequest getEntityRequest(UserVo userVo) {
+    protected UserRequest makeEntityRequest(UserVo userVo) {
         return new UserRequest(userVo);
     }
 }
