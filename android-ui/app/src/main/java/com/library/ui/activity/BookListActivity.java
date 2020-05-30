@@ -36,13 +36,10 @@ public class BookListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_list);
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_book);
-        buttonAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
-                intent.putExtras(getIntent());
-                startActivityForResult(intent, ADD_REQUEST);
-            }
+        buttonAddNote.setOnClickListener(v -> {
+            Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
+            intent.putExtras(getIntent());
+            startActivityForResult(intent, ADD_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.book_recycler_view);
@@ -55,15 +52,12 @@ public class BookListActivity extends AppCompatActivity {
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         getAllBooks();
 
-        bookAdapter.setOnItemClickListener(new BookAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BookVo book) {
-                Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
+        bookAdapter.setOnItemClickListener(book -> {
+            Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
 
-                intent.putExtra("USER_ID", book.getId());
+            intent.putExtra("USER_ID", book.getId());
 
-                startActivityForResult(intent, EDIT_REQUEST);
-            }
+            startActivityForResult(intent, EDIT_REQUEST);
         });
     }
 
@@ -100,11 +94,6 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     private void getAllBooks() {
-        bookViewModel.loadAll().observe(this, new Observer<List<BookVo>>() {
-            @Override
-            public void onChanged(@Nullable List<BookVo> books) {
-                bookAdapter.submitList(books);
-            }
-        });
+        bookViewModel.loadAll().observe(this, books -> bookAdapter.submitList(books));
     }
 }

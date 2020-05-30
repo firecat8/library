@@ -15,15 +15,15 @@ import com.library.ui.request.RequestFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends EntityRequest> extends AndroidViewModel {
-    private final Class entityClass;
+public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends EntityRequest<Entity>> extends AndroidViewModel {
+    private final Class<Entity> entityClass;
     private final String url;
     private MutableLiveData<List<Entity>> allEntities;
     private MutableLiveData<Entity> oneEntity;
     private MutableLiveData<Boolean> deleteResult;
     private MutableLiveData<Boolean> updateResult;
 
-    public AbstractViewModel(Class entityClass, String url, @NonNull Application application) {
+    public AbstractViewModel(Class<Entity> entityClass, String url, @NonNull Application application) {
         super(application);
         this.entityClass = entityClass;
         this.url = url;
