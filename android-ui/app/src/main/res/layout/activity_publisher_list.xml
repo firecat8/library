@@ -1,0 +1,23 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PublisherListActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/characteristic_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/activity_named_item" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_add_publisher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="32dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
