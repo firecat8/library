@@ -36,7 +36,7 @@ public class BookRentalListActivity extends AppCompatActivity {
             startActivityForResult(intent, CREATE_REQUEST);
         });
 
-        RecyclerView recyclerView = findViewById(R.id.book_series_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.book_rental_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 

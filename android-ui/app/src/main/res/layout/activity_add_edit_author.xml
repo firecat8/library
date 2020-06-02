@@ -49,14 +49,16 @@
         android:layout_marginBottom="5dp"
         android:backgroundTint="#104073"
         android:text="@string/add"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
     <Button
         android:id="@+id/update_author_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:backgroundTint="#104073"
-        android:text="@string/add"
-        android:textColor="#FFFFFF" />
+        android:text="@string/edit"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

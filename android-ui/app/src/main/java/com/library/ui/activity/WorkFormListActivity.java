@@ -66,6 +66,7 @@ public class WorkFormListActivity extends AppCompatActivity {
             if (mode.equals(AddEditWorkForm.ADD_MODE)) {
                 setResult(RESULT_OK, data);
                 finish();
+                return;
             }
             Toast.makeText(this, "Successfully added work form!", Toast.LENGTH_SHORT).show();
             return;
@@ -74,6 +75,7 @@ public class WorkFormListActivity extends AppCompatActivity {
             if (mode.equals(AddEditWorkForm.ADD_MODE)) {
                 setResult(RESULT_OK, data);
                 finish();
+                return;
             }
             Toast.makeText(this, "Successfully changed work form!", Toast.LENGTH_SHORT).show();
             return;

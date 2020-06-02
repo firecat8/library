@@ -2,8 +2,10 @@ package com.library.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +30,7 @@ public class AddEditAuthor extends AppCompatActivity {
     private EditText birthPlace;
     private EditText biography;
     private Button addButton;
+    private Button editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,36 +44,63 @@ public class AddEditAuthor extends AppCompatActivity {
         birthPlace = findViewById(R.id.birth_place);
         biography = findViewById(R.id.biography);
         addButton = findViewById(R.id.add_author_button);
-        addButton.setOnClickListener(v -> {
-            authorViewModel.save(makeAuthor()).observe(this, insertedUser -> {
-                setResult(RESULT_OK, new Intent());
-                finish();
-            });
-        });
+
         Intent intent = getIntent();
         String mode = intent.getStringExtra(EXTRA_MODE);
         if (mode == null)
             throw new RuntimeException("Missing work mode!");
         switch (mode) {
             case CREATE_MODE:
-                handleAddMode();
+                addButton.setVisibility(View.VISIBLE);
+                addButton.setOnClickListener(v -> {
+                    AuthorVo author = makeAuthor();
+                    if (author == null) {
+                        return;
+                    }
+                    authorViewModel.save(author).observe(this, authorVo -> {
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra(EXTRA_AUTHOR, authorVo);
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                    });
+                });
                 break;
             case EDIT_MODE:
+                addButton.setVisibility(View.VISIBLE);
                 AuthorVo author = (AuthorVo) intent.getSerializableExtra(EXTRA_AUTHOR);
-                handleEditMode(author);
+                fillData(author);
+                addButton.setOnClickListener(v -> {
+                    AuthorVo created = makeAuthor();
+                    if (created == null) {
+                        return;
+                    }
+                    created.setId(author.getId());
+                    authorViewModel.update(created).observe(this, authorVo -> {
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra(EXTRA_AUTHOR, authorVo);
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                    });
+                });
                 break;
             default:
                 throw new RuntimeException("Missing or not valid mode!");
         }
     }
 
-    private void handleEditMode(AuthorVo author) {
-    }
-
-    private void handleAddMode() {
+    private void fillData(AuthorVo authorVo) {
+        authorName.setText(authorVo.getName());
+        biography.setText(authorVo.getBiography());
+        birthPlace.setText(authorVo.getBirthPlace());
+        birthDate.setText(Utils.formatDate(authorVo.getBirthDate().convetToCalendar().getTimeInMillis()));
     }
 
     private AuthorVo makeAuthor() {
+        String name = authorName.getText().toString();
+        if (name.isEmpty()) {
+            Toast.makeText(this, "Required author name!", Toast.LENGTH_SHORT).show();
+            return null;
+        }
         Long birthInMS = Utils.parseDate(birthDate.getText().toString());
         Calendar birth = Calendar.getInstance();
         if (birthInMS != null) {

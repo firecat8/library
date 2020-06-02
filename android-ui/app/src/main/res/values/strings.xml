@@ -63,4 +63,5 @@
     <string name="rent_types_spinner">Rent types spinner</string>
     <string name="return_deadline">Return deadline</string>
     <string name="receivable_date">Receivable date</string>
+    <string name="edit">Edit</string>
 </resources>

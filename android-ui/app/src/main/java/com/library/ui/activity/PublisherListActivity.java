@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.library.ui.R;
@@ -23,20 +24,22 @@ public class PublisherListActivity extends AppCompatActivity {
 
     private PublisherAdapter publisherAdapter;
     private PublisherViewModel publisherViewModel;
+    private Intent mainIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publisher_list);
 
+        mainIntent = getIntent();
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_publisher);
         buttonAddNote.setOnClickListener(v -> {
-            Intent intent = new Intent(PublisherListActivity.this, AddEditPublisher.class);
-            intent.putExtras(getIntent());
+            Intent intent = new Intent(this, AddEditPublisher.class);
+            intent.putExtra(AddEditPublisher.EXTRA_MODE, AddEditPublisher.CREATE_MODE);
             startActivityForResult(intent, CREATE_REQUEST);
         });
 
-        RecyclerView recyclerView = findViewById(R.id.book_series_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.publishers_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
@@ -47,8 +50,9 @@ public class PublisherListActivity extends AppCompatActivity {
         getAllPublishers();
 
         publisherAdapter.setOnItemClickListener(publisher -> {
-            Intent intent = new Intent(PublisherListActivity.this, AddEditPublisher.class);
+            Intent intent = new Intent(this, AddEditPublisher.class);
 
+            intent.putExtras(mainIntent);
             intent.putExtra(AddEditPublisher.EXTRA_ENTITY, publisher);
 
             startActivityForResult(intent, EDIT_REQUEST);
@@ -58,6 +62,26 @@ public class PublisherListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String mode = mainIntent.getStringExtra(AddEditPublisher.EXTRA_MODE);
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_OK) {
+            if (mode.equals(AddEditPublisher.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully added !", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (requestCode == EDIT_REQUEST && resultCode == RESULT_OK) {
+            if (mode.equals(AddEditPublisher.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully changed !", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, "No request", Toast.LENGTH_SHORT).show();
         getAllPublishers();
     }
 
@@ -80,7 +104,7 @@ public class PublisherListActivity extends AppCompatActivity {
     }
 
     private void logoutNow() {
-        Intent intent = new Intent(PublisherListActivity.this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         setResult(Activity.RESULT_OK);
         finish();

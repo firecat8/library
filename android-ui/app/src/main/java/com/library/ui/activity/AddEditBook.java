@@ -3,6 +3,7 @@ package com.library.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public class AddEditBook extends AppCompatActivity {
     public static final String ARCHIVE_MODE = "ARCHIVE_MODE";
     public static final String DELETE_MODE = "DELETE_MODE";
     public static final String RENT_MODE = "RENT_MODE";
+    public static final String TAG = "AddEditBook";
 
     public static final int ADD_AUTHOR_REQUEST = 1;
     public static final int ADD_PUBLISHER_REQUEST = 2;
@@ -218,7 +220,7 @@ public class AddEditBook extends AppCompatActivity {
                 return;
             }
             authorName.setText(author.getName());
-            Toast.makeText(this, "Successfully added author!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "\nMode is Successfully added author!\n");
             return;
         }
         if (requestCode == ADD_PUBLISHER_REQUEST && resultCode == RESULT_OK) {
@@ -228,7 +230,7 @@ public class AddEditBook extends AppCompatActivity {
                 return;
             }
             publisherName.setText(publisher.getName());
-            Toast.makeText(this, "Successfully added publisher!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "\nMode is Successfully added publisher!\n");
             return;
         }
         if (requestCode == ADD_GENRE_REQUEST && resultCode == RESULT_OK) {
@@ -239,7 +241,7 @@ public class AddEditBook extends AppCompatActivity {
             }
             genreName.setText(genre.getName());
             genres.set(0, genre);
-            Toast.makeText(this, "Successfully added book genre!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "\nMode is Successfully added book genre!\n");
             return;
         }
         if (requestCode == ADD_CHARACTERISTIC_REQUEST && resultCode == RESULT_OK) {
@@ -250,17 +252,17 @@ public class AddEditBook extends AppCompatActivity {
             }
             characteristicName.setText(characteristic.getName());
             characteristics.set(0, characteristic);
-            Toast.makeText(this, "Successfully added characteristic!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "\nMode is Successfully added characteristic!\n");
             return;
         }
         if (requestCode == ADD_WORK_FORM_REQUEST && resultCode == RESULT_OK) {
             workForm = (WorkFormVo) data.getSerializableExtra(AddEditWorkForm.EXTRA_ENTITY);
             if (workForm == null) {
-                Toast.makeText(this, "Not added book serie!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Not added work form!", Toast.LENGTH_SHORT).show();
                 return;
             }
             workFormName.setText(workForm.getName());
-            Toast.makeText(this, "Successfully added book serie!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "\nSuccessfully added work form!\n");
             return;
         }
         if (requestCode == ADD_BOOK_SERIE_REQUEST && resultCode == RESULT_OK) {
@@ -270,7 +272,7 @@ public class AddEditBook extends AppCompatActivity {
                 return;
             }
             bookSerieName.setText(bookSerie.getName());
-            Toast.makeText(this, "Successfully added book serie!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "\nSuccessfully added book serie!\n");
             return;
         }
         Toast.makeText(this, "No result", Toast.LENGTH_SHORT).show();

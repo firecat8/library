@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,16 +24,18 @@ public class BookSerieListActivity extends AppCompatActivity {
 
     private BookSerieAdapter bookSerieAdapter;
     private BookSerieViewModel bookSerieViewModel;
+    private Intent mainIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_serie_list);
 
+        mainIntent = getIntent();
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_book_serie);
         buttonAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddEditBookSerie.class);
-            intent.putExtras(getIntent());
+            intent.putExtra(AddEditBookSerie.EXTRA_MODE, AddEditBookSerie.CREATE_MODE);
             startActivityForResult(intent, CREATE_REQUEST);
         });
 
@@ -49,6 +52,7 @@ public class BookSerieListActivity extends AppCompatActivity {
         bookSerieAdapter.setOnItemClickListener(bookSerie -> {
             Intent intent = new Intent(BookSerieListActivity.this, AddEditBookSerie.class);
 
+            intent.putExtras(mainIntent);
             intent.putExtra(AddEditBookSerie.EXTRA_ENTITY, bookSerie);
 
             startActivityForResult(intent, EDIT_REQUEST);
@@ -58,6 +62,26 @@ public class BookSerieListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String mode = mainIntent.getStringExtra(AddEditBookSerie.EXTRA_MODE);
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_OK) {
+            if (mode.equals(AddEditBookSerie.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully added !", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (requestCode == EDIT_REQUEST && resultCode == RESULT_OK) {
+            if (mode.equals(AddEditBookSerie.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully changed !", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, "No request", Toast.LENGTH_SHORT).show();
         getAllBookSeries();
     }
 

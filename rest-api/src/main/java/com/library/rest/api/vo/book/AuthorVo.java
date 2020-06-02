@@ -42,11 +42,11 @@ public class AuthorVo extends NamedEntityVo {
         this.birthPlace = birthPlace;
     }
 
-    public DateVo getBirthdate() {
+    public DateVo getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthdate(DateVo birthDate) {
+    public void setBirthDate(DateVo birthDate) {
         this.birthDate = birthDate;
     }
 

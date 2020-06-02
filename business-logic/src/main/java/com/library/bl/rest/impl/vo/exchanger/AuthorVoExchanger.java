@@ -20,7 +20,7 @@ public class AuthorVoExchanger extends VoEntityExchanger<AuthorVo, Author> {
 
     @Override
     protected Author exchangeFrom(AuthorVo Vo) {
-        return new Author(Vo.getName(), Vo.getBiography(), Vo.getBirthPlace(), Vo.getBirthdate().convetToCalendar());
+        return new Author(Vo.getName(), Vo.getBiography(), Vo.getBirthPlace(), Vo.getBirthDate().convetToCalendar());
     }
 
     @Override

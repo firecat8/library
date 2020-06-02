@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,20 +25,22 @@ public class CharacteristicListActivity extends AppCompatActivity {
 
     private CharacteristicAdapter characteristicAdapter;
     private CharacteristicViewModel characteristicViewModel;
+    private Intent mainIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_characteristic_list);
 
+        mainIntent = getIntent();
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_characteristic);
         buttonAddNote.setOnClickListener(v -> {
-            Intent intent = new Intent(CharacteristicListActivity.this, AddEditCharacteristic.class);
-            intent.putExtras(getIntent());
+            Intent intent = new Intent(this, AddEditCharacteristic.class);
+            intent.putExtra(AddEditCharacteristic.EXTRA_MODE, AddEditCharacteristic.CREATE_MODE);
             startActivityForResult(intent, CREATE_REQUEST);
         });
 
-        RecyclerView recyclerView = findViewById(R.id.book_series_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.characteristic_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
@@ -50,6 +53,7 @@ public class CharacteristicListActivity extends AppCompatActivity {
         characteristicAdapter.setOnItemClickListener(characteristic -> {
             Intent intent = new Intent(CharacteristicListActivity.this, AddEditCharacteristic.class);
 
+            intent.putExtras(mainIntent);
             intent.putExtra(AddEditCharacteristic.EXTRA_ENTITY, characteristic);
 
             startActivityForResult(intent, EDIT_REQUEST);
@@ -59,6 +63,26 @@ public class CharacteristicListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String mode = mainIntent.getStringExtra(AddEditCharacteristic.EXTRA_MODE);
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_OK) {
+            if (mode.equals(AddEditCharacteristic.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully added publisher!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (requestCode == EDIT_REQUEST && resultCode == RESULT_OK) {
+            if (mode.equals(AddEditCharacteristic.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully changed publisher!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, "No request", Toast.LENGTH_SHORT).show();
         getAllCharacteristics();
     }
 

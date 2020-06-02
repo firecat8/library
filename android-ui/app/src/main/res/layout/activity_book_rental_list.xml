@@ -6,7 +6,7 @@
     tools:context=".activity.BookRentalListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/book_series_recycler_view"
+        android:id="@+id/book_rental_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/activity_book_rent_item" />

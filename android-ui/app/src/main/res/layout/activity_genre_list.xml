@@ -6,7 +6,7 @@
     tools:context=".activity.GenreListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/characteristic_recycler_view"
+        android:id="@+id/genres_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/activity_named_item" />
