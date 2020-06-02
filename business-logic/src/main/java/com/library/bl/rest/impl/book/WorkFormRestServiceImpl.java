@@ -10,6 +10,9 @@ import com.library.rest.api.book.WorkFormRestService;
 import com.library.rest.api.request.WorkFormRequest;
 import com.library.rest.api.request.WorkFormsRequest;
 import com.library.rest.api.vo.book.WorkFormVo;
+import com.library.rest.api.vo.list.WorkFormsListVo;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -17,10 +20,10 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class WorkFormRestServiceImpl extends AbstractRestService<WorkFormDao, WorkFormVo, WorkForm> implements WorkFormRestService {
+public class WorkFormRestServiceImpl extends AbstractRestService<WorkFormDao, WorkFormVo, WorkForm, WorkFormsListVo> implements WorkFormRestService {
 
     public WorkFormRestServiceImpl(DaoRegistryFactory factory) {
-        super(factory,WorkFormVoExchanger.INSTANCE);
+        super(factory, WorkFormVoExchanger.INSTANCE);
     }
 
     @Override
@@ -55,7 +58,19 @@ public class WorkFormRestServiceImpl extends AbstractRestService<WorkFormDao, Wo
 
     @Override
     protected Set<String> validate(WorkForm entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<String> errors = new HashSet<>();
+        if (entity.getName().isBlank()) {
+            errors.add("Blank name.");
+        }
+        if (entity.getName().isEmpty()) {
+            errors.add("Empty name.");
+        }
+        return errors;
+    }
+
+    @Override
+    protected WorkFormsListVo makeListVo(List<WorkFormVo> entities) {
+        return new WorkFormsListVo(entities);
     }
 
 }

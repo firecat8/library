@@ -35,7 +35,8 @@ public abstract class AbstractCrudDao<D extends AbstractDto, E extends Entity> e
 
     @Override
     public int update(E e) {
-        return super.update(exchanger.exchange(e), new HashMap<>());
+        D dto = exchanger.exchange(e);
+        return super.update(dto, loadProperties(dto));
     }
 
     @Override

@@ -24,7 +24,7 @@ import com.library.ui.view_model.BookViewModel;
 import java.util.List;
 
 public class BookListActivity extends AppCompatActivity {
-    public static final int ADD_REQUEST = 1;
+    public static final int CREATE_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
     private BookAdapter bookAdapter;
@@ -39,7 +39,7 @@ public class BookListActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(BookListActivity.this, AddEditBook.class);
             intent.putExtras(getIntent());
-            startActivityForResult(intent, ADD_REQUEST);
+            startActivityForResult(intent, CREATE_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.book_recycler_view);

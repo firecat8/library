@@ -13,6 +13,8 @@ import com.library.ui.R;
 public class OperatorMenu extends AppCompatActivity {
 
     public static final int ADD_USER_REQUEST = 1;
+    public static final int ADD_BOOK_REQUEST = 2;
+    public static final int ADD_RENT_BOOK_REQUEST = 3;
 
     private Button addBookButton;
     private Button rentBookButton;
@@ -27,8 +29,19 @@ public class OperatorMenu extends AppCompatActivity {
         addReaderButton = findViewById(R.id.add_reader_btn);
         addReaderButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddEditUser.class);
-            intent.putExtra(AddEditUser.ROLE, RolesVo.READER);
+            intent.putExtra(AddEditUser.EXTRA_ROLE, RolesVo.READER);
+            intent.putExtra(AddEditUser.EXTRA_MODE, AddEditUser.ADD_READER_FORM_MODE);
             startActivityForResult(intent, ADD_USER_REQUEST);
+        });
+        addBookButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddEditBook.class);
+            intent.putExtra(AddEditBook.EXTRA_MODE, AddEditBook.CREATE_MODE);
+            startActivityForResult(intent, ADD_BOOK_REQUEST);
+        });
+        rentBookButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddEditBookRent.class);
+           // intent.putExtra(AddEditBookRent.EXTRA_MODE, AddEditBookRent.);
+            startActivityForResult(intent, ADD_RENT_BOOK_REQUEST);
         });
     }
 
@@ -39,12 +52,20 @@ public class OperatorMenu extends AppCompatActivity {
             Toast.makeText(this, "Successfully saved reader!", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(this, "No event for the reader", Toast.LENGTH_SHORT).show();
+        if (requestCode == ADD_BOOK_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Successfully added book!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (requestCode == ADD_RENT_BOOK_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Successfully rent book!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, "No event for the menu request", Toast.LENGTH_SHORT).show();
     }
 
     private void addUserIntent(RolesVo rolesVo) {
         Intent intent = new Intent(this, AddEditUser.class);
-        intent.putExtra(AddEditUser.ROLE, rolesVo.name());
+        intent.putExtra(AddEditUser.EXTRA_ROLE, rolesVo.name());
         startActivityForResult(intent, ADD_USER_REQUEST);
     }
 }

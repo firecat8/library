@@ -8,6 +8,7 @@ import com.library.dao.BookSerieDao;
 import com.library.domain.book.BookSerie;
 import com.library.dto.BookSerieDto;
 import com.library.dto.exchanger.BookSerieDtoExchanger;
+import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,9 @@ public class BookSerieDaoImpl extends AbstractCrudDao<BookSerieDto, BookSerie> i
 
     @Override
     protected Map<String, Object> loadProperties(BookSerieDto newOne) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", newOne.getName());
+        return map;
     }
 
 }

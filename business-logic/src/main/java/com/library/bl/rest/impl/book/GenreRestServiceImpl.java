@@ -10,6 +10,9 @@ import com.library.rest.api.book.GenreRestService;
 import com.library.rest.api.request.GenreRequest;
 import com.library.rest.api.request.GenresRequest;
 import com.library.rest.api.vo.book.GenreVo;
+import com.library.rest.api.vo.list.GenresListVo;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -17,7 +20,7 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class GenreRestServiceImpl extends AbstractRestService< GenreDao, GenreVo, Genre> implements GenreRestService {
+public class GenreRestServiceImpl extends AbstractRestService< GenreDao, GenreVo, Genre,GenresListVo> implements GenreRestService {
 
     public GenreRestServiceImpl(DaoRegistryFactory factory) {
         super(factory, GenreVoExchanger.INSTANCE);
@@ -55,6 +58,18 @@ public class GenreRestServiceImpl extends AbstractRestService< GenreDao, GenreVo
 
     @Override
     protected Set<String> validate(Genre entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<String> errors = new HashSet<>();
+        if (entity.getName().isBlank()) {
+            errors.add("Blank name.");
+        }
+        if (entity.getName().isEmpty()) {
+            errors.add("Empty name.");
+        }
+        return errors;
+    }
+
+    @Override
+    protected GenresListVo makeListVo(List<GenreVo> entities) {
+        return new GenresListVo(entities);
     }
 }

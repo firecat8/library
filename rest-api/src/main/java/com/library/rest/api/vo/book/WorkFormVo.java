@@ -8,6 +8,8 @@ import com.library.rest.api.vo.NamedEntityVo;
  */
 public class WorkFormVo extends NamedEntityVo{
 
+    public WorkFormVo() {
+    }
     public WorkFormVo(String name) {
         super(name);
     }

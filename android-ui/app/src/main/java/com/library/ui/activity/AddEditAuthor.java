@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.book.AuthorVo;
-import com.library.rest.api.vo.user.UserVo;
 import com.library.ui.R;
 import com.library.ui.Utils;
 import com.library.ui.view_model.AuthorViewModel;
@@ -21,7 +19,7 @@ import java.util.Calendar;
 public class AddEditAuthor extends AppCompatActivity {
     public static final String EXTRA_MODE = "com.library.book.EXTRA_MODE";
     public static final String EXTRA_AUTHOR = "com.library.book.EXTRA_AUTHOR";
-    public static final String ADD_MODE = "ADD_MODE";
+    public static final String CREATE_MODE = "CREATE_MODE";
     public static final String EDIT_MODE = "EDIT_MODE";
 
     private AuthorViewModel authorViewModel;
@@ -54,11 +52,11 @@ public class AddEditAuthor extends AppCompatActivity {
         if (mode == null)
             throw new RuntimeException("Missing work mode!");
         switch (mode) {
-            case ADD_MODE:
+            case CREATE_MODE:
                 handleAddMode();
                 break;
             case EDIT_MODE:
-                AuthorVo author =(AuthorVo) intent.getSerializableExtra(EXTRA_AUTHOR);
+                AuthorVo author = (AuthorVo) intent.getSerializableExtra(EXTRA_AUTHOR);
                 handleEditMode(author);
                 break;
             default:
@@ -82,7 +80,7 @@ public class AddEditAuthor extends AppCompatActivity {
                 authorName.getText().toString(),
                 biography.getText().toString(),
                 birthPlace.getText().toString(),
-                birthInMS != null ? birth : null
+                birthInMS != null ? new DateVo(birth) : null
         );
     }
 }

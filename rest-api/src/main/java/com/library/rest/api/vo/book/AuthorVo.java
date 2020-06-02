@@ -1,7 +1,7 @@
 package com.library.rest.api.vo.book;
 
+import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.NamedEntityVo;
-import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -14,9 +14,12 @@ public class AuthorVo extends NamedEntityVo {
 
     private String birthPlace;
 
-    private Calendar birthDate;
+    private DateVo birthDate;
 
-    public AuthorVo(String name, String biography, String birthPlace, Calendar birthDate) {
+    public AuthorVo() {
+    }
+
+    public AuthorVo(String name, String biography, String birthPlace, DateVo birthDate) {
         super(name);
         this.biography = biography;
         this.birthPlace = birthPlace;
@@ -39,11 +42,11 @@ public class AuthorVo extends NamedEntityVo {
         this.birthPlace = birthPlace;
     }
 
-    public Calendar getBirthdate() {
+    public DateVo getBirthdate() {
         return birthDate;
     }
 
-    public void setBirthdate(Calendar birthDate) {
+    public void setBirthdate(DateVo birthDate) {
         this.birthDate = birthDate;
     }
 

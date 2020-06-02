@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +23,7 @@ import com.library.ui.view_model.AuthorViewModel;
 import java.util.List;
 
 public class AuthorListActivity extends AppCompatActivity {
-    public static final int ADD_REQUEST = 1;
+    public static final int CREATE_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
     private AuthorAdapter authorAdapter;
@@ -36,13 +35,10 @@ public class AuthorListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_author_list);
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_author);
-        buttonAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
-                intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.ADD_MODE);
-                startActivityForResult(intent, ADD_REQUEST);
-            }
+        buttonAddNote.setOnClickListener(v -> {
+            Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
+            intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.CREATE_MODE);
+            startActivityForResult(intent, CREATE_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.author_recycler_view);
@@ -55,16 +51,13 @@ public class AuthorListActivity extends AppCompatActivity {
         authorViewModel = new ViewModelProvider(this).get(AuthorViewModel.class);
         getAllAuthors();
 
-        authorAdapter.setOnItemClickListener(new AuthorAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(AuthorVo author) {
-                Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
+        authorAdapter.setOnItemClickListener(author -> {
+            Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
 
-                intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.EDIT_MODE);
-                intent.putExtra(AddEditAuthor.EXTRA_AUTHOR, author);
+            intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.EDIT_MODE);
+            intent.putExtra(AddEditAuthor.EXTRA_AUTHOR, author);
 
-                startActivityForResult(intent, EDIT_REQUEST);
-            }
+            startActivityForResult(intent, EDIT_REQUEST);
         });
     }
 

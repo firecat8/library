@@ -10,6 +10,8 @@ import com.library.rest.api.book.AuthorRestService;
 import com.library.rest.api.request.AuthorRequest;
 import com.library.rest.api.request.AuthorsRequest;
 import com.library.rest.api.vo.book.AuthorVo;
+import com.library.rest.api.vo.list.AuthorsListVo;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -17,7 +19,7 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class AuthorRestServiceImpl extends AbstractRestService<AuthorDao, AuthorVo, Author> implements AuthorRestService {
+public class AuthorRestServiceImpl extends AbstractRestService<AuthorDao, AuthorVo, Author,AuthorsListVo> implements AuthorRestService {
 
     public AuthorRestServiceImpl(DaoRegistryFactory factory) {
         super(factory, AuthorVoExchanger.INSTANCE);
@@ -56,6 +58,11 @@ public class AuthorRestServiceImpl extends AbstractRestService<AuthorDao, Author
     @Override
     protected Set<String> validate(Author entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected AuthorsListVo makeListVo(List<AuthorVo> entities) {
+        return new AuthorsListVo(entities);
     }
 
 }

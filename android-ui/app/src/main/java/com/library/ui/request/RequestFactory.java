@@ -1,19 +1,20 @@
 package com.library.ui.request;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.library.rest.api.request.LoginRequest;
 import com.library.rest.api.vo.user.UserVo;
 
 public class RequestFactory {
+    private static final String TAG = "RequestFactory";
     private static RequestFactory instance;
     private final Gson gson = new Gson();
     private Context context;
@@ -42,19 +43,23 @@ public class RequestFactory {
     public <T, Req> void makeUpdateRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
         makeRequest(Request.Method.POST, svcURL + "/update", gson.toJson(request), clazz, listener);
     }
+
     public <T, Req> void makeLoadRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
         makeRequest(Request.Method.GET, svcURL + "/load", gson.toJson(request), clazz, listener);
     }
+
     public <T, Req> void makeDeleteRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
         makeRequest(Request.Method.DELETE, svcURL + "/delete", gson.toJson(request), clazz, listener);
     }
 
     public <T, Req> void makeLoadAllRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
-        makeRequest(Request.Method.POST, svcURL + "/loadAll", gson.toJson(request), clazz, listener);
+        makeRequest(Request.Method.GET, svcURL + "/loadAll", request == null ? null : gson.toJson(request), clazz,
+               // new TypeToken<T>() { }.getType(),
+                listener);
     }
 
     private <T> void makeRequest(int method, String url, String requestBody, Class<T> clazz, Response.Listener<T> listener) {
-        addToRequestQueue(new JsonRequest<T>(method, url, requestBody, clazz, context, listener, getErrorListener()));
+        addToRequestQueue(new JsonRequest<T>(method, url, requestBody, clazz, null, context, listener, getErrorListener()));
     }
 
     private RequestQueue getRequestQueue() {
@@ -69,15 +74,15 @@ public class RequestFactory {
     }
 
     private Response.ErrorListener getErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof NetworkError) {
-                    Toast.makeText(context, "No network is available", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+        return error -> {
+            if (error.getMessage() != null) {
+                Log.i(TAG, "\n"+error.getMessage()+"\n");
             }
+            if (error instanceof NetworkError) {
+                Toast.makeText(context, "No network is available", Toast.LENGTH_LONG).show();
+                return;
+            }
+            Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
         };
     }
 

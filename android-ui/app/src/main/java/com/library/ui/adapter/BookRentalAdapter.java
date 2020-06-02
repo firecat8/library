@@ -46,7 +46,7 @@ public class BookRentalAdapter extends ListAdapter<BookRentalVo, BookRentalAdapt
     public void onBindViewHolder(@NonNull BookRentalAdapter.BookRentalVoHolder holder, int position) {
         BookRentalVo current = getBookRentalVoAt(position);
         holder.title.setText(current.getBook().getTitle());
-        holder.deadline.setText(Utils.formatDate(current.getReturnDeadLine().getTimeInMillis()));
+        holder.deadline.setText(Utils.formatDate(current.getReturnDeadLine().convetToCalendar().getTimeInMillis()));
     }
 
 

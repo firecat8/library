@@ -10,6 +10,8 @@ import com.library.rest.api.book.BookRestService;
 import com.library.rest.api.request.BookRequest;
 import com.library.rest.api.request.BooksRequest;
 import com.library.rest.api.vo.book.BookVo;
+import com.library.rest.api.vo.list.BooksListVo;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -17,7 +19,7 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class BookRestServiceImpl extends AbstractRestService<BookDao, BookVo, Book> implements BookRestService {
+public class BookRestServiceImpl extends AbstractRestService<BookDao, BookVo, Book,BooksListVo> implements BookRestService {
 
     public BookRestServiceImpl(DaoRegistryFactory factory) {
         super(factory, BookVoExchanger.INSTANCE);
@@ -56,6 +58,11 @@ public class BookRestServiceImpl extends AbstractRestService<BookDao, BookVo, Bo
     @Override
     protected Set<String> validate(Book entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected BooksListVo makeListVo(List<BookVo> entities) {
+        return new BooksListVo(entities);
     }
 
 }

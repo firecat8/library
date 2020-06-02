@@ -8,6 +8,9 @@ import com.library.rest.api.vo.NamedEntityVo;
  */
 public class CharacteristicVo extends NamedEntityVo{
 
+    public CharacteristicVo() {
+    }
+
     public CharacteristicVo(String name) {
         super(name);
     }

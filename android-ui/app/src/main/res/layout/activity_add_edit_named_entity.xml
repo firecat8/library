@@ -12,7 +12,7 @@
         android:id="@+id/name_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/inventory_number"
+        android:hint="@string/name"
         android:inputType="text"
         android:autofillHints="" />
 
@@ -24,4 +24,14 @@
         android:backgroundTint="#104073"
         android:text="@string/add"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/edit_entity_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#104073"
+        android:text="@string/change_name"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"/>
 </androidx.appcompat.widget.LinearLayoutCompat>

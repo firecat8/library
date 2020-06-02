@@ -52,7 +52,7 @@ public class AdminMenuActivity extends AppCompatActivity {
 
     private void addUserIntent(RolesVo rolesVo) {
         Intent intent = new Intent(this, AddEditUser.class);
-        intent.putExtra(AddEditUser.ROLE, rolesVo.name());
+        intent.putExtra(AddEditUser.EXTRA_ROLE, rolesVo.name());
         startActivityForResult(intent, ADD_USER_REQUEST);
     }
 }

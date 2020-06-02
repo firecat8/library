@@ -19,7 +19,7 @@
         android:layout_marginBottom="15dp"
         android:text="@string/menu_text"
         android:textColor="#104073"
-        android:textSize="26dp" />
+        android:textSize="26sp" />
 
     <Button
         android:id="@+id/add_reader_btn"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:backgroundTint="#104073"
-        android:text="Add Reader"
+        android:text="@string/add_reader"
         android:textColor="#FFFFFF" />
     <Button
         android:id="@+id/add_new_book_btn"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:backgroundTint="#104073"
-        android:text="Add Book"
+        android:text="@string/add_book"
         android:textColor="#FFFFFF" />
     <Button
         android:id="@+id/rent_book_btn"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:backgroundTint="#104073"
-        android:text="Rent Book"
+        android:text="@string/rent_book_btn"
         android:textColor="#FFFFFF" />
 
 

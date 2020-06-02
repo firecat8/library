@@ -6,26 +6,27 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.Response;
 import com.library.rest.api.request.EntityRequest;
 import com.library.rest.api.response.SuccessResponse;
 import com.library.rest.api.vo.AbstractVo;
+import com.library.rest.api.vo.EntityListVo;
 import com.library.ui.request.RequestFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends EntityRequest<Entity>> extends AndroidViewModel {
+public abstract class AbstractViewModel<Entity extends AbstractVo, ListVo extends EntityListVo<Entity>, Req extends EntityRequest<Entity>> extends AndroidViewModel {
     private final Class<Entity> entityClass;
+    private final Class<ListVo> entityListClass;
     private final String url;
     private MutableLiveData<List<Entity>> allEntities;
     private MutableLiveData<Entity> oneEntity;
     private MutableLiveData<Boolean> deleteResult;
     private MutableLiveData<Boolean> updateResult;
 
-    public AbstractViewModel(Class<Entity> entityClass, String url, @NonNull Application application) {
+    public AbstractViewModel(Class<Entity> entityClass, Class<ListVo> entityListClass, String url, @NonNull Application application) {
         super(application);
         this.entityClass = entityClass;
+        this.entityListClass = entityListClass;
         this.url = url;
     }
 
@@ -35,7 +36,7 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends E
                 url,
                 id,
                 entityClass,
-                (Response.Listener<Entity>) response -> oneEntity.setValue(response)
+                response -> oneEntity.setValue(response)
         );
         return oneEntity;
     }
@@ -46,7 +47,7 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends E
                 url,
                 makeEntityRequest(entity),
                 entityClass,
-                (Response.Listener<Entity>) response -> oneEntity.setValue(response)
+                response -> oneEntity.setValue(response)
         );
         return oneEntity;
     }
@@ -79,8 +80,8 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, Req extends E
         RequestFactory.getInstance(this.getApplication()).makeLoadAllRequest(
                 url,
                 null,
-                ArrayList.class,
-                response -> allEntities.setValue(response)
+                entityListClass,
+                response -> allEntities.setValue(response.getEntities())
         );
 
         return allEntities;

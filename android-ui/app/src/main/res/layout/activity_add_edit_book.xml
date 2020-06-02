@@ -19,8 +19,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="text"
-            android:hint="@string/inventory_number" />
+            android:hint="@string/inventory_number"
+            android:inputType="number"
+            android:focusable="false"
+            android:autofillHints=""
+            android:textIsSelectable="true" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -35,8 +38,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:hint="@string/title"
             android:inputType="text"
-            android:hint="@string/title" />
+            android:autofillHints="" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -51,16 +55,45 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="text"
-            android:hint="@string/isbn" />
+            android:autofillHints=""
+            android:hint="@string/isbn"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/year_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="number"
-            android:hint="Publish Year" />
+            android:autofillHints=""
+            android:hint="@string/publish_year"
+            android:inputType="number" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+
+        <EditText
+            android:id="@+id/work_form_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/work_form"
+            android:inputType="text"
+            android:focusable="false"
+            android:autofillHints=""
+            android:textIsSelectable="true"  />
+        <ImageButton
+            android:id="@+id/work_form_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/search"
+            android:contentDescription="@string/search_work_form"
+            android:scaleType="fitXY" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -76,16 +109,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autofillHints=""
+            android:hint="@string/author"
             android:inputType="text"
-            android:hint="@string/author" />
+            android:focusable="false"
+            android:autofillHints=""
+            android:textIsSelectable="true" />
 
         <ImageButton
             android:id="@+id/author_search"
-            android:background="@drawable/ic_search"
-            android:layout_height="50dp"
             android:layout_width="50dp"
-            android:scaleType="fitXY"/>
+            android:layout_height="50dp"
+            android:background="@drawable/search"
+            android:contentDescription="@string/search_authors"
+            android:scaleType="fitXY" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+
+        <EditText
+            android:id="@+id/publisher_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/publisher"
+            android:inputType="text"
+            android:focusable="false"
+            android:autofillHints=""
+            android:textIsSelectable="true" />
+
+        <ImageButton
+            android:id="@+id/publisher_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/search"
+            android:contentDescription="@string/search_publisher"
+            android:scaleType="fitXY" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -99,19 +162,65 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autofillHints=""
+            android:hint="@string/genre"
             android:inputType="text"
-            android:hint="Genre" />
+            android:focusable="false"
+            android:autofillHints=""
+            android:textIsSelectable="true" />
+
+        <ImageButton
+            android:id="@+id/genre_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/search"
+            android:contentDescription="@string/search_genres"
+            android:scaleType="fitXY" />
 
         <EditText
-            android:id="@+id/work_form_text"
+            android:id="@+id/characteristic_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autofillHints=""
+            android:hint="@string/characteristic"
             android:inputType="text"
-            android:hint="WorkForm" />
+            android:focusable="false"
+            android:autofillHints=""
+            android:textIsSelectable="true" />
 
+        <ImageButton
+            android:id="@+id/characteristic_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/search"
+            android:contentDescription="@string/search_characteristic"
+            android:scaleType="fitXY" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <EditText
+            android:id="@+id/book_serie_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/book_serie_optional"
+            android:inputType="text"
+            android:focusable="false"
+            android:autofillHints=""
+            android:textIsSelectable="true" />
+
+        <ImageButton
+            android:id="@+id/book_serie_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/search"
+            android:contentDescription="@string/search_book_serie"
+            android:scaleType="fitXY" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
@@ -120,9 +229,10 @@
         android:layout_height="wrap_content"
         android:width="5dp"
         android:height="10dp"
+        android:text="@string/add"
         android:visibility="gone"
-        android:hint="Add"
-        android:hintSize="12sp" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#104073" />
 
     <Button
         android:id="@+id/archive_btn"
@@ -130,35 +240,42 @@
         android:layout_height="wrap_content"
         android:width="5dp"
         android:height="10dp"
+        android:text="@string/archive"
         android:visibility="gone"
-        android:hint="Archive"
-        android:hintSize="12sp" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#104073"  />
+
     <Button
         android:id="@+id/discard_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="5dp"
         android:height="10dp"
+        android:text="@string/discard"
         android:visibility="gone"
-        android:hint="Discard"
-        android:hintSize="12sp" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#104073"  />
+
     <Button
         android:id="@+id/return_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="5dp"
         android:height="10dp"
+        android:text="@string/return_book"
         android:visibility="gone"
-        android:hint="Return book"
-        android:hintSize="12sp" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#104073" />
+
     <Button
         android:id="@+id/rent_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="5dp"
         android:height="10dp"
+        android:text="@string/rent_book"
         android:visibility="gone"
-        android:hint="Rent book"
-        android:hintSize="12sp" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#104073"  />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -18,7 +18,7 @@ import com.library.ui.adapter.BookSerieAdapter;
 import com.library.ui.view_model.BookSerieViewModel;
 
 public class BookSerieListActivity extends AppCompatActivity {
-    public static final int ADD_REQUEST = 1;
+    public static final int CREATE_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
     private BookSerieAdapter bookSerieAdapter;
@@ -31,9 +31,9 @@ public class BookSerieListActivity extends AppCompatActivity {
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_book_serie);
         buttonAddNote.setOnClickListener(v -> {
-            Intent intent = new Intent(BookSerieListActivity.this, AddEditBookSerie.class);
+            Intent intent = new Intent(this, AddEditBookSerie.class);
             intent.putExtras(getIntent());
-            startActivityForResult(intent, ADD_REQUEST);
+            startActivityForResult(intent, CREATE_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.book_series_recycler_view);

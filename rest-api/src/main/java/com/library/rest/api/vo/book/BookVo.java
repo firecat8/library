@@ -38,6 +38,9 @@ public class BookVo extends AbstractVo {
 
     private List<CharacteristicVo> characteristics = new ArrayList<>();
 
+    public BookVo() {
+    }
+
     public BookVo(String title, String signature, BookStatesVo state, BookStatusVo status, PublisherVo publisher, Year publishYear, WorkFormVo form, AuthorVo author, BookSerieVo serie, String inventoryNumber, String ISBN) {
         this.title = title;
         this.signature = signature;

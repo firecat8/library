@@ -4,11 +4,12 @@ import android.content.Intent;
 
 import com.library.rest.api.request.GenreRequest;
 import com.library.rest.api.vo.book.GenreVo;
+import com.library.rest.api.vo.list.GenresListVo;
 import com.library.ui.view_model.GenreViewModel;
 
-public class AddEditGenre extends AddEditNamedEntity<GenreVo, GenreRequest, GenreViewModel> {
+public class AddEditGenre extends AddEditNamedEntity<GenreVo, GenresListVo, GenreRequest, GenreViewModel> {
     public AddEditGenre() {
-        super(GenreViewModel.class);
+        super(GenreViewModel.class,"Genre");
     }
 
     @Override

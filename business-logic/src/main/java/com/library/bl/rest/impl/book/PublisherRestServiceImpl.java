@@ -10,6 +10,9 @@ import com.library.rest.api.book.PublisherRestService;
 import com.library.rest.api.request.PublisherRequest;
 import com.library.rest.api.request.PublishersRequest;
 import com.library.rest.api.vo.book.PublisherVo;
+import com.library.rest.api.vo.list.PublishersListVo;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -17,7 +20,7 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class PublisherRestServiceImpl extends AbstractRestService< PublisherDao, PublisherVo, Publisher> implements PublisherRestService {
+public class PublisherRestServiceImpl extends AbstractRestService< PublisherDao, PublisherVo, Publisher,PublishersListVo> implements PublisherRestService {
 
     public PublisherRestServiceImpl(DaoRegistryFactory factory) {
         super(factory, PublisherVoExchanger.INSTANCE);
@@ -55,7 +58,19 @@ public class PublisherRestServiceImpl extends AbstractRestService< PublisherDao,
 
     @Override
     protected Set<String> validate(Publisher entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<String> errors = new HashSet<>();
+        if (entity.getName().isBlank()) {
+            errors.add("Blank name.");
+        }
+        if (entity.getName().isEmpty()) {
+            errors.add("Empty name.");
+        }
+        return errors;
+    }
+
+    @Override
+    protected PublishersListVo makeListVo(List<PublisherVo> entities) {
+        return new PublishersListVo(entities);
     }
 
 }

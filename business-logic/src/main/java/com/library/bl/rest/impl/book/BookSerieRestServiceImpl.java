@@ -10,6 +10,9 @@ import com.library.rest.api.book.BookSerieRestService;
 import com.library.rest.api.request.BookSerieRequest;
 import com.library.rest.api.request.BookSeriesRequest;
 import com.library.rest.api.vo.book.BookSerieVo;
+import com.library.rest.api.vo.list.BookSeriesListVo;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Response;
 
@@ -17,7 +20,7 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class BookSerieRestServiceImpl extends AbstractRestService<BookSerieDao, BookSerieVo, BookSerie> implements BookSerieRestService {
+public class BookSerieRestServiceImpl extends AbstractRestService<BookSerieDao, BookSerieVo, BookSerie, BookSeriesListVo> implements BookSerieRestService {
 
     public BookSerieRestServiceImpl(DaoRegistryFactory factory) {
         super(factory, BookSerieVoExchanger.INSTANCE);
@@ -55,7 +58,19 @@ public class BookSerieRestServiceImpl extends AbstractRestService<BookSerieDao, 
 
     @Override
     protected Set<String> validate(BookSerie entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<String> errors = new HashSet<>();
+        if (entity.getName().isBlank()) {
+            errors.add("Blank name.");
+        }
+        if (entity.getName().isEmpty()) {
+            errors.add("Empty name.");
+        }
+        return errors;
+    }
+
+    @Override
+    protected BookSeriesListVo makeListVo(List<BookSerieVo> entities) {
+        return new BookSeriesListVo(entities);
     }
 
 }

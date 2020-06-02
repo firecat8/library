@@ -8,6 +8,7 @@ import com.library.dao.GenreDao;
 import com.library.domain.book.Genre;
 import com.library.dto.GenreDto;
 import com.library.dto.exchanger.GenreDtoExchanger;
+import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,9 @@ public class GenreDaoImpl extends AbstractCrudDao<GenreDto, Genre> implements Ge
 
     @Override
     protected Map<String, Object> loadProperties(GenreDto newOne) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", newOne.getName());
+        return map;
     }
 
 }

@@ -8,6 +8,7 @@ import com.library.dao.PublisherDao;
 import com.library.domain.book.Publisher;
 import com.library.dto.PublisherDto;
 import com.library.dto.exchanger.PublisherDtoExchanger;
+import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,9 @@ public class PublisherDaoImpl extends AbstractCrudDao<PublisherDto, Publisher> i
 
     @Override
     protected Map<String, Object> loadProperties(PublisherDto newOne) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", newOne.getName());
+        return map;
     }
 
 }

@@ -24,7 +24,7 @@ import com.library.ui.view_model.UserViewModel;
 import java.util.List;
 
 public class UserListActivity extends AppCompatActivity {
-    public static final int ADD_REQUEST = 1;
+    public static final int CREATE_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
     private UserAdapter userAdapter;
@@ -39,7 +39,7 @@ public class UserListActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(UserListActivity.this, AddEditUser.class);
             intent.putExtras(getIntent());
-            startActivityForResult(intent, ADD_REQUEST);
+            startActivityForResult(intent, CREATE_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.users_recycler_view);

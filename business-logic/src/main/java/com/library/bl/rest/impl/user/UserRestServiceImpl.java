@@ -7,13 +7,15 @@ import com.library.bl.rest.impl.vo.exchanger.UserVoExchanger;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.dao.UserDao;
+import com.library.domain.user.Roles;
 import com.library.domain.user.User;
 import com.library.rest.api.request.LoginRequest;
 import com.library.rest.api.request.UserRequest;
 import com.library.rest.api.request.UsersRequest;
 import com.library.rest.api.user.UserRestService;
-import com.library.rest.api.vo.user.RolesVo;
+import com.library.rest.api.vo.list.UsersListVo;
 import com.library.rest.api.vo.user.UserVo;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +25,7 @@ import javax.ws.rs.core.Response;
  *
  * @author gdimitrova
  */
-public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, User> implements UserRestService {
+public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, User,UsersListVo> implements UserRestService {
 
     public UserRestServiceImpl(DaoRegistryFactory factory) {
         super(factory, UserVoExchanger.INSTANCE);
@@ -38,11 +40,12 @@ public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, Us
     public Response login(LoginRequest request) {
         String username = request.getUsername();
         String password = request.getPassword();
-//        if (username.equals("admin") && password.equals("admin1234")) {
-//            return Response.ok(getMainAdmin()).build();
-//        }
+
         return doInTransaction((daoRegistry) -> {
             User user = getDao(daoRegistry).load(username, password);
+//            if (user == null && username.equals("admin") && password.equals("admin")) {
+//                user = getDao(daoRegistry).save(getMainAdmin());
+//            }
             if (user == null) {
                 Set<String> errors = new HashSet<>();
                 errors.add("Not valid username and password");
@@ -81,6 +84,7 @@ public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, Us
     public Response deleteAll(UsersRequest request) {
         return super.deleteAll(request.getList());
     }
+
     @Override
     public Response loadReaders() {
         return doInTransaction((daoRegistry) -> {
@@ -96,33 +100,37 @@ public class UserRestServiceImpl extends AbstractRestService<UserDao, UserVo, Us
             errors.add("Entity is null");
             return errors;
         }
-        if(ErrorUtils.isValid(entity.getFirstName())){
+        if (ErrorUtils.isValid(entity.getFirstName())) {
             errors.add("Missing first name.");
         }
-        if(ErrorUtils.isValid(entity.getSurname())){
+        if (ErrorUtils.isValid(entity.getSurname())) {
             errors.add("Missing surname.");
         }
-        if(ErrorUtils.isValid(entity.getLastName())){
+        if (ErrorUtils.isValid(entity.getLastName())) {
             errors.add("Missing last name.");
         }
-        if(ErrorUtils.isValid(entity.getEmail())){
+        if (ErrorUtils.isValid(entity.getEmail())) {
             errors.add("Missing email.");
         }
-        if(ErrorUtils.isValid(entity.getPhoneNumber())){
+        if (ErrorUtils.isValid(entity.getPhoneNumber())) {
             errors.add("Missing phone number.");
         }
-        if(ErrorUtils.isValid(entity.getUserName())){
+        if (ErrorUtils.isValid(entity.getUserName())) {
             errors.add("Missing username.");
         }
-        if(ErrorUtils.isValid(entity.getPassword())){
+        if (ErrorUtils.isValid(entity.getPassword())) {
             errors.add("Missing password.");
         }
         return errors;
     }
 
-//    private UserVo getMainAdmin() {
-//        return new UserVo("admin", "admin1234", "defaultAdmin@gmail.bg", RolesVo.ADMINISTRATOR, "admin", "admin", "admin", "1234");
-//    }
+    private User getMainAdmin() {
+        return new User("admin", "admin", "defaultAdmin@gmail.bg", Roles.ADMINISTRATOR, "admin", "admin", "admin", "1234", Calendar.getInstance());
+    }
 
-   
+    @Override
+    protected UsersListVo makeListVo(List<UserVo> entities) {
+        return new UsersListVo(entities);
+    }
+
 }

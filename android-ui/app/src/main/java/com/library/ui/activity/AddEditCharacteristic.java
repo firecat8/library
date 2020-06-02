@@ -4,11 +4,12 @@ import android.content.Intent;
 
 import com.library.rest.api.request.CharacteristicRequest;
 import com.library.rest.api.vo.book.CharacteristicVo;
+import com.library.rest.api.vo.list.CharacteristicsListVo;
 import com.library.ui.view_model.CharacteristicViewModel;
 
-public class AddEditCharacteristic extends AddEditNamedEntity<CharacteristicVo, CharacteristicRequest, CharacteristicViewModel> {
+public class AddEditCharacteristic extends AddEditNamedEntity<CharacteristicVo, CharacteristicsListVo, CharacteristicRequest, CharacteristicViewModel> {
     public AddEditCharacteristic() {
-        super(CharacteristicViewModel.class);
+        super(CharacteristicViewModel.class,"Characteristic");
     }
 
     @Override

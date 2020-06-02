@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.BookRentalListActivity"></activity>
+        <activity android:name=".activity.BookRentalListActivity" />
         <activity android:name=".activity.WorkFormListActivity" />
         <activity android:name=".activity.PublisherListActivity" />
         <activity android:name=".activity.GenreListActivity" />
-        <activity android:name=".activity.CharacteristicActivity" />
+        <activity android:name=".activity.CharacteristicListActivity" />
         <activity android:name=".activity.BookSerieListActivity" />
         <activity android:name=".activity.AddEditBookRent" />
         <activity android:name=".activity.AddEditNamedEntity" />
@@ -27,6 +27,11 @@
         <activity android:name=".activity.AddEditBook" />
         <activity android:name=".activity.UserListActivity" />
         <activity android:name=".activity.AddEditUser" />
+        <activity android:name=".activity.AddEditPublisher" />
+        <activity android:name=".activity.AddEditWorkForm" />
+        <activity android:name=".activity.AddEditGenre" />
+        <activity android:name=".activity.AddEditBookSerie" />
+        <activity android:name=".activity.AddEditCharacteristic" />
         <activity android:name=".activity.ReaderMenu" />
         <activity android:name=".activity.OperatorMenu" />
         <activity android:name=".activity.AdminMenuActivity" />

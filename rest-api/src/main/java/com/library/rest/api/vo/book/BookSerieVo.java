@@ -8,6 +8,9 @@ import com.library.rest.api.vo.NamedEntityVo;
  */
 public class BookSerieVo extends NamedEntityVo{
 
+    public BookSerieVo() {
+    }
+
     public BookSerieVo(String name) {
         super(name);
     }

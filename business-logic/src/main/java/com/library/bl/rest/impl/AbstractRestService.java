@@ -7,6 +7,7 @@ import com.library.dao.DaoRegistryFactory;
 import com.library.domain.Entity;
 import com.library.rest.api.response.SuccessResponse;
 import com.library.rest.api.vo.AbstractVo;
+import com.library.rest.api.vo.EntityListVo;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,8 +24,9 @@ import javax.ws.rs.core.Response.Status;
  * @param <Dao>
  * @param <Vo>
  * @param <E>
+ * @param <ListVo>
  */
-public abstract class AbstractRestService<Dao extends CrudDao, Vo extends AbstractVo, E extends Entity> {
+public abstract class AbstractRestService<Dao extends CrudDao, Vo extends AbstractVo, E extends Entity, ListVo extends EntityListVo> {
 
     private static final Logger LOGGER = Logger.getLogger(AbstractRestService.class.getName());
 
@@ -101,8 +103,8 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
 
     public Response loadAll() {
         return doInTransaction((daoRegistry) -> {
-            List entities = getDao(daoRegistry).loadAll();
-            return Response.ok(entities).build();
+            List<E> entities = getDao(daoRegistry).loadAll();
+            return Response.ok(makeListVo(exchanger.exchangeEntityList(entities))).build();
         });
     }
 
@@ -161,5 +163,7 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
     protected abstract Dao getDao(DaoRegistry registry);
 
     protected abstract Set<String> validate(E entity);
+
+    protected abstract ListVo makeListVo(List<Vo> entities);
 
 }

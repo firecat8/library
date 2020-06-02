@@ -8,6 +8,7 @@ import com.library.dao.CharacteristicDao;
 import com.library.domain.book.Characteristic;
 import com.library.dto.CharacteristicDto;
 import com.library.dto.exchanger.CharacteristicDtoExchanger;
+import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,9 @@ public class CharacteristicDaoImpl extends AbstractCrudDao<CharacteristicDto, Ch
 
     @Override
     protected Map<String, Object> loadProperties(CharacteristicDto newOne) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", newOne.getName());
+        return map;
     }
 
 }

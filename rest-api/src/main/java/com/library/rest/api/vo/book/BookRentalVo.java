@@ -1,8 +1,8 @@
 package com.library.rest.api.vo.book;
 
 import com.library.rest.api.vo.AbstractVo;
+import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.user.UserVo;
-import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -15,13 +15,16 @@ public class BookRentalVo extends AbstractVo {
 
     private UserVo user;
 
-    private Calendar receivableDate;
+    private DateVo receivableDate;
 
-    private Calendar returnDeadLine;
+    private DateVo returnDeadLine;
 
-    private Calendar returnDate;
+    private DateVo returnDate;
 
-    public BookRentalVo(BookVo book, UserVo user, Calendar receivableDate, Calendar returnDeadLine, Calendar returnDate) {
+    public BookRentalVo() {
+    }
+
+    public BookRentalVo(BookVo book, UserVo user, DateVo receivableDate, DateVo returnDeadLine, DateVo returnDate) {
         this.book = book;
         this.user = user;
         this.receivableDate = receivableDate;
@@ -45,27 +48,27 @@ public class BookRentalVo extends AbstractVo {
         this.user = user;
     }
 
-    public Calendar getReceivableDate() {
+    public DateVo getReceivableDate() {
         return receivableDate;
     }
 
-    public void setReceivableDate(Calendar receivableDate) {
+    public void setReceivableDate(DateVo receivableDate) {
         this.receivableDate = receivableDate;
     }
 
-    public Calendar getReturnDeadLine() {
+    public DateVo getReturnDeadLine() {
         return returnDeadLine;
     }
 
-    public void setReturnDeadLine(Calendar returnDeadLine) {
+    public void setReturnDeadLine(DateVo returnDeadLine) {
         this.returnDeadLine = returnDeadLine;
     }
 
-    public Calendar getReturnDate() {
+    public DateVo getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Calendar returnDate) {
+    public void setReturnDate(DateVo returnDate) {
         this.returnDate = returnDate;
     }
 

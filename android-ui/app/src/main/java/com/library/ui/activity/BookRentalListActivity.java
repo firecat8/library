@@ -18,7 +18,7 @@ import com.library.ui.adapter.BookRentalAdapter;
 import com.library.ui.view_model.BookRentalViewModel;
 
 public class BookRentalListActivity extends AppCompatActivity {
-    public static final int ADD_REQUEST = 1;
+    public static final int CREATE_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
     private BookRentalAdapter bookRentAdapter;
@@ -33,7 +33,7 @@ public class BookRentalListActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(BookRentalListActivity.this, AddEditBookRent.class);
             intent.putExtras(getIntent());
-            startActivityForResult(intent, ADD_REQUEST);
+            startActivityForResult(intent, CREATE_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.book_series_recycler_view);

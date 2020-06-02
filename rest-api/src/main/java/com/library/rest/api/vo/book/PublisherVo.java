@@ -8,6 +8,9 @@ import com.library.rest.api.vo.NamedEntityVo;
  */
 public class PublisherVo extends NamedEntityVo {
 
+    public PublisherVo() {
+    }
+
     public PublisherVo(String name) {
         super(name);
     }

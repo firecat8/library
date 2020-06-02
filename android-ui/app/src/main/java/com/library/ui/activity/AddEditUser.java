@@ -12,24 +12,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.android.volley.Response;
-import com.library.rest.api.request.UserRequest;
-import com.library.rest.api.response.SuccessResponse;
+import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.user.RolesVo;
 import com.library.rest.api.vo.user.UserVo;
 import com.library.ui.R;
 import com.library.ui.Utils;
-import com.library.ui.request.RequestFactory;
-import com.library.ui.request.URL_CONSTANTS;
 import com.library.ui.view_model.UserViewModel;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 public class AddEditUser extends AppCompatActivity {
     public static final String EXTRA_MODE = "com.library.user.EXTRA_MODE";
     public static final String EXTRA_ROLE = "com.library.user.EXTRA_ROLE";
     public static final String EXTRA_USER = "com.library.user.EXTRA_USER";
+    public static final String CREATE_MODE = "CREATE_MODE";
+    public static final String EDIT_MODE = "EDIT_MODE";
+    public static final String ADD_READER_FORM_MODE = "ADD_READER_FORM_MODE";
+    public static final String EDIT_READER_FORM_MODE = "EDIT_READER_FORM_MODE";
 
     private Calendar date = Calendar.getInstance();
     private UserViewModel userViewModel;
@@ -53,7 +52,7 @@ public class AddEditUser extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         Intent intent = getIntent();
-        UserVo user =(UserVo) intent.getSerializableExtra(EXTRA_USER);
+        UserVo user = (UserVo) intent.getSerializableExtra(EXTRA_USER);
         role = intent.getStringExtra(EXTRA_ROLE);
         date.set(Calendar.SECOND, 0);
 
@@ -105,7 +104,7 @@ public class AddEditUser extends AppCompatActivity {
                 surname.getText().toString(),
                 lastName.getText().toString(),
                 phone.getText().toString(),
-                Calendar.getInstance()
+                new DateVo(Calendar.getInstance())
         );
     }
 }

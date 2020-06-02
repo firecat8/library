@@ -8,6 +8,9 @@ import com.library.rest.api.vo.NamedEntityVo;
  */
 public class GenreVo extends NamedEntityVo{
 
+    public GenreVo() {
+    }
+
     public GenreVo(String name) {
         super(name);
     }

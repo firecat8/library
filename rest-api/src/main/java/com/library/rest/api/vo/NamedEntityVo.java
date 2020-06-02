@@ -10,6 +10,9 @@ public class NamedEntityVo extends AbstractVo {
 
     private String name;
 
+    public NamedEntityVo() {
+    }
+
     public NamedEntityVo(String name) {
         this.name = name;
     }
@@ -43,7 +46,5 @@ public class NamedEntityVo extends AbstractVo {
         final NamedEntityVo other = (NamedEntityVo) obj;
         return Objects.equals(this.name, other.name);
     }
-
-   
 
 }

@@ -89,8 +89,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:backgroundTint="#104073"
         android:text="@string/add"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#104073" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

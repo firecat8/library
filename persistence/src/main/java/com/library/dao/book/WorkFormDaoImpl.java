@@ -8,6 +8,7 @@ import com.library.dao.WorkFormDao;
 import com.library.domain.book.WorkForm;
 import com.library.dto.WorkFormDto;
 import com.library.dto.exchanger.WorkFormDtoExchanger;
+import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,9 @@ public class WorkFormDaoImpl extends AbstractCrudDao<WorkFormDto, WorkForm> impl
 
     @Override
     protected Map<String, Object> loadProperties(WorkFormDto newOne) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", newOne.getName());
+        return map;
     }
 
 }

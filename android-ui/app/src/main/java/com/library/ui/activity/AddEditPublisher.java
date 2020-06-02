@@ -4,11 +4,12 @@ import android.content.Intent;
 
 import com.library.rest.api.request.PublisherRequest;
 import com.library.rest.api.vo.book.PublisherVo;
+import com.library.rest.api.vo.list.PublishersListVo;
 import com.library.ui.view_model.PublisherViewModel;
 
-public class AddEditPublisher extends AddEditNamedEntity<PublisherVo, PublisherRequest, PublisherViewModel> {
+public class AddEditPublisher extends AddEditNamedEntity<PublisherVo, PublishersListVo, PublisherRequest, PublisherViewModel> {
     public AddEditPublisher() {
-        super(PublisherViewModel.class);
+        super(PublisherViewModel.class,"Publisher");
     }
 
     @Override

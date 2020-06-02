@@ -18,7 +18,7 @@ import com.library.ui.adapter.GenreAdapter;
 import com.library.ui.view_model.GenreViewModel;
 
 public class GenreListActivity extends AppCompatActivity {
-    public static final int ADD_REQUEST = 1;
+    public static final int CREATE_REQUEST = 1;
     public static final int EDIT_REQUEST = 2;
 
     private GenreAdapter genreAdapter;
@@ -33,7 +33,7 @@ public class GenreListActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(GenreListActivity.this, AddEditGenre.class);
             intent.putExtras(getIntent());
-            startActivityForResult(intent, ADD_REQUEST);
+            startActivityForResult(intent, CREATE_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.book_series_recycler_view);

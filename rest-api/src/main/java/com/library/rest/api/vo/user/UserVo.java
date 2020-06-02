@@ -1,7 +1,7 @@
 package com.library.rest.api.vo.user;
 
 import com.library.rest.api.vo.AbstractVo;
-import java.util.Calendar;
+import com.library.rest.api.vo.DateVo;
 import java.util.Objects;
 
 /**
@@ -26,12 +26,12 @@ public class UserVo extends AbstractVo {
 
     private String phoneNumber;
 
-    private Calendar createdDate;
+    private DateVo createdDate;
 
     public UserVo() {
     }
 
-    public UserVo(String userName, String password, String email, RolesVo role, String firstName, String surname, String lastName, String phoneNumber, Calendar createdDate) {
+    public UserVo(String userName, String password, String email, RolesVo role, String firstName, String surname, String lastName, String phoneNumber, DateVo createdDate) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -107,11 +107,11 @@ public class UserVo extends AbstractVo {
         this.phoneNumber = phoneNumber;
     }
 
-    public Calendar getCreatedDate() {
+    public DateVo getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Calendar createdDate) {
+    public void setCreatedDate(DateVo createdDate) {
         this.createdDate = createdDate;
     }
 
