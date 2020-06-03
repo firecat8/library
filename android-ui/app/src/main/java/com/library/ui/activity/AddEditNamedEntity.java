@@ -50,6 +50,7 @@ public abstract class AddEditNamedEntity<E extends NamedEntityVo, ListVo extends
         name = findViewById(R.id.name_text);
         Button addButton = findViewById(R.id.add_entity_button);
         Button editButton = findViewById(R.id.edit_entity_button);
+        Button backButton=findViewById(R.id.back_button);
 
         Intent intent = getIntent();
         String mode = intent.getStringExtra(EXTRA_MODE);
@@ -77,13 +78,20 @@ public abstract class AddEditNamedEntity<E extends NamedEntityVo, ListVo extends
             case ADD_MODE:
                 E entityForAdding = getEntity(intent);
                 name.setText(entityForAdding.getName());
-                name.setTextIsSelectable(false);
+                name.setTextIsSelectable(true);
+                name.setAutofillHints("");
                 name.setFocusable(false);
                 addButton.setOnClickListener(v -> {
                     Log.i(TAG, "\nButton for ADD_MODE is clicked\n");
                     Intent addIntent = new Intent();
                     addIntent.putExtra(EXTRA_ENTITY, entityForAdding);
                     setResult(RESULT_OK, addIntent);
+                    finish();
+                });
+                backButton.setVisibility(View.VISIBLE);
+                backButton.setOnClickListener(v -> {
+                    Log.i(TAG, "\nButton back for ADD_MODE is clicked\n");
+                    setResult(RESULT_CANCELED,  new Intent());
                     finish();
                 });
                 break;

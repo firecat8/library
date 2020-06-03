@@ -62,6 +62,12 @@ public class BookSerieListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_CANCELED ) {
+            return;
+        }
+        if (requestCode == EDIT_REQUEST && resultCode == RESULT_CANCELED) {
+            return;
+        }
         String mode = mainIntent.getStringExtra(AddEditBookSerie.EXTRA_MODE);
         if (requestCode == CREATE_REQUEST && resultCode == RESULT_OK) {
             if (mode.equals(AddEditBookSerie.ADD_MODE)) {

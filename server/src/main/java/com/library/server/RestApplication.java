@@ -50,6 +50,5 @@ public class RestApplication extends Application {
         beans.add(new PublisherRestServiceImpl(factory));
         beans.add(new WorkFormRestServiceImpl(factory));
         beans.add(new UserRestServiceImpl(factory));
-        // To do
     }
 }

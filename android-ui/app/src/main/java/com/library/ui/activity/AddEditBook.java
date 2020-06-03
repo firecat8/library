@@ -240,7 +240,11 @@ public class AddEditBook extends AppCompatActivity {
                 return;
             }
             genreName.setText(genre.getName());
-            genres.set(0, genre);
+            if (genres.isEmpty()) {
+                genres.add(genre);
+            } else {
+                genres.set(0, genre);
+            }
             Log.i(TAG, "\nMode is Successfully added book genre!\n");
             return;
         }
@@ -251,7 +255,12 @@ public class AddEditBook extends AppCompatActivity {
                 return;
             }
             characteristicName.setText(characteristic.getName());
-            characteristics.set(0, characteristic);
+
+            if (characteristics.isEmpty()) {
+                characteristics.add(characteristic);
+            } else {
+                characteristics.set(0, characteristic);
+            }
             Log.i(TAG, "\nMode is Successfully added characteristic!\n");
             return;
         }

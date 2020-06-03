@@ -93,4 +93,14 @@
         android:textColor="#FFFFFF"
         android:backgroundTint="#104073" />
 
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#104073"
+        android:text="@string/back"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

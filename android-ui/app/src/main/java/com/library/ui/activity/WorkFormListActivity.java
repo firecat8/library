@@ -61,8 +61,14 @@ public class WorkFormListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_CANCELED ) {
+            return;
+        }
+        if (requestCode == EDIT_REQUEST && resultCode == RESULT_CANCELED) {
+            return;
+        }
         String mode = mainIntent.getStringExtra(AddEditWorkForm.EXTRA_MODE);
-        if (requestCode == CREATE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_OK ) {
             if (mode.equals(AddEditWorkForm.ADD_MODE)) {
                 setResult(RESULT_OK, data);
                 finish();
