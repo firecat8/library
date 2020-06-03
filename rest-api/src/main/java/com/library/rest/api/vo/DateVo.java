@@ -2,12 +2,14 @@ package com.library.rest.api.vo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author gdimitrova
  */
-public class DateVo implements Serializable {
+public class DateVo implements Serializable, Validatable {
 
     private int month;
 
@@ -71,6 +73,7 @@ public class DateVo implements Serializable {
 
     public Calendar convetToCalendar() {
         Calendar c = Calendar.getInstance();
+        c.setLenient(false);
         c.set(Calendar.YEAR, year + 1900);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, day);
@@ -124,10 +127,18 @@ public class DateVo implements Serializable {
         if (this.seconds != other.seconds) {
             return false;
         }
-        if (this.miliseconds != other.miliseconds) {
-            return false;
+        return this.miliseconds == other.miliseconds;
+    }
+
+    @Override
+    public Set<String> validate() {
+        Set<String> errors = new HashSet<>();
+        try{
+        convetToCalendar();
+        }catch(Exception ex){
+            errors.add(ex.getMessage());
         }
-        return true;
+        return errors;
     }
 
 }

@@ -13,6 +13,9 @@ import com.google.gson.Gson;
 import com.library.rest.api.request.LoginRequest;
 import com.library.rest.api.vo.user.UserVo;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 public class RequestFactory {
     private static final String TAG = "RequestFactory";
     private static RequestFactory instance;
@@ -75,6 +78,9 @@ public class RequestFactory {
 
     private Response.ErrorListener getErrorListener() {
         return error -> {
+            if (error.getCause() != null) {
+                Log.i(TAG, "\n"+error.getCause().getMessage()+"\n");
+            }
             if (error.getMessage() != null) {
                 Log.i(TAG, "\n"+error.getMessage()+"\n");
             }

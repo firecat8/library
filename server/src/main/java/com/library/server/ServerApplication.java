@@ -1,7 +1,6 @@
 package com.library.server;
 
 import java.util.Scanner;
-import java.util.logging.Level;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,7 @@ public class ServerApplication implements AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerApplication.class);
 
-    private RestServer restServer;
+    private final RestServer restServer;
 
     public ServerApplication() {
         restServer = new RestServer();

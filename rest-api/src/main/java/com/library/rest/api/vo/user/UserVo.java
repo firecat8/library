@@ -2,7 +2,9 @@ package com.library.rest.api.vo.user;
 
 import com.library.rest.api.vo.AbstractVo;
 import com.library.rest.api.vo.DateVo;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -171,5 +173,63 @@ public class UserVo extends AbstractVo {
 
     public String getFullName() {
         return firstName.concat(" ").concat(surname).concat(" ").concat(lastName);
+    }
+
+    @Override
+    public Set<String> validate() {
+        Set<String> errors = checkForNull();
+        if (!errors.isEmpty()) {
+            return errors;
+        }
+        if (userName.isEmpty()) {
+            errors.add("Empty userName.");
+        }
+        if (password.isEmpty()) {
+            errors.add("Empty password.");
+        }
+        if (firstName.isEmpty()) {
+            errors.add("Empty firstName.");
+        }
+        if (surname.isEmpty()) {
+            errors.add("Empty surname.");
+        }
+        if (lastName.isEmpty()) {
+            errors.add("Empty lastName.");
+        }
+        if (email.isEmpty()) {
+            errors.add("Empty email.");
+        }
+        if (phoneNumber.isEmpty()) {
+            errors.add("Empty phoneNumber.");
+        }
+        return errors;
+    }
+       public Set<String> checkForNull() {
+        Set<String> errors = new HashSet<>();
+        if (userName == null) {
+            errors.add("userName is null.");
+        }
+        if (password == null) {
+            errors.add("password is null.");
+        }
+        if (firstName == null) {
+            errors.add("firstName is null.");
+        }
+        if (surname == null) {
+            errors.add("surname is null.");
+        }
+        if (lastName == null) {
+            errors.add("lastName is null.");
+        }
+        if (email == null) {
+            errors.add("email is null.");
+        }
+        if (phoneNumber == null) {
+            errors.add("phoneNumber is null.");
+        }
+        if (createdDate == null) {
+            errors.add("createdDate is null.");
+        }
+        return errors;
     }
 }

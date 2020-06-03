@@ -6,7 +6,7 @@ import java.io.Serializable;
  *
  * @author gdimitrova
  */
-public class AbstractVo implements Serializable {
+public abstract class AbstractVo implements Serializable,Validatable {
 
     private Long id;
 

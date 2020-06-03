@@ -4,6 +4,7 @@ import com.library.rest.api.vo.AbstractVo;
 import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.user.UserVo;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -111,6 +112,18 @@ public class BookRentalVo extends AbstractVo {
             return true;
         }
         return Objects.equals(this.returnDate, other.returnDate);
+    }
+
+    @Override
+    public Set<String> validate() {
+        Set<String> errors = book.validate();
+        errors.addAll(user.validate());
+        errors.addAll(receivableDate.validate());
+        errors.addAll(returnDeadLine.validate());
+        if (returnDate != null) {
+            errors.addAll(returnDate.validate());
+        }
+        return errors;
     }
 
 }

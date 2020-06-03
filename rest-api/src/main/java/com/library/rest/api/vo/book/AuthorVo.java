@@ -3,6 +3,7 @@ package com.library.rest.api.vo.book;
 import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.NamedEntityVo;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -79,4 +80,14 @@ public class AuthorVo extends NamedEntityVo {
         }
         return Objects.equals(this.birthDate, other.birthDate);
     }
+
+    @Override
+    public Set<String> validate() {
+        Set<String> errors = super.validate();
+        if (birthDate != null) {
+            errors.addAll(birthDate.validate());
+        }
+        return errors;
+    }
+
 }

@@ -1,10 +1,13 @@
 package com.library.rest.api.vo.book;
 
 import com.library.rest.api.vo.AbstractVo;
+import com.library.rest.api.vo.YearVo;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -22,7 +25,7 @@ public class BookVo extends AbstractVo {
 
     private PublisherVo publisher;
 
-    private Year publishYear;
+    private YearVo publishYear;
 
     private WorkFormVo form;
 
@@ -32,7 +35,7 @@ public class BookVo extends AbstractVo {
 
     private String inventoryNumber;
 
-    private String ISBN;
+    private String isbn;
 
     private List<GenreVo> genres = new ArrayList<>();
 
@@ -41,7 +44,7 @@ public class BookVo extends AbstractVo {
     public BookVo() {
     }
 
-    public BookVo(String title, String signature, BookStatesVo state, BookStatusVo status, PublisherVo publisher, Year publishYear, WorkFormVo form, AuthorVo author, BookSerieVo serie, String inventoryNumber, String ISBN) {
+    public BookVo(String title, String signature, BookStatesVo state, BookStatusVo status, PublisherVo publisher, YearVo publishYear, WorkFormVo form, AuthorVo author, BookSerieVo serie, String inventoryNumber, String isbn) {
         this.title = title;
         this.signature = signature;
         this.state = state;
@@ -52,7 +55,7 @@ public class BookVo extends AbstractVo {
         this.author = author;
         this.serie = serie;
         this.inventoryNumber = inventoryNumber;
-        this.ISBN = ISBN;
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -95,11 +98,11 @@ public class BookVo extends AbstractVo {
         this.publisher = publisher;
     }
 
-    public Year getPublishYear() {
+    public YearVo getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(Year publishYear) {
+    public void setPublishYear(YearVo publishYear) {
         this.publishYear = publishYear;
     }
 
@@ -135,12 +138,12 @@ public class BookVo extends AbstractVo {
         this.inventoryNumber = inventoryNumber;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getisbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setisbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public List<GenreVo> getGenres() {
@@ -172,7 +175,7 @@ public class BookVo extends AbstractVo {
         hash = 17 * hash + Objects.hashCode(this.author);
         hash = 17 * hash + Objects.hashCode(this.serie);
         hash = 17 * hash + Objects.hashCode(this.inventoryNumber);
-        hash = 17 * hash + Objects.hashCode(this.ISBN);
+        hash = 17 * hash + Objects.hashCode(this.isbn);
         hash = 17 * hash + Objects.hashCode(this.genres);
         hash = 17 * hash + Objects.hashCode(this.characteristics);
         return hash;
@@ -199,7 +202,7 @@ public class BookVo extends AbstractVo {
         if (!Objects.equals(this.inventoryNumber, other.inventoryNumber)) {
             return false;
         }
-        if (!Objects.equals(this.ISBN, other.ISBN)) {
+        if (!Objects.equals(this.isbn, other.isbn)) {
             return false;
         }
         if (this.state != other.state) {
@@ -227,6 +230,63 @@ public class BookVo extends AbstractVo {
             return false;
         }
         return Objects.equals(this.characteristics, other.characteristics);
+    }
+
+    @Override
+    public Set<String> validate() {
+        Set<String> errors = checkForNull();
+        if (!errors.isEmpty()) {
+            return errors;
+        }
+        if (title.isEmpty()) {
+            errors.add("Empty title.");
+        }
+        if (signature.isEmpty()) {
+            errors.add("Empty signature.");
+        }
+        errors.addAll(publisher.validate());
+        if (publishYear.getYear() > Year.now().getValue()) {
+            errors.add("Publish year is bigger than current.");
+        }
+        errors.addAll(form.validate());
+        errors.addAll(author.validate());
+        errors.addAll(form.validate());
+        if (inventoryNumber.isEmpty()) {
+            errors.add("Empty inventoryNumber.");
+        }
+        if (isbn.isEmpty()) {
+            errors.add("Empty isbn.");
+        }
+        return errors;
+    }
+
+    public Set<String> checkForNull() {
+        Set<String> errors = new HashSet<>();
+        if (title == null) {
+            errors.add("title is null.");
+        }
+        if (signature == null) {
+            errors.add("signature is null.");
+        }
+        if (publisher == null) {
+            errors.add("publisher is null.");
+        }
+        if (publishYear == null) {
+            errors.add("publisher is null.");
+        }
+        if (form == null) {
+            errors.add("form is null.");
+        }
+        if (author == null) {
+            errors.add("author is null.");
+        }
+        if (inventoryNumber == null) {
+            errors.add("inventoryNumber is null.");
+        }
+        if (isbn == null) {
+            errors.add("isbn is null.");
+        }
+        return errors;
     }
 
 }

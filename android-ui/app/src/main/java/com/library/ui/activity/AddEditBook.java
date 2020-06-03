@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.library.rest.api.vo.YearVo;
 import com.library.rest.api.vo.book.AuthorVo;
 import com.library.rest.api.vo.book.BookSerieVo;
 import com.library.rest.api.vo.book.BookStatesVo;
@@ -25,7 +26,6 @@ import com.library.rest.api.vo.book.WorkFormVo;
 import com.library.ui.R;
 import com.library.ui.view_model.BookViewModel;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -96,7 +96,7 @@ public class AddEditBook extends AppCompatActivity {
         Button addBookButton = findViewById(R.id.add_btn);
         Button archiveBookButton = findViewById(R.id.archive_btn);
         Button discardBookButton = findViewById(R.id.discard_btn);
-        Button returnBookButton = findViewById(R.id.return_btn);
+        Button changeBookButton = findViewById(R.id.change_btn);
         Button rentBookButton = findViewById(R.id.rent_book_btn);
 
         authorSearch = findViewById(R.id.author_search);
@@ -151,9 +151,11 @@ public class AddEditBook extends AppCompatActivity {
             throw new RuntimeException("Missing work mode!");
         switch (mode) {
             case CREATE_MODE:
-                inventoryNumber.setVisibility(View.GONE);
                 addBookButton.setVisibility(View.VISIBLE);
                 addBookButton.setOnClickListener(v -> {
+                    if (!areMissingData()) {
+                        return;
+                    }
                     bookViewModel.save(makeBookVo(BookStatesVo.NEW, BookStatusVo.AVAILABLE)).observe(this, savedBook -> {
                         setResult(RESULT_OK, new Intent());
                         finish();
@@ -165,6 +167,7 @@ public class AddEditBook extends AppCompatActivity {
                     throw new RuntimeException("Missing book for editing!");
                 }
                 hideSearches();
+                makeUnchangeableEditTexts(bookVo);
                 archiveBookButton.setVisibility(View.VISIBLE);
                 archiveBookButton.setOnClickListener(v -> {
                     bookViewModel.update(makeBookVo(BookStatesVo.OLD, BookStatusVo.READING_ROOM)).observe(this, savedBook -> {
@@ -177,12 +180,22 @@ public class AddEditBook extends AppCompatActivity {
                 if (bookVo == null) {
                     throw new RuntimeException("Missing book for editing!");
                 }
+                if (!areMissingData()) {
+                    return;
+                }
+                changeBookButton.setOnClickListener(v -> {
+                    bookViewModel.update(makeBookVo(bookVo.getState(), bookVo.getStatus())).observe(this, savedBook -> {
+                        setResult(RESULT_OK, new Intent());
+                        finish();
+                    });
+                });
                 break;
             case RENT_MODE:
                 if (bookVo == null) {
                     throw new RuntimeException("Missing book for renting!");
                 }
                 hideSearches();
+                makeUnchangeableEditTexts(bookVo);
                 rentBookButton.setVisibility(View.VISIBLE);
                 rentBookButton.setOnClickListener(v -> {
                     Intent rentIntent = new Intent();
@@ -208,6 +221,34 @@ public class AddEditBook extends AppCompatActivity {
                 throw new RuntimeException("Missing or not valid mode!");
         }
 
+    }
+
+    private boolean areMissingData() {
+        if (inventoryNumber.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Not added inventory number!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (title.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Not added title!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (isbn.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Not added ISBN!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (authorName.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Not added author!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (publisherName.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Not added publisher!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (yearText.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Not added publish year!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -292,7 +333,7 @@ public class AddEditBook extends AppCompatActivity {
         title.setText(book.getTitle());
         yearText.setText(book.getPublishYear().toString());
         authorName.setText(book.getAuthor().getName());
-        isbn.setText(book.getISBN());
+        isbn.setText(book.getisbn());
         workFormName.setText(book.getForm().getName());
         publisherName.setText(book.getPublisher().getName());
         bookSerieName.setText(book.getSerie().getName());
@@ -314,6 +355,18 @@ public class AddEditBook extends AppCompatActivity {
         characteristicSearch.setVisibility(View.GONE);
         workFormSearch.setVisibility(View.GONE);
     }
+    private void makeUnchangeableEditTexts(BookVo bookVo) {
+        makeUnchangeable(inventoryNumber,bookVo.getInventoryNumber());
+        makeUnchangeable(title,bookVo.getTitle());
+        makeUnchangeable(isbn,bookVo.getisbn());
+        makeUnchangeable(yearText,bookVo.getPublishYear().toString());
+    }
+    private void makeUnchangeable(EditText editText,String text) {
+        editText.setText(text);
+        editText.setTextIsSelectable(true);
+        editText.setAutofillHints("");
+        editText.setFocusable(false);
+    }
 
     private BookVo makeBookVo(BookStatesVo state, BookStatusVo status) {
         BookVo book = new BookVo(
@@ -322,7 +375,7 @@ public class AddEditBook extends AppCompatActivity {
                 state,
                 status,
                 publisher,
-                Year.parse(yearText.getText().toString()),
+                new YearVo(Integer.parseInt(yearText.getText().toString())),
                 workForm,
                 author,
                 bookSerie,

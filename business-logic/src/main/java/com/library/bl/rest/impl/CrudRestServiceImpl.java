@@ -5,6 +5,7 @@ import com.library.dao.CrudDao;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.domain.Entity;
+import com.library.rest.api.CrudRestService;
 import com.library.rest.api.response.SuccessResponse;
 import com.library.rest.api.vo.AbstractVo;
 import com.library.rest.api.vo.EntityListVo;
@@ -16,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 /**
  *
@@ -26,18 +26,28 @@ import javax.ws.rs.core.Response.Status;
  * @param <E>
  * @param <ListVo>
  */
-public abstract class AbstractRestService<Dao extends CrudDao, Vo extends AbstractVo, E extends Entity, ListVo extends EntityListVo> {
+public class CrudRestServiceImpl<
+        Dao extends CrudDao,
+        Vo extends AbstractVo,
+        E extends Entity,
+        ListVo extends EntityListVo> 
+        implements CrudRestService<Vo,ListVo> {
 
-    private static final Logger LOGGER = Logger.getLogger(AbstractRestService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CrudRestServiceImpl.class.getName());
 
-    protected final DaoRegistryFactory factory;
-
+    private final DaoRegistryFactory factory;
     protected final VoEntityExchanger<Vo, E> exchanger;
+    
+    private final Function<List<Vo>, ListVo> listVoFactory;
+    private final Function<DaoRegistry, CrudDao<E>> daoGetter;
 
-    public AbstractRestService(DaoRegistryFactory factory, VoEntityExchanger<Vo, E> exchanger) {
+    public CrudRestServiceImpl(DaoRegistryFactory factory, VoEntityExchanger<Vo, E> exchanger, Function<List<Vo>, ListVo> listVoFactory, Function<DaoRegistry, CrudDao<E>> daoGetter) {
         this.factory = factory;
         this.exchanger = exchanger;
+        this.listVoFactory = listVoFactory;
+        this.daoGetter = daoGetter;
     }
+
 
     protected synchronized final Response doInTransaction(Function<DaoRegistry, Response> work) {
         try (DaoRegistry daoRegistry = factory.makeDaoRegistry();) {
@@ -52,7 +62,7 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
             return buildResponse(ErrorCode.INTERNAL_ERROR, errors);
         }
     }
-
+    @Override
     public Response save(Vo vo) {
         Set<String> errors = validate(vo);
         if (!errors.isEmpty()) {
@@ -65,6 +75,7 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
         });
     }
 
+    @Override
     public Response update(Vo vo) {
         Set<String> errors = validate(vo);
         if (!errors.isEmpty()) {
@@ -77,6 +88,28 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
         });
     }
 
+    @Override
+    public Response load(Long id) {
+        if (id == null) {
+            Set<String> errors = new HashSet<>();
+            errors.add("Not valid id, Id is null ");
+            return buildResponse(ErrorCode.VALIDATION, errors);
+        }
+        return doInTransaction((daoRegistry) -> {
+            Entity loaded = getDao(daoRegistry).loadById(id);
+            return Response.ok(loaded).build();
+        });
+    }
+
+    @Override
+    public Response loadAll() {
+        return doInTransaction((daoRegistry) -> {
+            List<E> entities = getDao(daoRegistry).loadAll();
+            return Response.ok(listVoFactory.apply(exchanger.exchangeEntityList(entities))).build();
+        });
+    }
+
+    @Override
     public Response delete(Long id) {
         if (id == null) {
             Set<String> errors = new HashSet<>();
@@ -89,7 +122,9 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
         });
     }
 
-    public Response saveAll(List<Vo> vos) {
+    @Override
+    public Response saveAll(ListVo listVo) {
+        List<Vo> vos = listVo.getEntities();
         Set<String> errors = validate(vos);
         if (!errors.isEmpty()) {
             return buildResponse(ErrorCode.VALIDATION, errors);
@@ -101,14 +136,9 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
         });
     }
 
-    public Response loadAll() {
-        return doInTransaction((daoRegistry) -> {
-            List<E> entities = getDao(daoRegistry).loadAll();
-            return Response.ok(makeListVo(exchanger.exchangeEntityList(entities))).build();
-        });
-    }
-
-    public Response deleteAll(List<Vo> vos) {
+    @Override
+    public Response deleteAll(ListVo listVo) {
+        List<Vo> vos = listVo.getEntities();
         Set<String> errors = validate(vos);
         List<Vo> entities = vos.stream().filter((e) -> {
             return e.getId() == null;
@@ -126,30 +156,22 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
         });
     }
 
-    public Response loadById(Long id) {
-        if (id == null) {
-            Set<String> errors = new HashSet<>();
-            errors.add("Not valid id, Id is null ");
-            return buildResponse(ErrorCode.VALIDATION, errors);
-        }
-        return doInTransaction((daoRegistry) -> {
-            Entity loaded = getDao(daoRegistry).loadById(id);
-            return Response.ok(loaded).build();
-        });
-    }
-
     protected Response buildResponse(ErrorCode code, Set<String> errors) {
         switch (code) {
             case INTERNAL_ERROR:
-                return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errors).build();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errors).build();
 
             case NOT_FOUND:
-                return Response.status(Status.NOT_FOUND).entity(errors).build();
+                return Response.status(Response.Status.NOT_FOUND).entity(errors).build();
 
             case VALIDATION:
-                return Response.status(Status.BAD_REQUEST).entity(errors).build();
+                return Response.status(Response.Status.BAD_REQUEST).entity(errors).build();
         }
         return Response.ok(new SuccessResponse()).build();
+    }
+
+    protected CrudDao<E> getDao(DaoRegistry registry) {
+        return daoGetter.apply(registry);
     }
 
     protected Set<String> validate(List<Vo> entities) {
@@ -159,13 +181,8 @@ public abstract class AbstractRestService<Dao extends CrudDao, Vo extends Abstra
         });
         return errors;
     }
-
-    protected abstract Dao getDao(DaoRegistry registry);
-
+    
     protected Set<String> validate(Vo entity) {
         return entity.validate();
     }
-
-    protected abstract ListVo makeListVo(List<Vo> entities);
-
 }

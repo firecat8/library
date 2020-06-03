@@ -24,6 +24,7 @@
         <junit.version>4.12</junit.version>
         <jaxb.version>2.3.0</jaxb.version>
         <jaxrs.version>3.2.0</jaxrs.version>
+        <resteasy.version>3.0.14.Final</resteasy.version>
     </properties>
     
     <build>

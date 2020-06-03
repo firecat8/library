@@ -65,4 +65,5 @@
     <string name="receivable_date">Receivable date</string>
     <string name="edit">Edit</string>
     <string name="back">Back</string>
+    <string name="change">Change</string>
 </resources>

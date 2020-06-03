@@ -39,7 +39,6 @@ class RestServer {
 
     public void start() {
         sf = ResourceUtils.createApplication(application, false, false, true, null);
-
         setDefaultAddress();
 
         this.stop();

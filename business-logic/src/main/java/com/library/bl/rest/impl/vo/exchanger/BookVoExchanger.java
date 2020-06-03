@@ -12,6 +12,7 @@ import com.library.domain.book.BookSerie;
 import com.library.domain.book.BookStates;
 import com.library.domain.book.BookStatus;
 import com.library.domain.book.Publisher;
+import com.library.rest.api.vo.YearVo;
 import com.library.rest.api.vo.book.AuthorVo;
 import com.library.rest.api.vo.book.BookSerieVo;
 import com.library.rest.api.vo.book.BookStatesVo;
@@ -21,6 +22,7 @@ import com.library.rest.api.vo.book.CharacteristicVo;
 import com.library.rest.api.vo.book.GenreVo;
 import com.library.rest.api.vo.book.PublisherVo;
 import com.library.rest.api.vo.book.WorkFormVo;
+import java.time.Year;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,8 +49,8 @@ public class BookVoExchanger extends VoEntityExchanger<BookVo, Book> {
         Book book = new Book(vo.getTitle(), vo.getSignature(), 
                 BookStates.valueOf(vo.getState().name()),
                 BookStatus.valueOf(vo.getStatus().name()),
-                publisher, vo.getPublishYear(),
-                form, author, bookSerie, vo.getInventoryNumber(), vo.getISBN());
+                publisher, Year.parse(vo.getPublishYear().toString()),
+                form, author, bookSerie, vo.getInventoryNumber(), vo.getisbn());
 
         List<Genre> genres = vo.getGenres().stream().map((g) -> {
             return GenreVoExchanger.INSTANCE.exchange(g);
@@ -76,7 +78,7 @@ public class BookVoExchanger extends VoEntityExchanger<BookVo, Book> {
         BookVo book = new BookVo(e.getTitle(), e.getSignature(),
                 BookStatesVo.valueOf(e.getState().name()),
                 BookStatusVo.valueOf(e.getStatus().name()),
-                publisher, e.getPublishYear(),
+                publisher,new YearVo (e.getPublishYear().getValue()),
                 form, author, bookSerie, e.getInventoryNumber(), e.getISBN());
 
         List<GenreVo> genres = e.getGenres().stream().map((g) -> {

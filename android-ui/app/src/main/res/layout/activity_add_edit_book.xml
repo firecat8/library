@@ -258,6 +258,17 @@
         android:backgroundTint="#104073"  />
 
     <Button
+        android:id="@+id/change_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:width="5dp"
+        android:height="10dp"
+        android:text="@string/change"
+        android:visibility="gone"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#104073"  />
+
+    <Button
         android:id="@+id/return_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

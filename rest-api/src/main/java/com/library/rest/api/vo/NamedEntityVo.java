@@ -1,6 +1,8 @@
 package com.library.rest.api.vo;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -45,6 +47,19 @@ public class NamedEntityVo extends AbstractVo {
         }
         final NamedEntityVo other = (NamedEntityVo) obj;
         return Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public Set<String> validate() {
+        Set<String> errors = new HashSet<>();
+        if (name == null) {
+            errors.add("Name is null.");
+            return errors;
+        }
+        if (name.isEmpty()) {
+            errors.add("Empty name.");
+        }
+        return errors;
     }
 
 }
