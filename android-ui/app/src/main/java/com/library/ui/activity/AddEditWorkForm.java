@@ -2,14 +2,13 @@ package com.library.ui.activity;
 
 import android.content.Intent;
 
-import com.library.rest.api.request.WorkFormRequest;
 import com.library.rest.api.vo.book.WorkFormVo;
 import com.library.rest.api.vo.list.WorkFormsListVo;
 import com.library.ui.view_model.WorkFormViewModel;
 
-public class AddEditWorkForm extends AddEditNamedEntity<WorkFormVo, WorkFormsListVo, WorkFormRequest, WorkFormViewModel> {
+public class AddEditWorkForm extends AddEditNamedEntity<WorkFormVo, WorkFormsListVo, WorkFormViewModel> {
     public AddEditWorkForm() {
-        super(WorkFormViewModel.class,"Work form");
+        super(WorkFormViewModel.class, "Work form");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.library.server;
 
 import java.util.Scanner;
+import javax.persistence.EntityManagerFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,10 @@ public class ServerApplication implements AutoCloseable {
 
     public ServerApplication() {
         restServer = new RestServer();
+    }
+
+    public ServerApplication(EntityManagerFactory emf) {
+        restServer = new RestServer(emf);
     }
 
     public void startServer() {

@@ -22,6 +22,12 @@ public class AuthorDto extends NamedDto {
 
     public static final String BIRTH_DATE = "birth_date";
 
+    public static final String BIOGRAPHY_PROP = BIOGRAPHY;
+
+    public static final String BIRTH_PLACE_PROP = "birthPlace";
+
+    public static final String BIRTH_DATE_PROP = "birthDate";
+
     @Column(name = BIOGRAPHY)
     private String biography;
 

@@ -24,6 +24,14 @@ public class UserDaoImpl extends AbstractCrudDao<UserDto, User> implements UserD
     }
 
     @Override
+    public User load(String username) {
+        Map<String, Object> props = new HashMap<>();
+        props.put(UserDto.USERNAME_PROP, username);
+        List<User> users = getResults(props);
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
     public User load(String username, String pass) {
         Map<String, Object> props = new HashMap<>();
         props.put(UserDto.USERNAME_PROP, username);

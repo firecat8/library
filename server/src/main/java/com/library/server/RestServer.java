@@ -1,5 +1,6 @@
 package com.library.server;
 
+import javax.persistence.EntityManagerFactory;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
@@ -19,6 +20,10 @@ class RestServer {
 
     public RestServer() {
         application = new RestApplication();
+    }
+
+    public RestServer(EntityManagerFactory emf) {
+        this.application = new RestApplication(emf);
     }
 
     public void setResourceClass(Class Resourse) {

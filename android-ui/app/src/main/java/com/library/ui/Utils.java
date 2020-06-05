@@ -1,9 +1,8 @@
 package com.library.ui;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.widget.EditText;
 
-import com.library.ui.activity.AddEditWorkForm;
+import com.library.rest.api.vo.NamedEntityVo;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -47,6 +46,7 @@ public class Utils {
     public static String formatDate(Long milliseconds) {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(new Date(milliseconds));
     }
+
     public static Long parseDate(String date) {
         try {
             return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).parse(date).getTime();
@@ -54,5 +54,16 @@ public class Utils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void makeUnchangeable(EditText editText, String text) {
+        editText.setText(text);
+        editText.setTextIsSelectable(true);
+        editText.setAutofillHints("");
+        editText.setFocusable(false);
+    }
+
+    public static <E extends NamedEntityVo> void setText(EditText editText, E e) {
+        editText.setText(e == null ? "" : e.getName());
     }
 }

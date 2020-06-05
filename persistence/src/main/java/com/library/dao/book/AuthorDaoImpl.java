@@ -8,6 +8,7 @@ import com.library.dao.AuthorDao;
 import com.library.domain.book.Author;
 import com.library.dto.AuthorDto;
 import com.library.dto.exchanger.AuthorDtoExchanger;
+import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,11 @@ public class AuthorDaoImpl extends AbstractCrudDao<AuthorDto, Author> implements
 
     @Override
     protected Map<String, Object> loadProperties(AuthorDto newOne) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> props = new HashMap<>();
+        props.put(AuthorDto.BIOGRAPHY_PROP, newOne.getBiography());
+        props.put(AuthorDto.BIRTH_DATE_PROP, newOne.getBirthdate());
+        props.put(AuthorDto.BIRTH_PLACE_PROP, newOne.getBirthPlace());
+        return props;
     }
 
 }

@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.library.rest.api.request.LoginRequest;
 import com.library.rest.api.vo.user.RolesVo;
+import com.library.rest.api.vo.user.UserVo;
 import com.library.ui.CashedDetails;
 import com.library.ui.R;
 import com.library.ui.request.RequestFactory;
@@ -45,9 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         details.setUsername(userName);
         details.setPassword(pass);
-        RequestFactory.getInstance(this).makeLoginRequest(
+        RequestFactory.getInstance(this).makeLoadRequest(
                 URL_CONSTANTS.USER_URL,
-                new LoginRequest(username.getText().toString(), password.getText().toString()),
+                username.getText().toString(),
+                UserVo.class,
                 user -> {
                     RolesVo role = user.getRole();
                     Toast.makeText(LoginActivity.this, " user role " + user.getRole().name(), Toast.LENGTH_LONG).show();

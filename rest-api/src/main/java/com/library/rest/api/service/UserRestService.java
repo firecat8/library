@@ -1,11 +1,11 @@
-package com.library.rest.api.user;
+package com.library.rest.api.service;
 
 import com.library.rest.api.CrudRestService;
-import com.library.rest.api.request.LoginRequest;
 import com.library.rest.api.vo.list.UsersListVo;
 import com.library.rest.api.vo.user.UserVo;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 /**
@@ -14,8 +14,7 @@ import javax.ws.rs.core.Response;
  */
 public interface UserRestService extends CrudRestService<UserVo, UsersListVo> {
 
-    @POST
-    @Path("/login")
-    public Response login(LoginRequest request);
-
+    @GET
+    @Path("/load/{username}")
+    public Response load(@PathParam("username") String username);
 }

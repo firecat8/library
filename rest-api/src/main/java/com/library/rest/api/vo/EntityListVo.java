@@ -22,4 +22,8 @@ public abstract class EntityListVo<T> implements Serializable{
         return entities;
     }
 
+    public void setEntities(List<T> entities) {
+        this.entities = entities;
+    }
+
 }

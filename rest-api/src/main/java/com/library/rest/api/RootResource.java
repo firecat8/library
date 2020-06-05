@@ -1,56 +1,52 @@
 package com.library.rest.api;
 
-import com.library.rest.api.user.UserRestService;
-import com.library.rest.api.vo.book.AuthorVo;
-import com.library.rest.api.vo.book.BookRentalVo;
-import com.library.rest.api.vo.book.BookSerieVo;
-import com.library.rest.api.vo.book.BookVo;
-import com.library.rest.api.vo.book.CharacteristicVo;
-import com.library.rest.api.vo.book.GenreVo;
-import com.library.rest.api.vo.book.PublisherVo;
-import com.library.rest.api.vo.book.WorkFormVo;
-import com.library.rest.api.vo.list.AuthorsListVo;
-import com.library.rest.api.vo.list.BookSeriesListVo;
-import com.library.rest.api.vo.list.BooksListVo;
-import com.library.rest.api.vo.list.BooksRentalListVo;
-import com.library.rest.api.vo.list.CharacteristicsListVo;
-import com.library.rest.api.vo.list.GenresListVo;
-import com.library.rest.api.vo.list.PublishersListVo;
-import com.library.rest.api.vo.list.WorkFormsListVo;
+import com.library.rest.api.service.AuthorRestService;
+import com.library.rest.api.service.BookRentalRestService;
+import com.library.rest.api.service.BookRestService;
+import com.library.rest.api.service.BookSerieRestService;
+import com.library.rest.api.service.CharacteristicRestService;
+import com.library.rest.api.service.GenreRestService;
+import com.library.rest.api.service.PublisherRestService;
+import com.library.rest.api.service.UserRestService;
+import com.library.rest.api.service.WorkFormRestService;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 /**
  *
  * @author gdimitrova
  */
 @Path("/")
+@Produces("appliction/json")
+@Consumes("appliction/json")
 public interface RootResource {
 
     @Path("/user")
     UserRestService getUsersRestService();
 
     @Path("/book")
-    CrudRestService<BookVo, BooksListVo> getBooksRestService();
+    BookRestService getBooksRestService();
 
     @Path("/author")
-    CrudRestService<AuthorVo, AuthorsListVo> getAuthorsRestService();
+    AuthorRestService getAuthorsRestService();
 
     @Path("/book/rental")
-    CrudRestService<BookRentalVo, BooksRentalListVo> getBooksRentalsRestService();
+    BookRentalRestService getBooksRentalsRestService();
 
     @Path("/book/serie")
-    CrudRestService<BookSerieVo, BookSeriesListVo> getBookSeriesRestService();
+    BookSerieRestService getBookSeriesRestService();
 
     @Path("/characteristic")
-    CrudRestService<CharacteristicVo, CharacteristicsListVo> getCharacteristicsRestService();
-
-    @Path("/genre")
-    CrudRestService<GenreVo, GenresListVo> getGenresRestService();
+    CharacteristicRestService getCharacteristicsRestService();
 
     @Path("/publisher")
-    CrudRestService<PublisherVo, PublishersListVo> getPublishersRestService();
+    PublisherRestService getPublishersRestService();
+
+    @Path("/genre")
+    GenreRestService getGenresRestService();
 
     @Path("/workForm")
-    CrudRestService<WorkFormVo, WorkFormsListVo> getWorkformsRestService();
+    WorkFormRestService getWorkformsRestService();
 
 }

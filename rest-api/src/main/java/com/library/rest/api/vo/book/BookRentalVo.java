@@ -5,6 +5,7 @@ import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.user.UserVo;
 import java.util.Objects;
 import java.util.Set;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *

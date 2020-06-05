@@ -11,13 +11,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.library.rest.api.request.EntityRequest;
 import com.library.rest.api.vo.EntityListVo;
 import com.library.rest.api.vo.NamedEntityVo;
 import com.library.ui.R;
+import com.library.ui.Utils;
 import com.library.ui.view_model.AbstractViewModel;
 
-public abstract class AddEditNamedEntity<E extends NamedEntityVo, ListVo extends EntityListVo<E>, Req extends EntityRequest<E>, EntityViewModel extends AbstractViewModel<E, ListVo, Req>> extends AppCompatActivity {
+public abstract class AddEditNamedEntity<E extends NamedEntityVo, ListVo extends EntityListVo<E>, EntityViewModel extends AbstractViewModel<E, ListVo>> extends AppCompatActivity {
     public static final String EXTRA_MODE = "com.library.named.entity.EXTRA_MODE";
     public static final String EXTRA_ENTITY = "com.library.named.entity.EXTRA_ENTITY";
     public static final String CREATE_MODE = "CREATE_MODE";
@@ -50,7 +50,7 @@ public abstract class AddEditNamedEntity<E extends NamedEntityVo, ListVo extends
         name = findViewById(R.id.name_text);
         Button addButton = findViewById(R.id.add_entity_button);
         Button editButton = findViewById(R.id.edit_entity_button);
-        Button backButton=findViewById(R.id.back_button);
+        Button backButton = findViewById(R.id.back_button);
 
         Intent intent = getIntent();
         String mode = intent.getStringExtra(EXTRA_MODE);
@@ -77,10 +77,7 @@ public abstract class AddEditNamedEntity<E extends NamedEntityVo, ListVo extends
                 break;
             case ADD_MODE:
                 E entityForAdding = getEntity(intent);
-                name.setText(entityForAdding.getName());
-                name.setTextIsSelectable(true);
-                name.setAutofillHints("");
-                name.setFocusable(false);
+                Utils.makeUnchangeable(name, entityForAdding.getName());
                 addButton.setOnClickListener(v -> {
                     Log.i(TAG, "\nButton for ADD_MODE is clicked\n");
                     Intent addIntent = new Intent();
@@ -91,7 +88,7 @@ public abstract class AddEditNamedEntity<E extends NamedEntityVo, ListVo extends
                 backButton.setVisibility(View.VISIBLE);
                 backButton.setOnClickListener(v -> {
                     Log.i(TAG, "\nButton back for ADD_MODE is clicked\n");
-                    setResult(RESULT_CANCELED,  new Intent());
+                    setResult(RESULT_CANCELED, new Intent());
                     finish();
                 });
                 break;

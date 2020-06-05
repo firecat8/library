@@ -27,18 +27,17 @@ import javax.ws.rs.core.Response;
  * @param <ListVo>
  */
 public class CrudRestServiceImpl<
-        Dao extends CrudDao,
-        Vo extends AbstractVo,
-        E extends Entity,
-        ListVo extends EntityListVo> 
-        implements CrudRestService<Vo,ListVo> {
+        Dao extends CrudDao, Vo extends AbstractVo, E extends Entity, ListVo extends EntityListVo<Vo>>
+        implements CrudRestService<Vo, ListVo> {
 
     private static final Logger LOGGER = Logger.getLogger(CrudRestServiceImpl.class.getName());
 
     private final DaoRegistryFactory factory;
+
     protected final VoEntityExchanger<Vo, E> exchanger;
-    
+
     private final Function<List<Vo>, ListVo> listVoFactory;
+
     private final Function<DaoRegistry, CrudDao<E>> daoGetter;
 
     public CrudRestServiceImpl(DaoRegistryFactory factory, VoEntityExchanger<Vo, E> exchanger, Function<List<Vo>, ListVo> listVoFactory, Function<DaoRegistry, CrudDao<E>> daoGetter) {
@@ -47,7 +46,6 @@ public class CrudRestServiceImpl<
         this.listVoFactory = listVoFactory;
         this.daoGetter = daoGetter;
     }
-
 
     protected synchronized final Response doInTransaction(Function<DaoRegistry, Response> work) {
         try (DaoRegistry daoRegistry = factory.makeDaoRegistry();) {
@@ -62,6 +60,7 @@ public class CrudRestServiceImpl<
             return buildResponse(ErrorCode.INTERNAL_ERROR, errors);
         }
     }
+
     @Override
     public Response save(Vo vo) {
         Set<String> errors = validate(vo);
@@ -70,8 +69,8 @@ public class CrudRestServiceImpl<
         }
         E entity = exchanger.exchange(vo);
         return doInTransaction((daoRegistry) -> {
-            Entity saved = getDao(daoRegistry).save(entity);
-            return Response.ok(saved).build();
+            E saved = getDao(daoRegistry).save(entity);
+            return Response.ok(exchanger.exchange(saved)).build();
         });
     }
 
@@ -89,15 +88,18 @@ public class CrudRestServiceImpl<
     }
 
     @Override
-    public Response load(Long id) {
+    public Response loadById(Long id) {
         if (id == null) {
             Set<String> errors = new HashSet<>();
             errors.add("Not valid id, Id is null ");
             return buildResponse(ErrorCode.VALIDATION, errors);
         }
         return doInTransaction((daoRegistry) -> {
-            Entity loaded = getDao(daoRegistry).loadById(id);
-            return Response.ok(loaded).build();
+            E loaded = getDao(daoRegistry).loadById(id);
+            if (loaded == null) {
+                return buildResponse(ErrorCode.NOT_FOUND, new HashSet<>());
+            }
+            return Response.ok(exchanger.exchange(loaded)).build();
         });
     }
 
@@ -181,7 +183,7 @@ public class CrudRestServiceImpl<
         });
         return errors;
     }
-    
+
     protected Set<String> validate(Vo entity) {
         return entity.validate();
     }

@@ -15,18 +15,16 @@ public class OperatorMenu extends AppCompatActivity {
     public static final int ADD_USER_REQUEST = 1;
     public static final int ADD_BOOK_REQUEST = 2;
     public static final int ADD_RENT_BOOK_REQUEST = 3;
-
-    private Button addBookButton;
-    private Button rentBookButton;
-    private Button addReaderButton;
+    public static final int ADD_ARCHIVE_BOOK_REQUEST = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operator_menu);
-        addBookButton = findViewById(R.id.add_new_book_btn);
-        rentBookButton = findViewById(R.id.rent_book_btn);
-        addReaderButton = findViewById(R.id.add_reader_btn);
+        Button addBookButton = findViewById(R.id.add_new_book_btn);
+        Button rentBookButton = findViewById(R.id.rent_book_btn);
+        Button addReaderButton = findViewById(R.id.add_reader_btn);
+        Button archiveBookButton = findViewById(R.id.archive_book_btn);
         addReaderButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddEditUser.class);
             intent.putExtra(AddEditUser.EXTRA_ROLE, RolesVo.READER);
@@ -40,8 +38,13 @@ public class OperatorMenu extends AppCompatActivity {
         });
         rentBookButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddEditBookRent.class);
-           // intent.putExtra(AddEditBookRent.EXTRA_MODE, AddEditBookRent.);
+            intent.putExtra(AddEditBookRent.EXTRA_MODE, AddEditBookRent.CREATE_MODE);
             startActivityForResult(intent, ADD_RENT_BOOK_REQUEST);
+        });
+        archiveBookButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BookListActivity.class);
+            intent.putExtra(AddEditBook.EXTRA_MODE, AddEditBook.ARCHIVE_MODE);
+            startActivityForResult(intent, ADD_ARCHIVE_BOOK_REQUEST);
         });
     }
 

@@ -24,6 +24,7 @@ import com.library.rest.api.vo.book.GenreVo;
 import com.library.rest.api.vo.book.PublisherVo;
 import com.library.rest.api.vo.book.WorkFormVo;
 import com.library.ui.R;
+import com.library.ui.Utils;
 import com.library.ui.view_model.BookViewModel;
 
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class AddEditBook extends AppCompatActivity {
         Button archiveBookButton = findViewById(R.id.archive_btn);
         Button discardBookButton = findViewById(R.id.discard_btn);
         Button changeBookButton = findViewById(R.id.change_btn);
-        Button rentBookButton = findViewById(R.id.rent_book_btn);
+        Button rentBookButton = findViewById(R.id.rent_btn);
 
         authorSearch = findViewById(R.id.author_search);
         publisherSearch = findViewById(R.id.publisher_search);
@@ -107,7 +108,7 @@ public class AddEditBook extends AppCompatActivity {
 
         authorSearch.setOnClickListener(v -> {
             Intent intent = new Intent(this, AuthorListActivity.class);
-            intent.putExtra(AddEditBookRent.EXTRA_MODE, AddEditBookRent.ADD_MODE);
+            intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.ADD_MODE);
             startActivityForResult(intent, ADD_AUTHOR_REQUEST);
         });
         workFormSearch.setOnClickListener(v -> {
@@ -332,11 +333,11 @@ public class AddEditBook extends AppCompatActivity {
         inventoryNumber.setText(book.getInventoryNumber());
         title.setText(book.getTitle());
         yearText.setText(book.getPublishYear().toString());
-        authorName.setText(book.getAuthor().getName());
+        Utils.setText(authorName, book.getAuthor());
         isbn.setText(book.getisbn());
-        workFormName.setText(book.getForm().getName());
-        publisherName.setText(book.getPublisher().getName());
-        bookSerieName.setText(book.getSerie().getName());
+        Utils.setText(workFormName, book.getForm());
+        Utils.setText(publisherName, book.getPublisher());
+        Utils.setText(bookSerieName, book.getSerie());
         List<GenreVo> genres = book.getGenres();
         if (!genres.isEmpty()) {
             genreName.setText(genres.get(0).getName());
@@ -355,17 +356,12 @@ public class AddEditBook extends AppCompatActivity {
         characteristicSearch.setVisibility(View.GONE);
         workFormSearch.setVisibility(View.GONE);
     }
+
     private void makeUnchangeableEditTexts(BookVo bookVo) {
-        makeUnchangeable(inventoryNumber,bookVo.getInventoryNumber());
-        makeUnchangeable(title,bookVo.getTitle());
-        makeUnchangeable(isbn,bookVo.getisbn());
-        makeUnchangeable(yearText,bookVo.getPublishYear().toString());
-    }
-    private void makeUnchangeable(EditText editText,String text) {
-        editText.setText(text);
-        editText.setTextIsSelectable(true);
-        editText.setAutofillHints("");
-        editText.setFocusable(false);
+        Utils.makeUnchangeable(inventoryNumber, bookVo.getInventoryNumber());
+        Utils.makeUnchangeable(title, bookVo.getTitle());
+        Utils.makeUnchangeable(isbn, bookVo.getisbn());
+        Utils.makeUnchangeable(yearText, bookVo.getPublishYear().toString());
     }
 
     private BookVo makeBookVo(BookStatesVo state, BookStatusVo status) {

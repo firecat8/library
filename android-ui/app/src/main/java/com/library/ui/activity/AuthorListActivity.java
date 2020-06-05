@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,14 +30,16 @@ public class AuthorListActivity extends AppCompatActivity {
     private AuthorAdapter authorAdapter;
     private AuthorViewModel authorViewModel;
 
+    private Intent mainIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_author_list);
+        mainIntent = getIntent();
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_author);
         buttonAddNote.setOnClickListener(v -> {
-            Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
+            Intent intent = new Intent(this, AddEditAuthor.class);
             intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.CREATE_MODE);
             startActivityForResult(intent, CREATE_REQUEST);
         });
@@ -52,9 +55,9 @@ public class AuthorListActivity extends AppCompatActivity {
         getAllAuthors();
 
         authorAdapter.setOnItemClickListener(author -> {
-            Intent intent = new Intent(AuthorListActivity.this, AddEditAuthor.class);
+            Intent intent = new Intent(this, AddEditAuthor.class);
 
-            intent.putExtra(AddEditAuthor.EXTRA_MODE, AddEditAuthor.EDIT_MODE);
+            intent.putExtras(mainIntent);
             intent.putExtra(AddEditAuthor.EXTRA_AUTHOR, author);
 
             startActivityForResult(intent, EDIT_REQUEST);
@@ -64,7 +67,32 @@ public class AuthorListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_CANCELED ) {
+            return;
+        }
+        if (requestCode == EDIT_REQUEST && resultCode == RESULT_CANCELED) {
+            return;
+        }
+        String mode = mainIntent.getStringExtra(AddEditAuthor.EXTRA_MODE);
+        if (requestCode == CREATE_REQUEST && resultCode == RESULT_OK ) {
+            if (mode.equals(AddEditAuthor.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully added!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (requestCode == EDIT_REQUEST && resultCode == RESULT_OK) {
+            if (mode.equals(AddEditAuthor.ADD_MODE)) {
+                setResult(RESULT_OK, data);
+                finish();
+                return;
+            }
+            Toast.makeText(this, "Successfully changed!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, "No request", Toast.LENGTH_SHORT).show();
         getAllAuthors();
     }
 

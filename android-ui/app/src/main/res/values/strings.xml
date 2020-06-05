@@ -66,4 +66,5 @@
     <string name="edit">Edit</string>
     <string name="back">Back</string>
     <string name="change">Change</string>
+    <string name="archive_book">Archive book</string>
 </resources>

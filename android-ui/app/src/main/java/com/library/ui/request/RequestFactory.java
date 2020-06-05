@@ -10,11 +10,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.library.rest.api.request.LoginRequest;
-import com.library.rest.api.vo.user.UserVo;
-
-import java.lang.reflect.Array;
-import java.util.List;
 
 public class RequestFactory {
     private static final String TAG = "RequestFactory";
@@ -35,10 +30,6 @@ public class RequestFactory {
         return instance;
     }
 
-    public void makeLoginRequest(String svcURL, LoginRequest request, Response.Listener<UserVo> listener) {
-        makeRequest(Request.Method.POST, svcURL + "/login", gson.toJson(request), UserVo.class, listener);
-    }
-
     public <T, Req> void makeSaveRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
         makeRequest(Request.Method.POST, svcURL + "/save", gson.toJson(request), clazz, listener);
     }
@@ -48,7 +39,11 @@ public class RequestFactory {
     }
 
     public <T, Req> void makeLoadRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
-        makeRequest(Request.Method.GET, svcURL + "/load", gson.toJson(request), clazz, listener);
+        makeRequest(Request.Method.GET, svcURL + "/load/"+request, gson.toJson(request), clazz, listener);
+    }
+
+    public <T, Req> void makeLoadByIdRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
+        makeRequest(Request.Method.GET, svcURL + "/loadById", gson.toJson(request), clazz, listener);
     }
 
     public <T, Req> void makeDeleteRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
@@ -57,7 +52,7 @@ public class RequestFactory {
 
     public <T, Req> void makeLoadAllRequest(String svcURL, Req request, Class<T> clazz, Response.Listener<T> listener) {
         makeRequest(Request.Method.GET, svcURL + "/loadAll", request == null ? null : gson.toJson(request), clazz,
-               // new TypeToken<T>() { }.getType(),
+                // new TypeToken<T>() { }.getType(),
                 listener);
     }
 
@@ -79,10 +74,10 @@ public class RequestFactory {
     private Response.ErrorListener getErrorListener() {
         return error -> {
             if (error.getCause() != null) {
-                Log.i(TAG, "\n"+error.getCause().getMessage()+"\n");
+                Log.i(TAG, "\n" + error.getCause().getMessage() + "\n");
             }
             if (error.getMessage() != null) {
-                Log.i(TAG, "\n"+error.getMessage()+"\n");
+                Log.i(TAG, "\n" + error.getMessage() + "\n");
             }
             if (error instanceof NetworkError) {
                 Toast.makeText(context, "No network is available", Toast.LENGTH_LONG).show();

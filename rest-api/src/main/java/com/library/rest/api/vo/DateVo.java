@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -61,6 +62,7 @@ public class DateVo implements Serializable, Validatable {
         return miliseconds;
     }
 
+    @JsonIgnore
     public void setDate(Calendar date) {
         this.year = date.get(Calendar.YEAR) - 1900;
         this.month = date.get(Calendar.MONTH);
@@ -71,6 +73,7 @@ public class DateVo implements Serializable, Validatable {
         this.miliseconds = date.get(Calendar.MILLISECOND);
     }
 
+    @JsonIgnore
     public Calendar convetToCalendar() {
         Calendar c = Calendar.getInstance();
         c.setLenient(false);
@@ -133,9 +136,9 @@ public class DateVo implements Serializable, Validatable {
     @Override
     public Set<String> validate() {
         Set<String> errors = new HashSet<>();
-        try{
-        convetToCalendar();
-        }catch(Exception ex){
+        try {
+            convetToCalendar();
+        } catch (Exception ex) {
             errors.add(ex.getMessage());
         }
         return errors;

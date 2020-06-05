@@ -5,6 +5,7 @@ import com.library.rest.api.vo.DateVo;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -171,6 +172,7 @@ public class UserVo extends AbstractVo {
         return Objects.equals(this.createdDate, other.createdDate);
     }
 
+    @JsonIgnore
     public String getFullName() {
         return firstName.concat(" ").concat(surname).concat(" ").concat(lastName);
     }

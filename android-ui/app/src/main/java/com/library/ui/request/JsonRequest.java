@@ -2,6 +2,8 @@ package com.library.ui.request;
 
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Base64;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -12,10 +14,12 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.library.ui.CashedDetails;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +56,8 @@ public class JsonRequest<T> extends Request<T> {
     public Map<String, String> getHeaders() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", PROTOCOL_CONTENT_TYPE);
+        String authorization = CashedDetails.INSTANCE.getUsername() + ":" + CashedDetails.INSTANCE.getPassword();
+        headers.put("Authorization", "Basic " + Arrays.toString(Base64.encode(authorization.getBytes(), Base64.DEFAULT)));
         return headers;
     }
 

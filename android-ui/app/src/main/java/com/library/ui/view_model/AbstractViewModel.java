@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.library.rest.api.request.EntityRequest;
 import com.library.rest.api.response.SuccessResponse;
 import com.library.rest.api.vo.AbstractVo;
 import com.library.rest.api.vo.EntityListVo;
@@ -14,7 +13,7 @@ import com.library.ui.request.RequestFactory;
 
 import java.util.List;
 
-public abstract class AbstractViewModel<Entity extends AbstractVo, ListVo extends EntityListVo<Entity>, Req extends EntityRequest<Entity>> extends AndroidViewModel {
+public abstract class AbstractViewModel<Entity extends AbstractVo, ListVo extends EntityListVo<Entity>> extends AndroidViewModel {
     private final Class<Entity> entityClass;
     private final Class<ListVo> entityListClass;
     private final String url;
@@ -32,7 +31,7 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, ListVo extend
 
     public MutableLiveData<Entity> loadById(Long id) {
         oneEntity = new MutableLiveData<>();
-        RequestFactory.getInstance(this.getApplication()).makeLoadRequest(
+        RequestFactory.getInstance(this.getApplication()).makeLoadByIdRequest(
                 url,
                 id,
                 entityClass,
@@ -45,7 +44,7 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, ListVo extend
         oneEntity = new MutableLiveData<>();
         RequestFactory.getInstance(this.getApplication()).makeSaveRequest(
                 url,
-                makeEntityRequest(entity),
+                entity,
                 entityClass,
                 response -> oneEntity.setValue(response)
         );
@@ -56,7 +55,7 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, ListVo extend
         updateResult = new MutableLiveData<>();
         RequestFactory.getInstance(this.getApplication()).makeUpdateRequest(
                 url,
-                makeEntityRequest(entity),
+                entity,
                 SuccessResponse.class,
                 response -> updateResult.setValue(true)
         );
@@ -87,5 +86,4 @@ public abstract class AbstractViewModel<Entity extends AbstractVo, ListVo extend
         return allEntities;
     }
 
-    protected abstract Req makeEntityRequest(Entity entity);
 }

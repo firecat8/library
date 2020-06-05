@@ -11,6 +11,8 @@ public interface UserDao extends CrudDao<User> {
 
     public User load(String username, String pass);
 
+    public User load(String username);
+
     public List<User> loadReaders();
 
 }

@@ -20,10 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/inventory_number"
-            android:inputType="number"
-            android:focusable="false"
-            android:autofillHints=""
-            android:textIsSelectable="true" />
+            android:inputType="text" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
