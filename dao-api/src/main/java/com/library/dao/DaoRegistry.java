@@ -24,6 +24,10 @@ public interface DaoRegistry extends AutoCloseable {
 
     public PublisherDao getPublisherDao();
 
+    public StockSignatureDao getStockSignatureDao();
+
+    public FormatSignatureDao getFormatSignatureDao();
+
     public void beginTransaction();
 
     public void rollbackTransaction();

@@ -19,4 +19,7 @@ public abstract class Signature extends NamedEntity {
         return abbreviation;
     }
 
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
 }

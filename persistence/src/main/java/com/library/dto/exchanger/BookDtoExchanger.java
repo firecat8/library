@@ -10,12 +10,16 @@ import com.library.domain.book.Author;
 import com.library.domain.book.Book;
 import com.library.domain.book.BookSerie;
 import com.library.domain.book.Publisher;
+import com.library.domain.book.signature.FormatSignature;
+import com.library.domain.book.signature.StockSignature;
 import com.library.dto.AuthorDto;
 import com.library.dto.BookDto;
 import com.library.dto.BookSerieDto;
 import com.library.dto.CharacteristicDto;
+import com.library.dto.FormatSignatureDto;
 import com.library.dto.GenreDto;
 import com.library.dto.PublisherDto;
+import com.library.dto.StockSignatureDto;
 import com.library.dto.WorkFormDto;
 import java.util.List;
 import java.util.Set;
@@ -37,12 +41,15 @@ public class BookDtoExchanger extends DtoEntityExchanger<BookDto, Book> {
         Publisher publisher = PublisherDtoExchanger.INSTANCE.exchange(dto.getPublisher());
         WorkForm form = WorkFormDtoExchanger.INSTANCE.exchange(dto.getForm());
         Author author = AuthorDtoExchanger.INSTANCE.exchange(dto.getAuthor());
-
+        StockSignature stockSignature = StockSignatureDtoExchanger.INSTANCE.exchange(dto.getStockSignature());
+        FormatSignature formatSignature = FormatSignatureDtoExchanger.INSTANCE.exchange(dto.getFormatSignatureDto());
         BookSerieDto serie = dto.getSerie();
         BookSerie bookSerie = serie == null ? null : BookSerieDtoExchanger.INSTANCE.exchange(dto.getSerie());
 
-        Book book = new Book(dto.getTitle(), dto.getSignature(), dto.getState(), dto.getStatus(), publisher, dto.getPublishYear(),
-                form, author, bookSerie, dto.getInventoryNumber(), dto.getIsbn());
+        Book book = new Book(dto.getTitle(),formatSignature,stockSignature, dto.getSignature(), dto.getState(), dto.getStatus(), publisher, dto.getPublishYear(),
+               form, author, bookSerie, dto.getInventoryNumber(), dto.getIsbn());
+//        Book book = new Book(dto.getTitle(), dto.getSignature(), dto.getState(), dto.getStatus(), publisher, dto.getPublishYear(),
+//                form, author, bookSerie, dto.getInventoryNumber(), dto.getIsbn());
 
         List<Genre> genres = dto.getGenres().stream().map((g) -> {
             return GenreDtoExchanger.INSTANCE.exchange(g);
@@ -63,11 +70,13 @@ public class BookDtoExchanger extends DtoEntityExchanger<BookDto, Book> {
         PublisherDto publisher = PublisherDtoExchanger.INSTANCE.exchange(e.getPublisher());
         WorkFormDto form = WorkFormDtoExchanger.INSTANCE.exchange(e.getForm());
         AuthorDto author = AuthorDtoExchanger.INSTANCE.exchange(e.getAuthor());
+        StockSignatureDto stockSignatureDto = StockSignatureDtoExchanger.INSTANCE.exchange(e.getStockSignature());
+        FormatSignatureDto formatSignatureDto = FormatSignatureDtoExchanger.INSTANCE.exchange(e.getFormatSignature());
         BookSerie serie = e.getSerie();
 
         BookSerieDto bookSerie = serie == null ? null : BookSerieDtoExchanger.INSTANCE.exchange(e.getSerie());
 
-        BookDto book = new BookDto(e.getTitle(), e.getSignature(), e.getState(), e.getStatus(), publisher, e.getPublishYear(),
+        BookDto book = new BookDto(e.getTitle(),formatSignatureDto,stockSignatureDto, e.getSignature(), e.getState(), e.getStatus(), publisher, e.getPublishYear(),
                 form, author, bookSerie, e.getInventoryNumber(), e.getISBN());
 
         Set<GenreDto> genres = e.getGenres().stream().map((g) -> {

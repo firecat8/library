@@ -25,6 +25,8 @@
         <jaxb.version>2.3.0</jaxb.version>
         <jaxrs.version>3.2.0</jaxrs.version>
         <resteasy.version>4.5.3.Final</resteasy.version>
+        <jmeter.maven.version>3.0.0</jmeter.maven.version>
+        <zerocode.version>1.2.17</zerocode.version>
     </properties>
     
     <build>
@@ -37,6 +39,25 @@
                     <release>${maven.compiler.release}</release> 
                 </configuration>
             </plugin>
+<!--            <plugin>
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <version>${jmeter.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
         </plugins>
     </build>
     
@@ -48,7 +69,14 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.jsmart</groupId>
+                <artifactId>zerocode-rest-bdd</artifactId>
+                <version>${zerocode.version}</version> 
+                <scope>test</scope>
+            </dependency>
         </dependencies>
+        
     </dependencyManagement>
     
 </project>

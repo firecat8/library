@@ -1,9 +1,11 @@
-package com.library.server;
+package com.library.server.integration;
 
 import com.library.rest.api.RootResource;
 import com.library.rest.api.service.AuthorRestService;
 import com.library.rest.api.service.BookRestService;
+import com.library.rest.api.service.FormatSignatureRestService;
 import com.library.rest.api.service.PublisherRestService;
+import com.library.rest.api.service.StockSignatureRestService;
 import com.library.rest.api.service.WorkFormRestService;
 import com.library.rest.api.vo.YearVo;
 import com.library.rest.api.vo.book.AuthorVo;
@@ -13,9 +15,13 @@ import com.library.rest.api.vo.book.BookStatusVo;
 import com.library.rest.api.vo.book.BookVo;
 import com.library.rest.api.vo.book.PublisherVo;
 import com.library.rest.api.vo.book.WorkFormVo;
+import com.library.rest.api.vo.book.signature.FormatSignatureVo;
+import com.library.rest.api.vo.book.signature.StockSignatureVo;
 import com.library.rest.api.vo.list.AuthorsListVo;
 import com.library.rest.api.vo.list.BooksListVo;
+import com.library.rest.api.vo.list.FormatSignaturesListVo;
 import com.library.rest.api.vo.list.PublishersListVo;
+import com.library.rest.api.vo.list.StockSignaturesListVo;
 import com.library.rest.api.vo.list.WorkFormsListVo;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +46,14 @@ public class IntegrationBookRestServiceTest
     private static WorkFormVo workForm;
 
     private static WorkFormsListVo workForms;
+
+    private static FormatSignatureVo formatSignature;
+
+    private static FormatSignaturesListVo formatSignatures;
+
+    private static StockSignatureVo stockSignature;
+
+    private static StockSignaturesListVo stockSignatures;
 
     public IntegrationBookRestServiceTest() {
         super(BookVo.class, BooksListVo.class);
@@ -93,7 +107,9 @@ public class IntegrationBookRestServiceTest
         AuthorRestService authorsRestService = proxy.getAuthorsRestService();
         PublisherRestService publishersRestService = proxy.getPublishersRestService();
         WorkFormRestService workformsRestService = proxy.getWorkformsRestService();
-        
+        StockSignatureRestService stockSignaturesRestService = proxy.getStockSignaturesRestService();
+        FormatSignatureRestService formatSignaturesRestService = proxy.getFormatSignaturesRestService();
+
         Response rsp = authorsRestService.save(IntegrationAuthorRestServiceTest.createDefault());
         author = rsp.readEntity(AuthorVo.class);
         rsp.close();
@@ -102,7 +118,7 @@ public class IntegrationBookRestServiceTest
         rsp = authorsRestService.loadAll();
         authors = rsp.readEntity(AuthorsListVo.class);
         rsp.close();
-        
+
         rsp = publishersRestService.save(IntegrationPublisherRestServiceTest.createDefault());
         publisher = rsp.readEntity(PublisherVo.class);
         rsp.close();
@@ -111,7 +127,7 @@ public class IntegrationBookRestServiceTest
         rsp = publishersRestService.loadAll();
         publishers = rsp.readEntity(PublishersListVo.class);
         rsp.close();
-        
+
         rsp = workformsRestService.save(IntegrationWorkFormRestServiceTest.createDefault());
         workForm = rsp.readEntity(WorkFormVo.class);
         rsp.close();
@@ -120,29 +136,49 @@ public class IntegrationBookRestServiceTest
         rsp = workformsRestService.loadAll();
         workForms = rsp.readEntity(WorkFormsListVo.class);
         rsp.close();
+
+        rsp = stockSignaturesRestService.save(IntegrationStockSignatureRestServiceTest.createDefault());
+        stockSignature = rsp.readEntity(StockSignatureVo.class);
+        rsp.close();
+        rsp = stockSignaturesRestService.saveAll(IntegrationStockSignatureRestServiceTest.createStockSignatures());
+        rsp.close();
+        rsp = stockSignaturesRestService.loadAll();
+        stockSignatures = rsp.readEntity(StockSignaturesListVo.class);
+        rsp.close();
+
+        rsp = formatSignaturesRestService.save(IntegrationFormatSignatureRestServiceTest.createDefault());
+        formatSignature = rsp.readEntity(FormatSignatureVo.class);
+        rsp.close();
+        rsp = formatSignaturesRestService.saveAll(IntegrationFormatSignatureRestServiceTest.createFormatSignatures());
+        rsp.close();
+        rsp = formatSignaturesRestService.loadAll();
+        formatSignatures = rsp.readEntity(FormatSignaturesListVo.class);
+        rsp.close();
     }
 
-    private static BookVo createVo(String title, String signature, BookStatesVo state, BookStatusVo status,
+    private static BookVo createVo(String title, FormatSignatureVo formatSignature, StockSignatureVo stockSignature, String signature, BookStatesVo state, BookStatusVo status,
             PublisherVo publisher, YearVo publishYear, WorkFormVo form, AuthorVo author,
             BookSerieVo serie, String inventoryNumber, String ISBN) {
-        return new BookVo(title, signature, state, status, publisher, publishYear, form, author, serie, inventoryNumber, ISBN);
+        return new BookVo(title, formatSignature, stockSignature, signature, state, status, publisher, publishYear, form, author, serie, inventoryNumber, ISBN);
     }
 
     public static BookVo createDefault() {
-        return createVo("The big hunt", "2020", BookStatesVo.NEW, BookStatusVo.AVAILABLE, publisher,
+        return createVo("The big hunt", formatSignature, stockSignature, "2020", BookStatesVo.NEW, BookStatusVo.AVAILABLE, publisher,
                 new YearVo(2010), workForm, author, null, "2020001", "561-561-55-63");
     }
 
     public static BooksListVo createBooks() {
         List<BookVo> books = new ArrayList<>();
         books.add(createVo(
-                "The big goal", "202", BookStatesVo.NEW, BookStatusVo.AVAILABLE,
+                "The big goal", formatSignatures.getEntities().get(0), stockSignatures.getEntities().get(0),
+                "202", BookStatesVo.NEW, BookStatusVo.AVAILABLE,
                 publishers.getEntities().get(0), new YearVo(2010),
                 workForms.getEntities().get(0), authors.getEntities().get(0),
                 null, "2020101", "561-561-45-63")
         );
         books.add(createVo(
-                "The big purpose", "2011", BookStatesVo.NEW, BookStatusVo.AVAILABLE,
+                "The big purpose", formatSignatures.getEntities().get(1), stockSignatures.getEntities().get(1),
+                "2011", BookStatesVo.NEW, BookStatusVo.AVAILABLE,
                 publishers.getEntities().get(1), new YearVo(2010),
                 workForms.getEntities().get(1), authors.getEntities().get(1),
                 null, "2020101", "561-561-45-63")

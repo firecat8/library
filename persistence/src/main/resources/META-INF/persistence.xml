@@ -10,7 +10,8 @@
         <class>com.library.dto.CharacteristicDto</class>
         <class>com.library.dto.GenreDto</class>
         <class>com.library.dto.PublisherDto</class>
-        <class>com.library.dto.WorkFormDto</class>
+        <class>com.library.dto.StockSignatureDto</class>
+        <class>com.library.dto.FormatSignatureDto</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:~/databases/library/db"/>

@@ -6,14 +6,15 @@ package com.library.persistence;
 import com.library.dao.DaoRegistry;
 import com.library.dao.DaoRegistryFactory;
 import com.library.dao.DaoRegistryFactoryImpl;
-import com.library.dao.EntityManagerFactoryHolder;
 import com.library.dto.AuthorDto;
 import com.library.dto.BookDto;
 import com.library.dto.BookRentalDto;
 import com.library.dto.BookSerieDto;
 import com.library.dto.CharacteristicDto;
+import com.library.dto.FormatSignatureDto;
 import com.library.dto.GenreDto;
 import com.library.dto.PublisherDto;
+import com.library.dto.StockSignatureDto;
 import com.library.dto.UserDto;
 import com.library.dto.WorkFormDto;
 import java.util.ArrayList;
@@ -78,6 +79,8 @@ public class TestDbEnvironment implements DaoRegistryFactory {
             removeRows(em, resolveTableName(PublisherDto.class));
             removeRows(em, resolveTableName(UserDto.class));
             removeRows(em, resolveTableName(WorkFormDto.class));
+            removeRows(em, resolveTableName(StockSignatureDto.class));
+            removeRows(em, resolveTableName(FormatSignatureDto.class));
             em.getTransaction().commit();
         } catch (Exception e) {
             System.err.println("\n" + e.getMessage() + "\n");

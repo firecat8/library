@@ -1,6 +1,8 @@
 package com.library.domain.book;
 
 import com.library.domain.Entity;
+import com.library.domain.book.signature.FormatSignature;
+import com.library.domain.book.signature.StockSignature;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,10 @@ public class Book extends Entity {
     private String title;
 
     private String signature;
+    
+    private FormatSignature formatSignature;
+    
+    private StockSignature stockSignature;
 
     private BookStates state;
 
@@ -38,9 +44,15 @@ public class Book extends Entity {
 
     private List<Characteristic> characteristics = new ArrayList<>();
 
-    public Book(String title, String signature, BookStates state, BookStatus status, Publisher publisher, Year publishYear, WorkForm form, Author author, BookSerie serie, String inventoryNumber, String ISBN) {
+    public Book() {
+    }
+
+    
+    public Book(String title,  FormatSignature formatSignature, StockSignature stockSignature,String signature, BookStates state, BookStatus status, Publisher publisher, Year publishYear, WorkForm form, Author author, BookSerie serie, String inventoryNumber, String ISBN) {
         this.title = title;
         this.signature = signature;
+        this.formatSignature = formatSignature;
+        this.stockSignature = stockSignature;
         this.state = state;
         this.status = status;
         this.publisher = publisher;
@@ -66,6 +78,22 @@ public class Book extends Entity {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public FormatSignature getFormatSignature() {
+        return formatSignature;
+    }
+
+    public void setFormatSignature(FormatSignature formatSignature) {
+        this.formatSignature = formatSignature;
+    }
+
+    public StockSignature getStockSignature() {
+        return stockSignature;
+    }
+
+    public void setStockSignature(StockSignature stockSignature) {
+        this.stockSignature = stockSignature;
     }
 
     public BookStates getState() {
@@ -158,20 +186,22 @@ public class Book extends Entity {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.title);
-        hash = 17 * hash + Objects.hashCode(this.signature);
-        hash = 17 * hash + Objects.hashCode(this.state);
-        hash = 17 * hash + Objects.hashCode(this.status);
-        hash = 17 * hash + Objects.hashCode(this.publisher);
-        hash = 17 * hash + Objects.hashCode(this.publishYear);
-        hash = 17 * hash + Objects.hashCode(this.form);
-        hash = 17 * hash + Objects.hashCode(this.author);
-        hash = 17 * hash + Objects.hashCode(this.serie);
-        hash = 17 * hash + Objects.hashCode(this.inventoryNumber);
-        hash = 17 * hash + Objects.hashCode(this.ISBN);
-        hash = 17 * hash + Objects.hashCode(this.genres);
-        hash = 17 * hash + Objects.hashCode(this.characteristics);
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.title);
+        hash = 73 * hash + Objects.hashCode(this.signature);
+        hash = 73 * hash + Objects.hashCode(this.formatSignature);
+        hash = 73 * hash + Objects.hashCode(this.stockSignature);
+        hash = 73 * hash + Objects.hashCode(this.state);
+        hash = 73 * hash + Objects.hashCode(this.status);
+        hash = 73 * hash + Objects.hashCode(this.publisher);
+        hash = 73 * hash + Objects.hashCode(this.publishYear);
+        hash = 73 * hash + Objects.hashCode(this.form);
+        hash = 73 * hash + Objects.hashCode(this.author);
+        hash = 73 * hash + Objects.hashCode(this.serie);
+        hash = 73 * hash + Objects.hashCode(this.inventoryNumber);
+        hash = 73 * hash + Objects.hashCode(this.ISBN);
+        hash = 73 * hash + Objects.hashCode(this.genres);
+        hash = 73 * hash + Objects.hashCode(this.characteristics);
         return hash;
     }
 
@@ -197,6 +227,12 @@ public class Book extends Entity {
             return false;
         }
         if (!Objects.equals(this.ISBN, other.ISBN)) {
+            return false;
+        }
+        if (!Objects.equals(this.formatSignature, other.formatSignature)) {
+            return false;
+        }
+        if (!Objects.equals(this.stockSignature, other.stockSignature)) {
             return false;
         }
         if (this.state != other.state) {
@@ -225,5 +261,6 @@ public class Book extends Entity {
         }
         return Objects.equals(this.characteristics, other.characteristics);
     }
+
 
 }

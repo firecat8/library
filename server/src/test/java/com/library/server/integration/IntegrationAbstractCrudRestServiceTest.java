@@ -1,10 +1,11 @@
-package com.library.server;
+package com.library.server.integration;
 
-import com.library.bl.rest.impl.SecurityFilter;
 import com.library.rest.api.CrudRestService;
 import com.library.rest.api.RootResource;
 import com.library.rest.api.vo.AbstractVo;
 import com.library.rest.api.vo.EntityListVo;
+import com.library.server.ServerApplication;
+import com.library.server.TestDbEnvironment;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -205,6 +206,7 @@ public abstract class IntegrationAbstractCrudRestServiceTest<
         rsp.close();
         assertEquals(0, actual.getEntities().size());
     }
+    
 
     private void assertLists(ListVo exList, ListVo acList) {
         List<Vo> expected = exList.getEntities();

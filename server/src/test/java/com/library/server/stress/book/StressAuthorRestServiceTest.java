@@ -1,9 +1,11 @@
-package com.library.server;
+package com.library.server.stress.book;
 
+import com.library.rest.api.RootResource;
 import com.library.rest.api.service.AuthorRestService;
 import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.book.AuthorVo;
 import com.library.rest.api.vo.list.AuthorsListVo;
+import com.library.server.stress.StressAbstractCrudRestServiceTest;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -13,10 +15,10 @@ import static junit.framework.TestCase.assertEquals;
  *
  * @author gdimitrova
  */
-public class IntegrationAuthorRestServiceTest
-        extends IntegrationAbstractCrudRestServiceTest<AuthorVo, AuthorsListVo, AuthorRestService> {
+public class StressAuthorRestServiceTest
+        extends StressAbstractCrudRestServiceTest<AuthorVo, AuthorsListVo, AuthorRestService> {
 
-    public IntegrationAuthorRestServiceTest() {
+    public StressAuthorRestServiceTest() {
         super(AuthorVo.class, AuthorsListVo.class);
     }
 
@@ -26,7 +28,7 @@ public class IntegrationAuthorRestServiceTest
     }
 
     @Override
-    protected AuthorRestService getRestService() {
+    protected AuthorRestService getRestService(RootResource proxy) {
         return proxy.getAuthorsRestService();
     }
 
@@ -48,7 +50,7 @@ public class IntegrationAuthorRestServiceTest
     }
 
     @Override
-    protected void prepareData() {
+    protected void prepareData(RootResource proxy) {
     }
 
     private static AuthorVo createVo(String name, String biography, String birthPlace, DateVo birthDate) {

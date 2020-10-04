@@ -9,5 +9,8 @@ public class StockSignature extends Signature{
     public StockSignature(String abbreviation, String name) {
         super(abbreviation, name);
     }
+
+
+ 
     
 }

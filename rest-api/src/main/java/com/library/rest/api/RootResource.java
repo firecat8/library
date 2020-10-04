@@ -5,8 +5,10 @@ import com.library.rest.api.service.BookRentalRestService;
 import com.library.rest.api.service.BookRestService;
 import com.library.rest.api.service.BookSerieRestService;
 import com.library.rest.api.service.CharacteristicRestService;
+import com.library.rest.api.service.FormatSignatureRestService;
 import com.library.rest.api.service.GenreRestService;
 import com.library.rest.api.service.PublisherRestService;
+import com.library.rest.api.service.StockSignatureRestService;
 import com.library.rest.api.service.UserRestService;
 import com.library.rest.api.service.WorkFormRestService;
 import javax.ws.rs.Consumes;
@@ -48,5 +50,11 @@ public interface RootResource {
 
     @Path("/workForm")
     WorkFormRestService getWorkformsRestService();
+
+    @Path("/stockSignature")
+    StockSignatureRestService getStockSignaturesRestService();
+
+    @Path("/formatSignature")
+    FormatSignatureRestService getFormatSignaturesRestService();
 
 }

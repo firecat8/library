@@ -1,5 +1,7 @@
-package com.library.server;
+package com.library.server.stress;
 
+import com.library.server.stress.book.StressBookRestServiceTest;
+import com.library.rest.api.RootResource;
 import com.library.rest.api.service.BookRentalRestService;
 import com.library.rest.api.service.BookRestService;
 import com.library.rest.api.service.UserRestService;
@@ -20,8 +22,8 @@ import static junit.framework.TestCase.assertEquals;
  *
  * @author gdimitrova
  */
-public class IntegrationBookRentalRestServiceTest
-        extends IntegrationAbstractCrudRestServiceTest<BookRentalVo, BooksRentalListVo, BookRentalRestService> {
+public class StressBookRentalRestServiceTest
+        extends StressAbstractCrudRestServiceTest<BookRentalVo, BooksRentalListVo, BookRentalRestService> {
 
     private static BookVo book;
 
@@ -31,7 +33,7 @@ public class IntegrationBookRentalRestServiceTest
 
     private static UsersListVo users;
 
-    public IntegrationBookRentalRestServiceTest() {
+    public StressBookRentalRestServiceTest() {
         super(BookRentalVo.class, BooksRentalListVo.class);
     }
 
@@ -41,7 +43,7 @@ public class IntegrationBookRentalRestServiceTest
     }
 
     @Override
-    protected BookRentalRestService getRestService() {
+    protected BookRentalRestService getRestService(RootResource proxy) {
         return proxy.getBooksRentalsRestService();
     }
 
@@ -56,27 +58,27 @@ public class IntegrationBookRentalRestServiceTest
             assertEquals(expected, actual);
             return;
         }
-        IntegrationBookRestServiceTest.assertBooks(expected.getBook(), actual.getBook(), isSaveAction);
-        IntegrationUserRestServiceTest.assertUsers(expected.getUser(), actual.getUser(), isSaveAction);
+        StressBookRestServiceTest.assertBooks(expected.getBook(), actual.getBook(), isSaveAction);
+        StressUserRestServiceTest.assertUsers(expected.getUser(), actual.getUser(), isSaveAction);
     }
 
     @Override
-    protected void prepareData() {
-        IntegrationBookRestServiceTest.prepareDB(proxy);
+    protected void prepareData(RootResource proxy) {
+        StressBookRestServiceTest.prepareDB(proxy);
         BookRestService booksRestService = proxy.getBooksRestService();
         UserRestService usersRestService = proxy.getUsersRestService();
-        Response rsp = booksRestService.save(IntegrationBookRestServiceTest.createDefault());
+        Response rsp = booksRestService.save(StressBookRestServiceTest.createDefault());
         book = rsp.readEntity(BookVo.class);
         rsp.close();
-        rsp = booksRestService.saveAll(IntegrationBookRestServiceTest.createBooks());
+        rsp = booksRestService.saveAll(StressBookRestServiceTest.createBooks());
         rsp.close();
         rsp = booksRestService.loadAll();
         books = rsp.readEntity(BooksListVo.class);
         rsp.close();
-        rsp = usersRestService.save(IntegrationUserRestServiceTest.createDefault());
+        rsp = usersRestService.save(StressUserRestServiceTest.createDefault());
         user = rsp.readEntity(UserVo.class);
         rsp.close();
-        rsp = usersRestService.saveAll(IntegrationUserRestServiceTest.createUsers());
+        rsp = usersRestService.saveAll(StressUserRestServiceTest.createUsers());
         rsp.close();
         rsp = usersRestService.loadAll();
         users = rsp.readEntity(UsersListVo.class);

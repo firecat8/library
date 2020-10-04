@@ -2,6 +2,8 @@ package com.library.rest.api.vo.book;
 
 import com.library.rest.api.vo.AbstractVo;
 import com.library.rest.api.vo.YearVo;
+import com.library.rest.api.vo.book.signature.FormatSignatureVo;
+import com.library.rest.api.vo.book.signature.StockSignatureVo;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +20,10 @@ public class BookVo extends AbstractVo {
     private String title;
 
     private String signature;
+
+    private FormatSignatureVo formatSignature;
+
+    private StockSignatureVo stockSignature;
 
     private BookStatesVo state;
 
@@ -44,9 +50,11 @@ public class BookVo extends AbstractVo {
     public BookVo() {
     }
 
-    public BookVo(String title, String signature, BookStatesVo state, BookStatusVo status, PublisherVo publisher, YearVo publishYear, WorkFormVo form, AuthorVo author, BookSerieVo serie, String inventoryNumber, String isbn) {
+    public BookVo(String title, FormatSignatureVo formatSignature, StockSignatureVo stockSignature, String signature, BookStatesVo state, BookStatusVo status, PublisherVo publisher, YearVo publishYear, WorkFormVo form, AuthorVo author, BookSerieVo serie, String inventoryNumber, String isbn) {
         this.title = title;
         this.signature = signature;
+        this.formatSignature = formatSignature;
+        this.stockSignature = stockSignature;
         this.state = state;
         this.status = status;
         this.publisher = publisher;
@@ -162,22 +170,41 @@ public class BookVo extends AbstractVo {
         this.characteristics = characteristics;
     }
 
+    public FormatSignatureVo getFormatSignature() {
+        return formatSignature;
+    }
+
+    public void setFormatSignature(FormatSignatureVo formatSignature) {
+        this.formatSignature = formatSignature;
+    }
+
+    public StockSignatureVo getStockSignature() {
+        return stockSignature;
+    }
+
+    public void setStockSignature(StockSignatureVo stockSignature) {
+        this.stockSignature = stockSignature;
+    }
+   
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.title);
-        hash = 17 * hash + Objects.hashCode(this.signature);
-        hash = 17 * hash + Objects.hashCode(this.state);
-        hash = 17 * hash + Objects.hashCode(this.status);
-        hash = 17 * hash + Objects.hashCode(this.publisher);
-        hash = 17 * hash + Objects.hashCode(this.publishYear);
-        hash = 17 * hash + Objects.hashCode(this.form);
-        hash = 17 * hash + Objects.hashCode(this.author);
-        hash = 17 * hash + Objects.hashCode(this.serie);
-        hash = 17 * hash + Objects.hashCode(this.inventoryNumber);
-        hash = 17 * hash + Objects.hashCode(this.isbn);
-        hash = 17 * hash + Objects.hashCode(this.genres);
-        hash = 17 * hash + Objects.hashCode(this.characteristics);
+        hash = 29 * hash + Objects.hashCode(this.title);
+        hash = 29 * hash + Objects.hashCode(this.signature);
+        hash = 29 * hash + Objects.hashCode(this.formatSignature);
+        hash = 29 * hash + Objects.hashCode(this.stockSignature);
+        hash = 29 * hash + Objects.hashCode(this.state);
+        hash = 29 * hash + Objects.hashCode(this.status);
+        hash = 29 * hash + Objects.hashCode(this.publisher);
+        hash = 29 * hash + Objects.hashCode(this.publishYear);
+        hash = 29 * hash + Objects.hashCode(this.form);
+        hash = 29 * hash + Objects.hashCode(this.author);
+        hash = 29 * hash + Objects.hashCode(this.serie);
+        hash = 29 * hash + Objects.hashCode(this.inventoryNumber);
+        hash = 29 * hash + Objects.hashCode(this.isbn);
+        hash = 29 * hash + Objects.hashCode(this.genres);
+        hash = 29 * hash + Objects.hashCode(this.characteristics);
         return hash;
     }
 
@@ -203,6 +230,12 @@ public class BookVo extends AbstractVo {
             return false;
         }
         if (!Objects.equals(this.isbn, other.isbn)) {
+            return false;
+        }
+        if (!Objects.equals(this.formatSignature, other.formatSignature)) {
+            return false;
+        }
+        if (!Objects.equals(this.stockSignature, other.stockSignature)) {
             return false;
         }
         if (this.state != other.state) {
@@ -231,6 +264,7 @@ public class BookVo extends AbstractVo {
         }
         return Objects.equals(this.characteristics, other.characteristics);
     }
+
 
     @Override
     public Set<String> validate() {

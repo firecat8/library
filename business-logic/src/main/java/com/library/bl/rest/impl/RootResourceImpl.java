@@ -5,8 +5,10 @@ import com.library.bl.rest.impl.service.BookRentalRestServiceImpl;
 import com.library.bl.rest.impl.service.BookRestServiceImpl;
 import com.library.bl.rest.impl.service.BookSerieRestServiceImpl;
 import com.library.bl.rest.impl.service.CharacteristicRestServiceImpl;
+import com.library.bl.rest.impl.service.FormatSignatureRestServiceImpl;
 import com.library.bl.rest.impl.service.GenreRestServiceImpl;
 import com.library.bl.rest.impl.service.PublisherRestServiceImpl;
+import com.library.bl.rest.impl.service.StockSignatureRestServiceImpl;
 import com.library.bl.rest.impl.service.UserRestServiceImpl;
 import com.library.bl.rest.impl.service.WorkFormRestServiceImpl;
 import com.library.dao.DaoRegistryFactory;
@@ -16,8 +18,10 @@ import com.library.rest.api.service.BookRentalRestService;
 import com.library.rest.api.service.BookRestService;
 import com.library.rest.api.service.BookSerieRestService;
 import com.library.rest.api.service.CharacteristicRestService;
+import com.library.rest.api.service.FormatSignatureRestService;
 import com.library.rest.api.service.GenreRestService;
 import com.library.rest.api.service.PublisherRestService;
+import com.library.rest.api.service.StockSignatureRestService;
 import com.library.rest.api.service.UserRestService;
 import com.library.rest.api.service.WorkFormRestService;
 
@@ -35,32 +39,32 @@ public class RootResourceImpl implements RootResource {
 
     @Override
     public UserRestService getUsersRestService() {
-         return new UserRestServiceImpl(daoRegistryFactory);
+        return new UserRestServiceImpl(daoRegistryFactory);
     }
 
     @Override
     public BookRestService getBooksRestService() {
-         return new BookRestServiceImpl(daoRegistryFactory);
+        return new BookRestServiceImpl(daoRegistryFactory);
     }
 
     @Override
     public AuthorRestService getAuthorsRestService() {
-         return new AuthorRestServiceImpl(daoRegistryFactory);
+        return new AuthorRestServiceImpl(daoRegistryFactory);
     }
 
     @Override
     public BookRentalRestService getBooksRentalsRestService() {
-         return new BookRentalRestServiceImpl(daoRegistryFactory);
+        return new BookRentalRestServiceImpl(daoRegistryFactory);
     }
 
     @Override
     public BookSerieRestService getBookSeriesRestService() {
-         return new BookSerieRestServiceImpl(daoRegistryFactory);
+        return new BookSerieRestServiceImpl(daoRegistryFactory);
     }
 
     @Override
     public CharacteristicRestService getCharacteristicsRestService() {
-         return new CharacteristicRestServiceImpl(daoRegistryFactory);
+        return new CharacteristicRestServiceImpl(daoRegistryFactory);
     }
 
     @Override
@@ -72,10 +76,20 @@ public class RootResourceImpl implements RootResource {
     public GenreRestService getGenresRestService() {
         return new GenreRestServiceImpl(daoRegistryFactory);
     }
-    
+
     @Override
     public WorkFormRestService getWorkformsRestService() {
         return new WorkFormRestServiceImpl(daoRegistryFactory);
+    }
+
+    @Override
+    public StockSignatureRestService getStockSignaturesRestService() {
+        return new StockSignatureRestServiceImpl(daoRegistryFactory);
+    }
+
+    @Override
+    public FormatSignatureRestService getFormatSignaturesRestService() {
+        return new FormatSignatureRestServiceImpl(daoRegistryFactory);
     }
 
 }

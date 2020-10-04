@@ -24,8 +24,7 @@ public class NamedEntity extends Entity {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.name);
+        int hash = 5;
         return hash;
     }
 

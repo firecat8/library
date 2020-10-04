@@ -1,5 +1,6 @@
-package com.library.server;
+package com.library.server.stress;
 
+import com.library.rest.api.RootResource;
 import com.library.rest.api.service.UserRestService;
 import com.library.rest.api.vo.DateVo;
 import com.library.rest.api.vo.list.UsersListVo;
@@ -16,37 +17,37 @@ import org.junit.Test;
  *
  * @author gdimitrova
  */
-public class IntegrationUserRestServiceTest
-        extends IntegrationAbstractCrudRestServiceTest<UserVo, UsersListVo, UserRestService> {
-
-    public IntegrationUserRestServiceTest() {
+public class StressUserRestServiceTest
+        extends StressAbstractCrudRestServiceTest<UserVo, UsersListVo, UserRestService> {
+    
+    public StressUserRestServiceTest() {
         super(UserVo.class, UsersListVo.class);
     }
-
+    
     @Override
     protected UserVo createVo() {
         return createDefault();
     }
-
+    
     @Override
-    protected UserRestService getRestService() {
+    protected UserRestService getRestService(RootResource proxy) {
         return proxy.getUsersRestService();
     }
-
+    
     @Override
     protected UsersListVo createListVo() {
         return createUsers();
     }
-
+    
     @Override
     protected void assertVos(UserVo expected, UserVo actual, boolean isSaveAction) {
         assertUsers(expected, actual, isSaveAction);
     }
-
+    
     @Override
-    protected void prepareData() {
+    protected void prepareData(RootResource proxy) {
     }
-
+    
     public static void assertUsers(UserVo expected, UserVo actual, boolean isSaveAction) {
         if (!isSaveAction) {
             assertEquals(expected, actual);
@@ -61,34 +62,37 @@ public class IntegrationUserRestServiceTest
         assertEquals(expected.getPassword(), actual.getPassword());
         assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber());
         assertEquals(expected.getRole(), actual.getRole());
-
+        
     }
-
+    
     private static UserVo createVo(String name, RolesVo role, String phoneNumber) {
         return new UserVo(name + "1234", "pass", name + "@avb.bg", role, name, name, name, phoneNumber, new DateVo(new GregorianCalendar(2020, 1, 1)));
     }
-
+    
     public static UserVo createDefault() {
         return createVo("anton", RolesVo.READER, "5865163");
     }
-
+    
     public static UsersListVo createUsers() {
         List<UserVo> users = new ArrayList<>();
         users.add(createVo("admin", RolesVo.ADMINISTRATOR, "89645"));
         users.add(createVo("ann", RolesVo.OPERATOR, "963158"));
         return new UsersListVo(users);
     }
-
+    
     @Test
+    @Override
     public void testSave() {
-        UserVo vo = createVo();
-        UserRestService usersRestService = proxy.getUsersRestService();
-        Response rsp = usersRestService.save(vo);
-        assertEquals(Response.Status.OK.getStatusCode(), rsp.getStatus());
-        rsp.close();
-        rsp = usersRestService.load(vo.getUserName());
-        assertEquals(Response.Status.OK.getStatusCode(), rsp.getStatus());
-        rsp.close();
+        for (int i = 0; i < MAX_COUNT; i++) {
+            UserVo vo = createVo();
+            UserRestService usersRestService = PROXIES.get(i).getUsersRestService();
+            Response rsp = usersRestService.save(vo);
+            assertEquals(Response.Status.OK.getStatusCode(), rsp.getStatus());
+            rsp.close();
+            rsp = usersRestService.load(vo.getUserName());
+            assertEquals(Response.Status.OK.getStatusCode(), rsp.getStatus());
+            rsp.close();
+        }
     }
-
+    
 }

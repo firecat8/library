@@ -12,8 +12,10 @@ import com.library.rest.api.vo.list.BookSeriesListVo;
 import com.library.rest.api.vo.list.BooksListVo;
 import com.library.rest.api.vo.list.BooksRentalListVo;
 import com.library.rest.api.vo.list.CharacteristicsListVo;
+import com.library.rest.api.vo.list.FormatSignaturesListVo;
 import com.library.rest.api.vo.list.GenresListVo;
 import com.library.rest.api.vo.list.PublishersListVo;
+import com.library.rest.api.vo.list.StockSignaturesListVo;
 import com.library.rest.api.vo.list.UsersListVo;
 import com.library.rest.api.vo.list.WorkFormsListVo;
 import javax.ws.rs.core.Response;
@@ -40,6 +42,8 @@ public class TestDbEnvironment {
         removeData(proxy.getPublishersRestService(), PublishersListVo.class);
         removeData(proxy.getUsersRestService(), UsersListVo.class);
         removeData(proxy.getWorkformsRestService(), WorkFormsListVo.class);
+        removeData(proxy.getStockSignaturesRestService(), StockSignaturesListVo.class);
+        removeData(proxy.getFormatSignaturesRestService(), FormatSignaturesListVo.class);
     }
 
     private <Vo extends AbstractVo, ListVo extends EntityListVo<Vo>> void removeData(CrudRestService<Vo, ListVo> restService, Class<ListVo> clazz) {

@@ -28,6 +28,10 @@ public class BookDto extends AbstractDto {
 
     public static final String SIGNATURE = "signature";
 
+    public static final String STOCK_SIGNATURE = "stock_signature";
+
+    public static final String FORMAT_SIGNATURE = "format_signature";
+
     public static final String STATE = "state";
 
     public static final String STATUS = "status";
@@ -63,6 +67,14 @@ public class BookDto extends AbstractDto {
     @ManyToOne()
     @JoinColumn(name = PUBLISHER, nullable = false)
     private PublisherDto publisher;
+
+    @ManyToOne()
+    @JoinColumn(name = STOCK_SIGNATURE, nullable = true)
+    private StockSignatureDto stockSignature;
+
+    @ManyToOne()
+    @JoinColumn(name = FORMAT_SIGNATURE, nullable = true)
+    private FormatSignatureDto formatSignatureDto;
 
     @Column(name = PUBLISH_YEAR, nullable = false)
     private Year publishYear;
@@ -109,12 +121,14 @@ public class BookDto extends AbstractDto {
         //Hibernate
     }
 
-    public BookDto(String title, String signature, BookStates state, BookStatus status, PublisherDto publisher, Year publishYear, WorkFormDto form, AuthorDto author, BookSerieDto serie, String inventoryNumber, String isbn) {
+    public BookDto(String title,  FormatSignatureDto formatSignatureDto,StockSignatureDto stockSignature, String signature, BookStates state, BookStatus status, PublisherDto publisher, Year publishYear, WorkFormDto form, AuthorDto author, BookSerieDto serie, String inventoryNumber, String isbn) {
         this.title = title;
         this.signature = signature;
         this.state = state;
         this.status = status;
         this.publisher = publisher;
+        this.stockSignature = stockSignature;
+        this.formatSignatureDto = formatSignatureDto;
         this.publishYear = publishYear;
         this.form = form;
         this.author = author;
@@ -122,6 +136,7 @@ public class BookDto extends AbstractDto {
         this.inventoryNumber = inventoryNumber;
         this.isbn = isbn;
     }
+    
 
     public String getTitle() {
         return title;
@@ -219,6 +234,22 @@ public class BookDto extends AbstractDto {
         this.genres = genres;
     }
 
+    public StockSignatureDto getStockSignature() {
+        return stockSignature;
+    }
+
+    public void setStockSignature(StockSignatureDto stockSignature) {
+        this.stockSignature = stockSignature;
+    }
+
+    public FormatSignatureDto getFormatSignatureDto() {
+        return formatSignatureDto;
+    }
+
+    public void setFormatSignatureDto(FormatSignatureDto formatSignatureDto) {
+        this.formatSignatureDto = formatSignatureDto;
+    }
+    
     public Set<CharacteristicDto> getCharacteristics() {
         return characteristics;
     }

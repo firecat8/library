@@ -5,8 +5,10 @@ import com.library.dao.book.BookDaoImpl;
 import com.library.dao.book.BookSerieDaoImpl;
 import com.library.dao.book.BookRentalDaoImpl;
 import com.library.dao.book.CharacteristicDaoImpl;
+import com.library.dao.book.FormatSignatureDaoImpl;
 import com.library.dao.book.GenreDaoImpl;
 import com.library.dao.book.PublisherDaoImpl;
+import com.library.dao.book.StockSignatureDaoImpl;
 import com.library.dao.book.WorkFormDaoImpl;
 import javax.persistence.EntityManager;
 
@@ -36,6 +38,10 @@ public class DaoRegistryImpl implements DaoRegistry {
 
     private final PublisherDao publisherDao;
 
+    private final FormatSignatureDao formatSignatureDao;
+
+    private final StockSignatureDao stockSignatureDao;
+
     public DaoRegistryImpl(EntityManager em) {
         this.em = em;
         bookDao = new BookDaoImpl(em);
@@ -47,6 +53,8 @@ public class DaoRegistryImpl implements DaoRegistry {
         authorDao = new AuthorDaoImpl(em);
         workFormDao = new WorkFormDaoImpl(em);
         publisherDao = new PublisherDaoImpl(em);
+        formatSignatureDao = new FormatSignatureDaoImpl(em);
+        stockSignatureDao = new StockSignatureDaoImpl(em);
     }
 
     @Override
@@ -92,6 +100,16 @@ public class DaoRegistryImpl implements DaoRegistry {
     @Override
     public PublisherDao getPublisherDao() {
         return publisherDao;
+    }
+
+    @Override
+    public StockSignatureDao getStockSignatureDao() {
+        return stockSignatureDao;
+    }
+
+    @Override
+    public FormatSignatureDao getFormatSignatureDao() {
+        return formatSignatureDao;
     }
 
     @Override

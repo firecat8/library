@@ -1,4 +1,4 @@
-package com.library.server;
+package com.library.server.integration;
 
 import com.library.rest.api.service.CharacteristicRestService;
 import com.library.rest.api.vo.book.CharacteristicVo;

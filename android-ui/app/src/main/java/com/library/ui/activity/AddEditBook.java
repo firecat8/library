@@ -23,6 +23,7 @@ import com.library.rest.api.vo.book.CharacteristicVo;
 import com.library.rest.api.vo.book.GenreVo;
 import com.library.rest.api.vo.book.PublisherVo;
 import com.library.rest.api.vo.book.WorkFormVo;
+import com.library.rest.api.vo.book.signature.StockSignatureVo;
 import com.library.ui.R;
 import com.library.ui.Utils;
 import com.library.ui.view_model.BookViewModel;
@@ -367,6 +368,8 @@ public class AddEditBook extends AppCompatActivity {
     private BookVo makeBookVo(BookStatesVo state, BookStatusVo status) {
         BookVo book = new BookVo(
                 title.getText().toString(),
+                null,
+                null,
                 UUID.randomUUID().toString(),
                 state,
                 status,

@@ -65,7 +65,8 @@ public class AddEditUser extends AppCompatActivity {
         username = findViewById(R.id.edit_username);
         password = findViewById(R.id.edit_pass);
         username.setText(Utils.generateUsername("User", 10));
-        password.setText(Utils.generatePassword(10));
+       // password.setText(Utils.generatePassword(10));
+        password.setText("10");
         addUserButton = findViewById(R.id.add_user_button);
 
         regDate.setText(Utils.formatDate(date.getTimeInMillis()));
